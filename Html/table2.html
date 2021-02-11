@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <style>
+        input[type="text"] {
+            width: 99%;
+            height: 99%;
+        }
+        div {
+            text-align: center;
+           
+        }
+    </style>
+</head>
+
+<body>
+<div>
+    <h1>环境风险行业类企业现场检查记录表</h1>
+        <table border="1" align="center">
+            <tr>
+                <td>被检查单位</td>
+                <td colspan="3">
+                    <input type="text">
+                </td>
+            </tr>
+            <tr>
+                <td>地址</td>
+                <td colspan="3">
+                    <input type="text">
+                </td>
+            </tr>
+            <tr>
+                <td>联系人</td>
+                <td>
+                    <input type="text">
+                </td>
+                <td>联系电话</td>
+                <td>
+                    <input type="text">
+                </td>
+            </tr>
+            <tr>
+                <td colspan="4">
+                    <strong>被检查企业情况</strong>
+                </td>
+            </tr>
+            <tr>
+                <td>监管性质</td>
+                <td colspan="3">
+                    <input type="checkbox">市控类
+                    <input type="checkbox">金属类
+                    <input type="checkbox">环境风险行业类
+                    <input type="checkbox">医疗结构
+                    <input type="checkbox">其他
+                </td>
+            </tr>
+            <tr>
+                <td colspan="4">
+                    <strong>现场检查内容</strong>
+                </td>
+            </tr>
+            <tr>
+                <td rowspan="3">基本情况</td>
+                <td>是否环保审批</td>
+                <td colspan="2">
+                    <input type="checkbox">是
+                    <input type="checkbox">否
+                </td>
+            </tr>
+            <tr>
+                <td>办理排污许可证情况</td>
+                <td colspan="2">
+                    <input type="checkbox">持有
+                    <input type="checkbox">过期
+                    <input type="checkbox">吊销
+                </td>
+            </tr>
+            <tr>
+                <td>是否排污申报</td>
+                <td colspan="2">
+                    <input type="checkbox">是
+                    <input type="checkbox">否
+                </td>
+            </tr>
+            <tr>
+                <td rowspan="4">生产情况</td>
+                <td>车间生产情况</td>
+                <td colspan="2">
+                    <input type="checkbox">正常生产
+                    <input type="checkbox">部分生产
+                    <input type="checkbox">未生产
+                </td>
+            </tr>
+            <tr>
+                <td>生产规模</td>
+                <td colspan="2">
+                    <input type="checkbox">未扩大
+                    <input type="checkbox">擅自扩大
+                </td>
+            </tr>
+            <tr>
+                <td>污染物类型</td>
+                <td colspan="2">
+                    <input type="checkbox">废水
+                    <input type="checkbox">废气
+                    <input type="checkbox">噪声
+                    <input type="checkbox">危险废物
+                    <input type="checkbox">固废
+                </td>
+            </tr>
+            <tr>
+                <td>是否有内部环保管理制度</td>
+                <td colspan="2">
+                    <input type="checkbox">是
+                    <input type="checkbox">否
+                </td>
+            </tr>
+            <tr>
+                <td rowspan="9">危险废物（固废）管理情况</td>
+                <td>是否分类收集、贮存危险废物</td>
+                <td colspan="2">
+                    <input type="checkbox">分类且收集完全
+                    <input type="checkbox">未分类，收集不完全
+                    <input type="checkbox">未收集
+                </td>
+            </tr>
+            <tr>
+                <td>贮存场所有无规范标志</td>
+                <td colspan="2">
+                    <input type="checkbox">标识清晰
+                    <input type="checkbox">标识模糊
+                    <input type="checkbox">未标识
+                </td>
+            </tr>
+            <tr>
+                <td>贮存场所对周围环境是否可能构成污染威胁</td>
+                <td colspan="2">
+                    <input type="checkbox">是
+                    <input type="checkbox">否
+                </td>
+            </tr>
+            <tr>
+                <td>贮存有无防渗漏、防流失、防扬撒等措施</td>
+                <td colspan="2">
+                    <input type="checkbox">有
+                    <input type="checkbox">无
+                </td>
+            </tr>
+            <tr>
+                <td>现场有无渗漏、流失、扬撒现象</td>
+                <td colspan="2">
+                    <input type="checkbox">有
+                    <input type="checkbox">无
+                </td>
+            </tr>
+            <tr>
+                <td>是否交有资质的处理单位</td>
+                <td colspan="2">
+                    <input type="checkbox">是
+                    <input type="checkbox">否
+                </td>
+            </tr>
+            <tr>
+                <td>是否有转移联单（电子联单）</td>
+                <td colspan="2">
+                    <input type="checkbox">是
+                    <input type="checkbox">否
+                </td>
+            </tr>
+            <tr>
+                <td>是否建立台帐</td>
+                <td colspan="2">
+                    <input type="checkbox">记录规范
+                    <input type="checkbox">记录不规范
+                    <input type="checkbox">未记录
+                </td>
+            </tr>
+            <tr>
+                <td>环保档案建设情况</td>
+                <td colspan="2">
+                    <input type="checkbox">有专用环保档案
+                    <input type="checkbox">无分类
+                    <input type="checkbox">动、静态分类
+                    <div>
+                        <input type="checkbox">齐全、整洁
+                        <input type="checkbox">缺项、凌乱
+                        <input type="checkbox">无专用环保档案
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td rowspan="4">环境应急情况</td>
+                <td>是否有环境应急预案</td>
+                <td colspan="2">
+                    <input type="checkbox">是
+                    <input type="checkbox">否
+                </td>
+            </tr>
+            <tr>
+                <td>是否向环保部门备案</td>
+                <td colspan ="2">
+                    <input type="checkbox">是
+                    <input type="checkbox">否   
+                </td>
+            </tr>
+            <tr>
+                <td>是否进行环境应急演练</td>
+                <td colspan ="2">
+                    <input type="checkbox">是
+                    <input type="checkbox">否
+                </td>
+            </tr>
+            <tr>
+                <td>是否购买环境责任保险</td>
+                <td colspan ="2">
+                    <input type="checkbox">是
+                    <input type="checkbox">否
+                </td>
+            </tr>
+            <tr>
+                <td rowspan="2">其他污染源管理情况</td>
+                <td>噪声源：</td>
+                <td colspan="2"><input type="text"></td>
+            </tr>
+            <tr>
+                <td>是否有污染治理设施</td>
+                <td colspan="2"><input type="text"></td>
+            </tr>
+            <tr>
+                <td colspan="4"><strong>数据记录</strong></td>
+            </tr>
+            <tr>
+                <td>上个月产生危废量</td>
+                <td colspan="3">
+                    <input type="text">
+                </td>
+            </tr>
+            <tr>
+                <td>噪声监测值（dB）</td>
+                <td colspan="2">
+                    <input type="text">
+                </td>
+            </tr>
+            <tr>
+                <td colspan="4"><strong>检查结论</strong></td>
+            </tr>
+            <tr>
+                <td >存在的问题及整改要求</td>
+                <td  colspan="3" >
+                    <textarea name="" id="" style="width:99%;height:99%" rows="5"></textarea>
+                </td>
+            </tr>
+            <tr>
+                <td>现场检查人员：</td>
+                <td><input type="text"></td>
+                <td>检查时间：</td>
+                <td>
+                    <input type="text">
+                </td>
+            </tr>
+            <tr>
+                <td>被检查企业代表：</td>
+                <td>
+                    <input type="text">
+                </td>
+                <td>职务：</td>
+                <td>
+                    <input type="text">
+                </td>
+            </tr>
+    
+        </table>
+</div>
+</body>
+
+</html>

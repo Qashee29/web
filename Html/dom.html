@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="d">
+        <p>This is 1</p>
+        <p>This is 2</p>
+        sdfdsf
+    </div>
+    <script>
+    var m = document.createElement("p");
+    var node = document.createTextNode("This is 3");
+    m.appendChild(node);
+    module('module name
+', {
+      setup: function() {
+        // setup for module name 
+      },
+      teardown: function() {
+        //teardown for module name
+      }
+    });
+    
+    var element = document.getElementById('d');
+    var element = element.insertBefore(m);
+
+    </script>
+</body>
+
+</html>

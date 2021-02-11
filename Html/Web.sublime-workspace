@@ -1,0 +1,1487 @@
+{
+	"auto_complete":
+	{
+		"selected_items":
+		[
+			[
+				"option",
+				"options"
+			],
+			[
+				"docu",
+				"document	jsWindow"
+			],
+			[
+				"是否",
+				"是否公示"
+			],
+			[
+				"pr",
+				"print	function"
+			],
+			[
+				"print",
+				"print	(function)"
+			],
+			[
+				"fu",
+				"function	jsProp"
+			],
+			[
+				"con",
+				"constructor	jsProp"
+			],
+			[
+				"jqu",
+				"jQueryFx"
+			],
+			[
+				"clone",
+				"clone	jQuery"
+			],
+			[
+				"attr",
+				"attr	jQuery"
+			],
+			[
+				"jquery",
+				"jQuery	jQuery"
+			],
+			[
+				"jqy",
+				"jQuery	jQuery"
+			],
+			[
+				"conso",
+				"console	jsProp"
+			],
+			[
+				"getel",
+				"getElementsByTagName	jsDOM"
+			],
+			[
+				"ge",
+				"get	jQuery"
+			],
+			[
+				"ch",
+				"children	jQuery"
+			],
+			[
+				"j",
+				"jQuery	jQuery"
+			],
+			[
+				"for",
+				"for	for (…) {…}"
+			],
+			[
+				"d",
+				"d:tbclg	display:table-column-group"
+			],
+			[
+				"Err",
+				"Err3"
+			],
+			[
+				"alt",
+				"alt+l"
+			],
+			[
+				"appen",
+				"appendTo	.appendTo()"
+			],
+			[
+				"html",
+				"html	.html"
+			],
+			[
+				"value",
+				"value='3"
+			],
+			[
+				"jque",
+				"jquery-2.1.1"
+			],
+			[
+				"att",
+				"attr	.attr() - single"
+			],
+			[
+				"doc",
+				"document"
+			],
+			[
+				"each",
+				"each	.each()"
+			],
+			[
+				"if",
+				"if	if"
+			],
+			[
+				"scr",
+				"src	Attr"
+			],
+			[
+				"sty",
+				"styleId"
+			],
+			[
+				"nbean",
+				"nbean:img"
+			],
+			[
+				"插入",
+				"插入或更新"
+			],
+			[
+				"formsub",
+				"formSubmit('show"
+			],
+			[
+				"css",
+				"css	.css() - single"
+			],
+			[
+				"ht",
+				"html5	Simple HTML5 Boilerplate"
+			],
+			[
+				"fon",
+				"font-size"
+			],
+			[
+				"font",
+				"font-style"
+			],
+			[
+				"console",
+				"console.	console.log()"
+			],
+			[
+				"Java",
+				"Javascript"
+			],
+			[
+				"cons",
+				"construct"
+			],
+			[
+				"sb",
+				"StringBuffer"
+			],
+			[
+				"qui",
+				"quickSort"
+			],
+			[
+				"bu",
+				"bubbleSort"
+			],
+			[
+				"ali",
+				"text-align"
+			]
+		]
+	},
+	"buffers":
+	[
+		{
+			"file": "Test.html",
+			"settings":
+			{
+				"buffer_size": 304,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "/C/Users/Yuan/Documents/My Knowledge/temp/87933801/14.8.21.md-87933801.md",
+			"settings":
+			{
+				"buffer_size": 309,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"contents": "化学抛光    04\n蚀刻/清洗   11",
+			"settings":
+			{
+				"buffer_size": 21,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "/C/Users/Yuan/Documents/My Knowledge/temp/1494520/14.8.20.md-1494520.md",
+			"settings":
+			{
+				"buffer_size": 487,
+				"line_ending": "Unix"
+			}
+		}
+	],
+	"build_system": "",
+	"command_palette":
+	{
+		"height": 374.0,
+		"selected_items":
+		[
+			[
+				"git:clone",
+				"Git (SideBarGit): Clone…"
+			],
+			[
+				"alig",
+				"AlignTab"
+			],
+			[
+				"align",
+				"AlignTab"
+			],
+			[
+				"tab",
+				"AlignTab: Table Mode"
+			],
+			[
+				"upload",
+				"Sublimall: Upload"
+			],
+			[
+				"sublimallup",
+				"Sublimall: Upload"
+			],
+			[
+				"pci",
+				"Package Control: Install Package"
+			],
+			[
+				"jsp",
+				"Set Syntax: Java Server Page (JSP)"
+			],
+			[
+				"diff",
+				"FileDiffs: Menu"
+			],
+			[
+				"list",
+				"Package Control: List Packages"
+			],
+			[
+				"enabel",
+				"Package Control: Enable Package"
+			],
+			[
+				"node",
+				"SublimeREPL: Node"
+			],
+			[
+				"repl",
+				"SublimeREPL: Shell"
+			],
+			[
+				"merge",
+				"Sublimerge: Compare to Revision..."
+			],
+			[
+				"sbgcom",
+				"Git (SideBarGit): Commit…"
+			],
+			[
+				"sbgadd",
+				"Git (SideBarGit): File: Add"
+			],
+			[
+				"j",
+				"JSHint"
+			],
+			[
+				"jsh",
+				"JSHint"
+			],
+			[
+				"jshin",
+				"JSHint"
+			],
+			[
+				"anaconda",
+				"Anaconda: Set Python interpreter"
+			],
+			[
+				"disabel",
+				"Package Control: Disable Package"
+			],
+			[
+				"python",
+				"Set Syntax: Python"
+			],
+			[
+				"enable",
+				"Package Control: Enable Package"
+			],
+			[
+				"disable",
+				"Package Control: Disable Package"
+			],
+			[
+				"pcr",
+				"Package Control: Remove Package"
+			],
+			[
+				"",
+				"AutoBackups: Open file backup"
+			],
+			[
+				"javas",
+				"Set Syntax: JavaScript"
+			],
+			[
+				"javascri",
+				"Set Syntax: JavaScript"
+			],
+			[
+				"xml",
+				"Set Syntax: XML"
+			],
+			[
+				"edit point",
+				"Emmet: Previous Edit Point"
+			],
+			[
+				"edit poi",
+				"Emmet: Next Edit Point"
+			],
+			[
+				"requirements",
+				"Set Syntax: requirements.txt"
+			],
+			[
+				"txt",
+				"Set Syntax: Plain Text"
+			],
+			[
+				"upper",
+				"Convert Case: Upper Case"
+			],
+			[
+				"sublimerge",
+				"Sublimerge: Compare to View..."
+			],
+			[
+				"bound",
+				"List bound keys"
+			],
+			[
+				"boude",
+				"List bound keys"
+			],
+			[
+				"bou",
+				"List bound keys"
+			],
+			[
+				"oundk",
+				"List bound keys"
+			],
+			[
+				"sql",
+				"Set Syntax: PL/SQL (Oracle)"
+			],
+			[
+				"rename",
+				"File: Rename"
+			],
+			[
+				"pretty",
+				"HTMLPrettify"
+			],
+			[
+				"tasks",
+				"Tasks: View as HTML"
+			],
+			[
+				"java",
+				"Set Syntax: Java"
+			],
+			[
+				"themr",
+				"Themr: List themes"
+			],
+			[
+				"task",
+				"Tasks: New"
+			],
+			[
+				"api",
+				"API-Completion-Package: Settings – User"
+			],
+			[
+				"filed",
+				"FileDiffs: Menu"
+			],
+			[
+				"ali",
+				"AlignTab"
+			],
+			[
+				"pcl",
+				"Package Control: List Packages"
+			],
+			[
+				"local",
+				"Local History: Compare"
+			],
+			[
+				"an",
+				"ANF: Delete File"
+			],
+			[
+				"anf",
+				"ANF: Delete File"
+			],
+			[
+				"keymap",
+				"Keymaps: Find a keymap for..."
+			],
+			[
+				"keymaps",
+				"Keymaps: Find a keymap for..."
+			],
+			[
+				"oragmi clone",
+				"Origami: Clone File to Pane Below"
+			],
+			[
+				"origami",
+				"Origami: Clone File to Pane Above"
+			],
+			[
+				"key",
+				"Keymaps: Find a keymap for..."
+			],
+			[
+				"ora",
+				"Origami: Destroy Pane Above"
+			],
+			[
+				"origa",
+				"Origami: Create Pane Above"
+			],
+			[
+				"orig",
+				"Origami: Zoom Current Pane"
+			],
+			[
+				"remove",
+				"Package Control: Remove Package"
+			],
+			[
+				"install",
+				"Package Control: Install Package"
+			],
+			[
+				"keycon",
+				"FindKeyConflicts: Single Package Conflicts"
+			],
+			[
+				"cssc",
+				"Run CSScomb JS"
+			],
+			[
+				"aligntab",
+				"AlignTab"
+			],
+			[
+				"table",
+				"AlignTab: Table Mode"
+			],
+			[
+				"marked",
+				"Marked"
+			],
+			[
+				"sidebar",
+				"View: Toggle Open Files in Side Bar"
+			],
+			[
+				"focu",
+				"Focus File on Sidebar"
+			],
+			[
+				"reveal",
+				"Side Bar: Reveal File"
+			],
+			[
+				"instal",
+				"Package Control: Install Package"
+			],
+			[
+				"sqle",
+				"SQLExec: List connections"
+			],
+			[
+				"SQL",
+				"SQLExec: Type Query"
+			],
+			[
+				"SQLEXE",
+				"SQLExec: Execute"
+			],
+			[
+				"SQLE",
+				"SQLExec: Execute"
+			],
+			[
+				"keyconsing",
+				"FindKeyConflicts: Single Package Conflicts"
+			],
+			[
+				"sqlde",
+				"SQLExec: Desc Table"
+			],
+			[
+				"mark",
+				"Set Syntax: Markdown"
+			],
+			[
+				"markd",
+				"Set Syntax: Markdown"
+			],
+			[
+				"markdown",
+				"Set Syntax: Markdown"
+			],
+			[
+				"html",
+				"Set Syntax: HTML"
+			],
+			[
+				"conflictsin",
+				"FindKeyConflicts: Single Package Conflicts"
+			],
+			[
+				"hint",
+				"JSHint"
+			],
+			[
+				"repl node",
+				"SublimeREPL: Node"
+			],
+			[
+				"replpy",
+				"SublimeREPL: Python"
+			],
+			[
+				"spli",
+				"MultiEditUtils: Split selection"
+			],
+			[
+				"muli",
+				"MultiEditUtils: Split selection"
+			],
+			[
+				"multi",
+				"MultiEditUtils: Split selection"
+			],
+			[
+				"mult",
+				"MultiEditUtils: Cycle through regions"
+			],
+			[
+				"mul",
+				"MultiEditUtils: Normalize region ends"
+			],
+			[
+				"mu",
+				"MultiEditUtils: Add last selection"
+			],
+			[
+				"conf",
+				"FindKeyConflicts: Single Package Conflicts"
+			],
+			[
+				"javasc",
+				"Set Syntax: JavaScript"
+			],
+			[
+				"browser",
+				"File: Open In Browser - Testing Server"
+			],
+			[
+				"fd",
+				"FileDiffs: Menu"
+			],
+			[
+				"fdm",
+				"FileDiffs: Menu"
+			],
+			[
+				"filediff",
+				"FileDiffs: Menu"
+			],
+			[
+				"find",
+				"FindKeyConflicts: Command Search"
+			],
+			[
+				"finde",
+				"FindKeyConflicts: All Conflicts"
+			],
+			[
+				"autobackups",
+				"AutoBackups: Open file backup"
+			],
+			[
+				"autoba",
+				"AutoBackups: Open file backup"
+			],
+			[
+				"loca",
+				"Local History: Open"
+			],
+			[
+				"backup",
+				"AutoBackups: Open file backup"
+			],
+			[
+				"reppl",
+				"SublimeREPL: PHP"
+			],
+			[
+				"git:diff",
+				"Git: Diff: all changes since the last commit"
+			],
+			[
+				"gitadd",
+				"Git: Add & Commit…"
+			],
+			[
+				"init",
+				"Git: Init"
+			],
+			[
+				"gitgutter",
+				"GitGutter: Compare Against HEAD"
+			],
+			[
+				"comare",
+				"GitGutter: Compare Against Branch"
+			],
+			[
+				"gitgu",
+				"GitGutter: Compare Against HEAD"
+			],
+			[
+				"git ref",
+				"Git: Reflog"
+			],
+			[
+				"gitg",
+				"GitGutter: Compare Against HEAD"
+			],
+			[
+				"git adco",
+				"Git: Add & Commit…"
+			],
+			[
+				"pret",
+				"HTMLPrettify"
+			],
+			[
+				"prej",
+				"Pretty JSON: Format (Pretty Print) JSON"
+			],
+			[
+				"git:add&com",
+				"Git: Add & Commit…"
+			],
+			[
+				"git init",
+				"Git: Init"
+			],
+			[
+				"git add",
+				"Git: Add & Commit…"
+			],
+			[
+				"commit",
+				"Git: Add & Commit…"
+			],
+			[
+				"git:add",
+				"Git: File: Add"
+			],
+			[
+				"git:in",
+				"Git: Init"
+			],
+			[
+				"gl",
+				"Glue - Launch"
+			],
+			[
+				"glue",
+				"Glue - Launch"
+			],
+			[
+				"git:log",
+				"Git: Log: diffs of changes full"
+			],
+			[
+				"git sta",
+				"Git: Status"
+			],
+			[
+				"git:ref",
+				"Git: Reflog"
+			],
+			[
+				"status",
+				"Git: Status"
+			]
+		],
+		"width": 672.0
+	},
+	"console":
+	{
+		"height": 126.0,
+		"history":
+		[
+			"import urllib.request,os,hashlib; h = '7183a2d3e96f11eeadd761d777e62404' + 'e330c659d4bb41d3bdf022e94cab3cd0'; pf = 'Package Control.sublime-package'; ipp = sublime.installed_packages_path(); urllib.request.install_opener( urllib.request.build_opener( urllib.request.ProxyHandler()) ); by = urllib.request.urlopen( 'http://sublime.wbond.net/' + pf.replace(' ', '%20')).read(); dh = hashlib.sha256(by).hexdigest(); print('Error validating download (got %s instead of %s), please try manual install' % (dh, h)) if dh != h else open(os.path.join( ipp, pf), 'wb' ).write(by) "
+		]
+	},
+	"distraction_free":
+	{
+		"menu_visible": true,
+		"show_minimap": false,
+		"show_open_files": false,
+		"show_tabs": false,
+		"side_bar_visible": false,
+		"status_bar_visible": false
+	},
+	"file_history":
+	[
+		"/C/Users/Yuan/Documents/My Knowledge/temp/190891512/14.8.19.md-190891512.md",
+		"/C/Users/Yuan/Documents/Sql/w.tsv",
+		"/C/Users/Yuan/Documents/Sql/qq.tsv",
+		"/C/Program Files/Sublime Text 3/Data/Packages/Default/Default (Windows).sublime-keymap",
+		"/C/Users/Yuan/Documents/Sql/q.tsv",
+		"/C/Users/Yuan/Documents/My Knowledge/temp/101984265/14.8.18.md-101984265.md",
+		"/C/Program Files/Sublime Text 3/Data/Packages/User/Sublimall.sublime-settings",
+		"/C/Program Files/Sublime Text 3/Data/Packages/Sublimall/Sublimall.sublime-settings",
+		"/c/users/yuan/appdata/local/temp/sublimall-20140819-184745-0.log",
+		"/C/Program Files/Sublime Text 3/Data/Packages/User/codeivate-st.sublime-settings",
+		"/D/Code/Web/JS/json.js",
+		"/C/Users/Yuan/AppData/Local/Temp/Wiz/113320842/14.8.15.md-113320842.md",
+		"/C/Program Files/Sublime Text 3/Data/Packages/User/Default (Windows).sublime-keymap",
+		"/C/Program Files/Sublime Text 3/Data/Packages/User/Preferences.sublime-settings",
+		"/C/Program Files/Sublime Text 3/Data/Packages/Default/Preferences.sublime-settings",
+		"/C/Program Files/Sublime Text 3/Data/Packages/Anaconda/Anaconda.sublime-settings",
+		"/C/Users/Yuan/AppData/Local/Temp/Wiz/31882797/14.8.14.md-31882797.md",
+		"/D/Code/Web/Css/登录页面.html",
+		"/C/Users/Yuan/Desktop/废气控制措施.sql",
+		"/C/Users/Yuan/Desktop/工艺废气环节名称.sql",
+		"/C/Program Files/Sublime Text 3/Data/Packages/User/Node.sublime-build",
+		"/C/Users/Yuan/Desktop/集气设置类型.sql",
+		"/C/Users/Yuan/Desktop/新建文件夹/sublime-completions/sublime-better-completion-api-javascript.sublime-settings",
+		"/C/Users/Yuan/AppData/Local/Temp/Wiz/109981562/14.8.13.md-109981562.md",
+		"/C/Users/Yuan/Desktop/tt.xml",
+		"/C/Users/Yuan/AppData/Local/Temp/Wiz/87454659/14.8.13.md-87454659.md",
+		"/C/Program Files/Sublime Text 3/Data/Packages/User/sublime-better-completion-setting.sublime-settings",
+		"/C/Users/Yuan/Desktop/新建文件夹/sublime-completions/sublime-better-completion-api-jquery.sublime-settings",
+		"/C/Program Files/Sublime Text 3/Data/Packages/Sublime-Better-Completion/sublime-better-completion-setting.sublime-settings",
+		"/C/Users/Yuan/AppData/Local/Temp/Wiz/87280687/14.8.14.md-87280687.md",
+		"/C/Users/Yuan/AppData/Local/Temp/Wiz/87296240/14.8.12.md-87296256.md",
+		"/C/Users/Yuan/AppData/Local/Temp/Wiz/2306599/14.8.11.md-2306599.md",
+		"/D/Code/Web/Html/dom.html",
+		"/D/Program Files/apache-tomcat-6.0.32/conf/Catalina/localhost/szmis.xml",
+		"/C/Users/Yuan/AppData/Local/Temp/Wiz/13765185/14.8.12.md-13765200.md",
+		"/D/Code/Web/JS/test.js",
+		"/D/Code/Web/Css/test.css",
+		"/D/Code/Web/Css/hover.html",
+		"/C/Program Files/Sublime Text 3/Data/Packages/FuzzyFileNav/Default (Windows).sublime-keymap",
+		"/D/Program Files/J2ee-Eclipse/eclipse.ini",
+		"/C/Users/Yuan/AppData/Local/Temp/Wiz/97954806/14.8.8.md-97954806.md",
+		"/C/Users/Yuan/AppData/Local/Temp/Wiz/87521100/14.8.8.md-87521147.md",
+		"/C/Users/Yuan/AppData/Local/Temp/Wiz/89662900/14.8.8.md-89662900.md",
+		"/C/Users/Yuan/AppData/Local/Temp/Wiz/89652604/14.8.8.md-89652604.md",
+		"/C/Program Files/Sublime Text 3/Data/Packages/PlainTasks/messages/Tutorial.todo",
+		"/C/Users/Yuan/AppData/Local/Temp/Wiz/20899110/2014.8.7.md-20899110.md",
+		"/D/Code/Web/Html/checkbox.html",
+		"/C/Users/Yuan/AppData/Local/Temp/Wiz/646280/2014.8.7.md-646358.md",
+		"/C/Users/Yuan/AppData/Local/Temp/Wiz/121333786/14.8.6.md-121333786.md",
+		"/C/Users/Yuan/AppData/Local/Temp/Wiz/89725940/14.8.5.md-89726018.md",
+		"/C/Users/Yuan/AppData/Local/Temp/Wiz/353888/14.8.5.md-353888.md",
+		"/C/Program Files/Sublime Text 3/Data/Packages/User/sublime-API-Completions-Package.sublime-settings",
+		"/C/Program Files/Sublime Text 3/Data/Packages/Sublime-Better-Completion/sublime-API-Completions-Package.sublime-settings",
+		"/C/Users/Yuan/AppData/Local/Temp/Wiz/10507837/工作中使用到的数据库知识点.md-10507837.md",
+		"/C/Users/Yuan/AppData/Local/Temp/Wiz/7065800/公司内部系统知识点.md-7065800.md",
+		"/C/Users/Yuan/AppData/Local/Temp/Wiz/332750865/2014.8.4-332750865.txt",
+		"/D/Code/Web/Html/Jquery_1.html",
+		"/D/Code/Web/Html/ss.html",
+		"/D/Code/Web/JS/t2.js",
+		"/C/Program Files/Sublime Text 3/Data/Packages/JavaScript and jQuery API Completions/sublime-API-Completions-Package.sublime-settings",
+		"/C/Program Files/Sublime Text 3/Data/Packages/ConvertToUTF8/ConvertToUTF8.sublime-settings",
+		"/D/Code/Web/Html/zz.html",
+		"/D/Code/Web/Html/pp.html",
+		"/D/Code/Web/zzz.html",
+		"/D/Code/Web/zz.html",
+		"/C/Program Files/Sublime Text 3/Data/Packages/User/pp.html",
+		"/C/Program Files/Sublime Text 3/Data/Packages/User/fuzzy_file_nav.sublime-settings",
+		"/D/Code/Web/Html/tt.html",
+		"/D/Code/Web/Html/Test.html",
+		"/C/Users/Yuan/AppData/Local/Temp/Wiz/180163292/Sublime 插件.md-180163292.md",
+		"/D/Code/Web/Html/table2.html",
+		"/D/Code/Web/Html/table.html",
+		"/D/Code/Java/T.java",
+		"/D/Program Files/apache-tomcat-6.0.32/conf/Catalina/localhost/yhgl.xml",
+		"/D/Code/Web/Html/jQuery_2.html",
+		"/D/Code/f5_4.x/bundled/coffee/lib/coffee-script/parser.js",
+		"/C/Program Files/Sublime Text 3/Data/Packages/FuzzyFileNav/fuzzy_file_nav.sublime-settings",
+		"/D/Code/Web/Html/5fd7bf51-a9a6-4aa7-bf21-e2c2778b5810.dmp",
+		"/D/Code/Web/Css/test.less",
+		"/D/Code/Java/Test.java",
+		"/C/Program Files/Sublime Text 3/Data/Packages/User/ConvertToUTF8.sublime-settings",
+		"//10.192.24.204/d$/PUBLISH/App/ebcm20140519/ebcm/pages/ebcm/business/pwxkz/showPwxkzGyFbToWord.jsp",
+		"/C/Users/Yuan/Desktop/工作簿1.xml",
+		"/C/Users/Yuan/Desktop/工作簿1.xlsx",
+		"/D/Program Files/apache-tomcat-6.0.32/conf/Catalina/localhost/ebcmft.xml",
+		"/C/Users/Yuan/AppData/Local/Temp/Wiz/478051569/Java核心思想笔记.md-478051569.md",
+		"/C/Users/Yuan/AppData/Local/Temp/Wiz/483673986/JavaScript权威指南学习笔记.md-483673986.md",
+		"/C/Users/Yuan/AppData/Local/Temp/Wiz/393137745/Java核心思想笔记.md-393137760.md",
+		"/C/Program Files/Sublime Text 3/Data/Packages/User/Markdown.sublime-settings",
+		"/C/Program Files/Sublime Text 3/Data/Packages/User/SQLExec.sublime-settings",
+		"/C/Users/Yuan/Desktop/sss.txt",
+		"/D/Code/Java/ceshi.java",
+		"/C/Program Files/Sublime Text 3/Data/Packages/SQLExec/Default (Windows).sublime-keymap",
+		"/D/Code/Web/JS/新建文本文档.txt",
+		"/C/Users/Yuan/AppData/Local/Temp/Wiz/719433882/14.7.9-719433882.txt",
+		"/C/Program Files/Sublime Text 3/Data/Packages/User/Markdown (Standard).sublime-settings",
+		"/C/Users/Yuan/Desktop/tt.txt",
+		"/C/Users/Yuan/AppData/Local/Temp/Wiz/719349423/14.7.9-719349423.txt",
+		"/C/Users/Yuan/AppData/Local/Temp/Wiz/719311702/14.7.9-719311749.txt",
+		"/D/Code/Java/Demo.java.save",
+		"/D/Code/C/Premier/Hello.c",
+		"/C/Users/Yuan/AppData/Local/Temp/Wiz/640834104/Java多线程.md-640834104.md",
+		"/C/Users/Yuan/AppData/Local/Temp/Wiz/640728148/Java多线程.md-640728148.md",
+		"/C/Program Files/Sublime Text 3/Data/Packages/MarkdownEditing/Markdown.sublime-settings",
+		"/C/Program Files/Sublime Text 3/Data/Packages/MarkdownEditing/Markdown (Standard).sublime-settings",
+		"/C/Program Files/Sublime Text 3/Data/Packages/User/MultiMarkdown.sublime-settings",
+		"/C/Program Files/Sublime Text 3/Data/Packages/MarkdownEditing/MultiMarkdown.sublime-settings",
+		"/D/Code/Java/TT.java",
+		"/C/Program Files/Sublime Text 3/Data/Packages/MultiEditUtils/Default (Windows).sublime-keymap",
+		"/C/Users/Yuan/AppData/Local/Temp/Wiz/218409090/Java核心思想笔记.md-218409090.md",
+		"/C/Program Files/Sublime Text 3/Data/Packages/MultiEditUtils/MultiEditUtils.sublime-settings",
+		"/C/Program Files/Sublime Text 3/Data/Packages/Browser Refresh/Default (Windows).sublime-keymap",
+		"/D/Sublime Text Backups/2014-07-01/D/Code/Java/TT_095038.java",
+		"/D/Sublime Text Backups/2014-07-01/D/Code/Java/TT_160236.java",
+		"/D/Sublime Text Backups/2014-07-01/D/Code/Java/TT_160248.java",
+		"/D/Sublime Text Backups/2014-07-01/D/Code/Java/TT_094822.java",
+		"/D/Sublime Text Backups/2014-07-01/D/Code/Java/TT_094809.java",
+		"/D/Sublime Text Backups/2014-07-01/D/Code/Java/TT_094607.java",
+		"/D/Sublime Text Backups/2014-07-01/D/Code/Java/TT_094540.java",
+		"/D/Sublime Text Backups/2014-07-01/D/Code/Java/TT_094156.java",
+		"/D/Sublime Text Backups/2014-07-01/D/Code/Java/TT_094833.java",
+		"/D/Sublime Text Backups/2014-07-01/D/Code/Java/TT_094843.java",
+		"/D/Sublime Text Backups/2014-07-01/D/Code/Java/TT_094943.java",
+		"/D/Sublime Text Backups/2014-07-01/D/Code/Java/TT_095002.java",
+		"/D/Sublime Text Backups/2014-07-01/D/Code/Java/TT_095020.java",
+		"/D/Sublime Text Backups/2014-07-01/D/Code/Java/TT_095032.java",
+		"/C/Program Files/Sublime Text 3/Data/Packages/Local History/LocalHistory.sublime-settings",
+		"/C/Program Files/Sublime Text 3/Data/Packages/GitGutter/Default (Windows).sublime-keymap"
+	],
+	"find":
+	{
+		"height": 41.0
+	},
+	"find_in_files":
+	{
+		"height": 127.0,
+		"where_history":
+		[
+		]
+	},
+	"find_state":
+	{
+		"case_sensitive": false,
+		"find_history":
+		[
+			"enter",
+			"center",
+			"gsfi",
+			"class=\"gsfi\"",
+			"<input class=\"gsfi\"",
+			"input",
+			"login-title",
+			"fqk",
+			"float",
+			"checkBounds",
+			"p",
+			"0000",
+			"郭",
+			"陈",
+			"女",
+			"LCSL",
+			"DQBZ",
+			"Yuan",
+			"try",
+			"catch",
+			"异常",
+			"final",
+			"protected",
+			"></",
+			"                            ",
+			")\n",
+			"title",
+			"p",
+			"span",
+			"RcjgjczdyrwscRwyq",
+			"allowed_file_extensions",
+			"system",
+			"out",
+			"        \n",
+			"\\",
+			"style=\"width:100%;\"/>",
+			"/></td>",
+			"<html:text property=",
+			"检查",
+			"注",
+			"<input type=\"text\">",
+			"input",
+			"&nbsp;&nbsp;&nbsp;",
+			"注",
+			"radio",
+			"class=\"in\"",
+			"                   \n",
+			"100",
+			"colpsan",
+			"擅自扩大",
+			"市控类",
+			"name=\"ba\"",
+			"产工艺",
+			"rowspan",
+			"expand",
+			"chinese-ms936",
+			"monospaced",
+			"SimSun",
+			"U_EBCMNS",
+			"信访",
+			"现场",
+			"T_HJJC_JCRWDJB",
+			"T_JCGL_JZZSXK_SGGCXM",
+			"限期治理",
+			">\n",
+			"f12",
+			"key",
+			"k",
+			"ParameterMode",
+			">\n",
+			"MaxXMl",
+			"js",
+			"忽略",
+			"入库",
+			"出库",
+			";",
+			"确认日期",
+			"jd",
+			"hc",
+			"pz",
+			"jd",
+			"校准周期",
+			"pre",
+			"PRE",
+			"检定依据",
+			"hcrq",
+			"\")\n",
+			"alt+l",
+			");\n",
+			"())\n",
+			"\">\n",
+			"firstrow",
+			"getErrorFlag",
+			"errorFlag",
+			"ERROR_FLAG",
+			"errorFlag",
+			"ERROR_FLAG",
+			"ISERROR",
+			"tureSet",
+			"TRUE_DATA",
+			"MaintTHjjcQhjJcylsyJcjgypj",
+			"maintTHjjcQhjJcylsyJcjgypj",
+			"氮",
+			"氨",
+			"每一列的FXJG，不做任何处理",
+			"列下的数据致为无效",
+			"errorFlag",
+			"ERROR_FLAG",
+			"if(n_j < fRowArray.length)",
+			"i",
+			"button",
+			"button black small",
+			"small",
+			"角度",
+			"divLineColor",
+			"anchor",
+			"zdArry",
+			"data",
+			"ybcsrq",
+			"divWlbht",
+			"fusioncharts",
+			"data",
+			"waitProcess",
+			"include",
+			"show_qu",
+			"argument",
+			"0xff",
+			"[\"\"]);"
+		],
+		"highlight": true,
+		"in_selection": false,
+		"preserve_case": false,
+		"regex": false,
+		"replace_history":
+		[
+		],
+		"reverse": false,
+		"show_context": true,
+		"use_buffer2": true,
+		"whole_word": false,
+		"wrap": true
+	},
+	"groups":
+	[
+		{
+			"selected": 0,
+			"sheets":
+			[
+				{
+					"buffer": 0,
+					"file": "Test.html",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 304,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								180,
+								180
+							]
+						],
+						"settings":
+						{
+							"BracketHighlighterBusy": false,
+							"bh_regions":
+							[
+								"bh_round",
+								"bh_round_center",
+								"bh_round_open",
+								"bh_round_close",
+								"bh_single_quote",
+								"bh_single_quote_center",
+								"bh_single_quote_open",
+								"bh_single_quote_close",
+								"bh_default",
+								"bh_default_center",
+								"bh_default_open",
+								"bh_default_close",
+								"bh_square",
+								"bh_square_center",
+								"bh_square_open",
+								"bh_square_close",
+								"bh_angle",
+								"bh_angle_center",
+								"bh_angle_open",
+								"bh_angle_close",
+								"bh_regex",
+								"bh_regex_center",
+								"bh_regex_open",
+								"bh_regex_close",
+								"bh_curly",
+								"bh_curly_center",
+								"bh_curly_open",
+								"bh_curly_close",
+								"bh_double_quote",
+								"bh_double_quote_center",
+								"bh_double_quote_open",
+								"bh_double_quote_close",
+								"bh_unmatched",
+								"bh_unmatched_center",
+								"bh_unmatched_open",
+								"bh_unmatched_close",
+								"bh_tag",
+								"bh_tag_center",
+								"bh_tag_open",
+								"bh_tag_close"
+							],
+							"c_time":
+							[
+								128,
+								3,
+								99,
+								100,
+								97,
+								116,
+								101,
+								116,
+								105,
+								109,
+								101,
+								10,
+								100,
+								97,
+								116,
+								101,
+								116,
+								105,
+								109,
+								101,
+								10,
+								113,
+								0,
+								67,
+								10,
+								7,
+								222,
+								5,
+								12,
+								15,
+								29,
+								39,
+								0,
+								0,
+								0,
+								113,
+								1,
+								133,
+								113,
+								2,
+								82,
+								113,
+								3,
+								46
+							],
+							"origin_encoding": "UTF-8",
+							"syntax": "Packages/HTML/HTML.tmLanguage",
+							"tab_size": 2,
+							"tabs_extra_last_activated": 1408594787.97,
+							"tabs_extra_last_activated_sheet_index": 0,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 0,
+					"type": "text"
+				},
+				{
+					"buffer": 1,
+					"file": "/C/Users/Yuan/Documents/My Knowledge/temp/87933801/14.8.21.md-87933801.md",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 309,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								195,
+								195
+							]
+						],
+						"settings":
+						{
+							"c_time":
+							[
+								128,
+								3,
+								99,
+								100,
+								97,
+								116,
+								101,
+								116,
+								105,
+								109,
+								101,
+								10,
+								100,
+								97,
+								116,
+								101,
+								116,
+								105,
+								109,
+								101,
+								10,
+								113,
+								0,
+								67,
+								10,
+								7,
+								222,
+								8,
+								21,
+								9,
+								0,
+								34,
+								0,
+								0,
+								0,
+								113,
+								1,
+								133,
+								113,
+								2,
+								82,
+								113,
+								3,
+								46
+							],
+							"origin_encoding": "UTF-8",
+							"parser": null,
+							"syntax": "Packages/MarkdownEditing/Markdown.tmLanguage",
+							"tabs_extra_last_activated": 1408594738.27,
+							"tabs_extra_last_activated_sheet_index": 1,
+							"target": "disk"
+						},
+						"translation.x": -0.0,
+						"translation.y": 375.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 1,
+					"type": "text"
+				},
+				{
+					"buffer": 2,
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 21,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								16,
+								11
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/MarkdownEditing/Markdown.tmLanguage",
+							"tabs_extra_last_activated": 1408589776.64,
+							"tabs_extra_last_activated_sheet_index": 2
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 3,
+					"type": "text"
+				},
+				{
+					"buffer": 3,
+					"file": "/C/Users/Yuan/Documents/My Knowledge/temp/1494520/14.8.20.md-1494520.md",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 487,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								143,
+								143
+							]
+						],
+						"settings":
+						{
+							"c_time":
+							[
+								128,
+								3,
+								99,
+								100,
+								97,
+								116,
+								101,
+								116,
+								105,
+								109,
+								101,
+								10,
+								100,
+								97,
+								116,
+								101,
+								116,
+								105,
+								109,
+								101,
+								10,
+								113,
+								0,
+								67,
+								10,
+								7,
+								222,
+								8,
+								20,
+								8,
+								59,
+								58,
+								0,
+								0,
+								0,
+								113,
+								1,
+								133,
+								113,
+								2,
+								82,
+								113,
+								3,
+								46
+							],
+							"origin_encoding": "UTF-8",
+							"syntax": "Packages/MarkdownEditing/Markdown.tmLanguage",
+							"tabs_extra_last_activated": 1408591070.74,
+							"tabs_extra_last_activated_sheet_index": 3
+						},
+						"translation.x": -0.0,
+						"translation.y": 225.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 2,
+					"type": "text"
+				}
+			]
+		}
+	],
+	"incremental_find":
+	{
+		"height": 29.0
+	},
+	"input":
+	{
+		"height": 41.0
+	},
+	"layout":
+	{
+		"cells":
+		[
+			[
+				0,
+				0,
+				1,
+				1
+			]
+		],
+		"cols":
+		[
+			0.0,
+			1.0
+		],
+		"rows":
+		[
+			0.0,
+			1.0
+		]
+	},
+	"menu_visible": false,
+	"output.SQLExec":
+	{
+		"height": 330.0
+	},
+	"output.exec":
+	{
+		"height": 215.0
+	},
+	"output.find_results":
+	{
+		"height": 0.0
+	},
+	"output.git":
+	{
+		"height": 317.0
+	},
+	"output.markdown":
+	{
+		"height": 134.0
+	},
+	"output.unsaved_changes":
+	{
+		"height": 134.0
+	},
+	"project": "Web.sublime-project",
+	"replace":
+	{
+		"height": 54.0
+	},
+	"save_all_on_build": true,
+	"select_file":
+	{
+		"height": 0.0,
+		"selected_items":
+		[
+			[
+				"ch",
+				"Html\\checkbox.html"
+			],
+			[
+				"pre",
+				"C:\\Program Files\\Sublime Text 3\\Data\\Packages\\User\\Preferences.sublime-settings"
+			],
+			[
+				"diff",
+				"Diff: test.js.diff"
+			],
+			[
+				"test.js",
+				"Web\\JS\\test.js"
+			]
+		],
+		"width": 0.0
+	},
+	"select_project":
+	{
+		"height": 500.0,
+		"selected_items":
+		[
+			[
+				"",
+				"D:\\Code\\Python\\Python.sublime-project"
+			]
+		],
+		"width": 380.0
+	},
+	"select_symbol":
+	{
+		"height": 0.0,
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"settings":
+	{
+	},
+	"show_minimap": false,
+	"show_open_files": true,
+	"show_tabs": true,
+	"side_bar_visible": true,
+	"side_bar_width": 194.0,
+	"status_bar_visible": true,
+	"template_settings":
+	{
+	}
+}
