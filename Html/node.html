@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>node</title>
+	<style>
+		.demo {
+			color: red;
+		}
+	</style>
+	<script>
+		function test() {
+			var attr = document.createAttribute("id");
+			attr.nodeValue = "demo";
+			var p = document.getElementsByTagName("p")[0];
+			p.setAttributeNode(attr);
+			var t = document.getElementById("demo");
+			alert(t.innerHTML);
+		}
+	</script>
+</head>
+<body>
+	<p>This is a test</p>
+	<button onclick="test()">test</button>
+</body>
+</html>
