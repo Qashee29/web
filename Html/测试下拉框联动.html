@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	<select name="sel" id="sel" onchange="test()">
+		<option value="1">手机</option>
+		<option value="2">台式机</option>
+		<option value="3">笔记本</option>
+	</select>
+	<select name="sel2" id="sel2">
+		<option value="1">手机1</option>
+		<option value="2">手机2</option>
+		<option value="3">台式机1</option>
+		<option value="4">台式机2</option>
+		<option value="5">笔记本1</option>
+		<option value="6">笔记本2</option>
+	</select>
+</body>
+<script>
+	var sel2 = document.getElementById("sel2");
+	var list = new Array();
+	for (var i = 0; i < sel2.options.length; i++) {
+		var a = sel2.options[i];
+		list.push(a);
+	};
+	function test() {
+		var sel = document.getElementById("sel");
+		var value = sel.options[sel.selectedIndex].value;	
+		sel2.options.length = 0;
+		sel2.options[0] = list[2*value -2];
+		sel2.options[1] = list[2*value -1];
+			
+		
+		
+	}
+</script>
+</html>
