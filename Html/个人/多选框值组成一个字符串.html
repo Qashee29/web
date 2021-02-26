@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <script>
+    function test () {
+        var checkbox = document.getElementsByName("test");
+        var t = "";
+        for (var i = 0; i < checkbox.length; i++) {
+            if(checkbox[i].checked){
+                
+                t+=checkbox[i].value+',';
+            }
+           
+        };
+        if(t!=""){
+            t=t.substr(0,t.length-1);
+        }
+        console.info(t);
+    }
+    </script>
+</head>
+<body>
+    <button onclick="test()">test</button>
+    <input type="checkbox" name="test" value="1" checked="true">1</input>
+    <input type="checkbox" name="test" value="2">2</input>
+    <input type="checkbox" name="test" value="3">3</input>
+    <input type="checkbox" name="test" value="4">4</input>
+    <input type="checkbox" name="test" value="5">5</input>
+    <input type="checkbox" name="test" value="6">6</input>
+    <input type="checkbox" name="test" value="7">7</input>
+    <input type="checkbox" name="test" value="8">8</input>
+</body>
+</html>
