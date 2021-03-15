@@ -1,0 +1,63 @@
+
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>无标题文档</title>
+<link rel="stylesheet" href="jquery.niceForm.css" type="text/css">
+<script type="text/javascript" src="jquery-1.7.2.min.js"></script>
+<script type="text/javascript" src="jquery.niceForm.js"></script>
+<style type="text/css">
+body, td, th {
+	font-size: 12px;
+}
+</style>
+<script type="text/javascript">
+$(function(){
+	$("select").niceForm({
+ 		eventType:'click',
+		change:function(){}
+      });
+ 	});
+</script>
+</head>
+
+<body>
+//下拉框美化 <br>
+<br>
+<br>
+<p>单选菜单</p>
+<select name="select" id="select0" data-width="100">
+ <option value="0">--请选择--</option>
+ <option value="1">陕西</option>
+ <option value="2" selected="selected" >广东</option>
+ <option value="3">北京</option>
+ <option value="4">四川</option>
+ <option value="5">山东</option>
+ <option value="6">河南</option>
+</select>
+
+<select id="visitLimit" name="blogUserBean.visitLimit" class="select" data-width="100">
+ <option value="">--请选择--</option>
+ <option value="VISIT_LIMIT_CLASS">仅班级可见</option>
+ <option value="VISIT_LIMIT_ALL">所有人可见</option>
+ <option value="VISIT_LIMIT_FRIEND">好友可见</option>
+ <option value="VISIT_LIMIT_SELF">仅自己可见</option>
+</select>
+<br>
+<br>
+<br>
+<br>
+<p>多选菜单</p>
+<select name="select1" id="select1" multiple="multiple">
+ <option value="0">选择省份</option>
+ <option value="1">陕西</option>
+ <option value="2" selected="selected" >广东</option>
+ <option value="3" selected="selected" >北京</option>
+ <option value="4">四川</option>
+ <option value="5">山东</option>
+ <option value="6">河南</option>
+</select>
+  
+</body>
+</html>

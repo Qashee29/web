@@ -1,35 +1,17 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <title>Document</title>
-</head>
-
-<body>
-    <div id="d">
-        <p>This is 1</p>
-        <p>This is 2</p>
-        sdfdsf
-    </div>
     <script>
-    var m = document.createElement("p");
-    var node = document.createTextNode("This is 3");
-    m.appendChild(node);
-    module('module name
-', {
-      setup: function() {
-        // setup for module name 
-      },
-      teardown: function() {
-        //teardown for module name
-      }
-    });
-    
-    var element = document.getElementById('d');
-    var element = element.insertBefore(m);
-
+    function t(){
+        document.getElementById('t1').value = 't3';
+    }
     </script>
+</head>
+<body>
+    <input type="text" id="t1" value="t1">
+    <input type="text" id="t1" value="t2">
+    <button onclick="t()">ceshi</button>
 </body>
-
 </html>

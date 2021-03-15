@@ -1,55 +1,26 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <title>Document</title>
     <script>
-    function test() {
-        window.resizeTo(800, 600);
+     function test(obj) {
+
+        alert(obj.value);
+     }
+    function test2() {
+        var t = document.getElementById('t1');
+        t.value = 3;
+        test(t);
     }
     </script>
 </head>
-
 <body>
-    <select name="model.fqlx" onchange="test(this)" id="fqlx" >
-        <option value=""></option>
-        <option value="02">挥发性有机废气</option>
-        <option value="01">酸碱废气</option>
-    </select>
-    <select name="model.hylx" onchange="" id="hylx" >
-        <option value=""></option>
-        <option value="01">线路板行业</option>
-        <option value="02">电镀行业</option>
-        <option value="04">家具制造行业</option>
-        <option value="08">手机壳喷涂行业</option>
-        <option value="06">集装箱制造行业</option>
-        <option value="07">自行车制造行业</option>
-        <option value="05">汽车制造行业</option>
-    </select>
-
+    <input type="text" onchange="test(this)" id="t1">
+    <input type="text" onchange="test(this)" id="t2">
+    <input type="text" onchange="test(this)" id="t3">
+    <input type="text" onchange="test(this)" id="t4">
+    <input type="text" onchange="test(this)" id="t5">
+    <button onclick="test2()">ceshi</button>
 </body>
-<script>
-	var hylxoptions = document.getElementById("hylx");
-	var list = new Array();
-	for (var i = 0; i < hylxoptions.options.length; i++) {
-		var a = hylxoptions.options[i]
-		list.push(a);
-	};
-	function test(obj) {
-		hylxoptions.options.length = 0;
-		if(obj.value == 01) {
-			hylxoptions.options[0] = list[1];
-			hylxoptions.options[1] = list[2];
-		} if(obj.value == 02){
-			for (var i = 0; i < list.length - 3; i++) {
-				hylxoptions.options[i] = list[i+3];
-			};
-		} if(!obj.value) {
-			for (i in list) {
-				hylxoptions.options[i] = list[i];
-			}
-		}
-	}
-</script>
 </html>
