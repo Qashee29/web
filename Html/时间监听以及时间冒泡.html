@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <style>
+        ul {
+            color: blue;
+        }
+    </style>
+</head>
+<body>
+    <ul id="list">
+        <li id="l1">Item 1</li>
+        <li id="l2">Item 2</li>
+        <li id="l3">Item 3</li>
+        <li id="l4">Item 4</li>
+        <li id="l5">Item 5</li>
+    </ul>
+</body>
+<script>
+    document.getElementById("list").addEventListener("click",function(e){
+      
+       
+        if(e.target && e.target.nodeName=="LI"){
+            e.target.style.color = "red";
+        }
+    });
+    </script>
+</html>
