@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	<table>
+		<tr>
+			<td>1</td>
+			<td>2</td>
+		</tr>
+		<tr>
+			<td>3</td>
+			<td>4</td>
+		</tr>
+	</table>
+</body>
+<script>
+	var a = document.getElementsByTagName("table");
+	var b = a[0].childNodes;
+	console.info(b[0].value);
+	for (var i = 0; i < b.length; i++) {
+		console.info(b[i]);
+	};
+</script>
+</html>
