@@ -4,6 +4,10 @@
 		"selected_items":
 		[
 			[
+				"getele",
+				"getElementsByTagName	jsDOM"
+			],
+			[
 				"if",
 				"ife	if ... else ... end"
 			],
@@ -188,52 +192,193 @@
 	"buffers":
 	[
 		{
-			"contents": "> ",
+			"file": "/D/Code/Web/JS/test.js",
 			"settings":
 			{
-				"buffer_size": 2,
-				"line_ending": "Windows",
-				"name": "*REPL* [js]",
-				"scratch": true
+				"buffer_size": 542,
+				"line_ending": "Windows"
 			}
 		},
 		{
-			"contents": "    \n    //需要验证的json对象    \n    var validate = null;\n    var ACTION_OPERATE = null;\n    \n    var selectErrorMessage = \"必须填写\";\n    var radioErrorMessage  = \"必须填写\";\n    \n    var currentFocusPanel = null;\n    \n    //自定义对象\n    var DomUtils    = {};\n    DomUtils.select = {};\n    DomUtils.json    = {};\n    DomUtils.String    = {};\n    DomUtils.table  = {};\n    DomUtils.table.params = {};\n    \n    \n    /**********************************************************************************\n    * 表单验证\n    **********************************************************************************/\n    function validateForm(frm){\n        if(frm == null || frm == undefined){\n            frm = document.forms[document.forms.length-1];\n        }\n        var inputValidate = checkAll();\n        var otherValidate = checkOther(frm, inputValidate);\n        return inputValidate && otherValidate;\n    }\n    \n    \n    /**********************************************************************************\n    * 对checkAll 的其他验证\n    **********************************************************************************/\n    function checkOther(frm,inputValidate){\n        var tmpElement = null;\n        var flag        = true;\n        if(!frm){\n            frm = document.forms[document.forms.length-1];\n        }\n        var messages = [];\n        var label = null;\n        if(frm!=null && frm!=undefined){\n            var ele  = frm.elements;\n            for(var i=0; i< ele.length; i++){\n            \n            	p_node = ele[i].parentNode;\n	            while (\"TD\" !== p_node.tagName && p_node.parentNode) {\n	                p_node = p_node.parentNode;\n	            }\n	            \n	            var pre = null;\n	            if(p_node && p_node.previousSibling){\n		            var pre = p_node.previousSibling;\n		            while(pre && \"TD\" !== pre.tagName){\n		            	pre = pre.previousSibling;\n		            }\n	            }\n	            \n	            label = pre ? (pre.innerText || pre.textContent) : \"\";\n            \n                if(ele[i].type!=\"hidden\" && ele[i].type!=\"button\" && isMustEnter(ele[i])){\n                    if(ele[i].tagName == \"SELECT\"){\n                        var    sflag = validateSelect(ele[i],true);\n                        if(flag == true){\n                            flag = sflag;\n                        }\n                        if(!sflag){\n                        	messages[messages.length] = \"\\n\" + label + \" 必须填写\";\n                        }\n                    }else if(ele[i].tagName == \"INPUT\" && (ele[i].type == \"checkbox\" ||ele[i].type == \"radio\")){\n                        if(tmpElement != ele[i].name){\n                            tmpElement = ele[i].name;\n                            var rflag = validateCheckOrRadios(ele[i],true);\n                            if(flag == true){\n                                flag = rflag;\n                            }\n							if(!rflag){\n                            	messages[messages.length] = \"\\n\" + label + \" 必须填写\";\n                            }\n                        }else{\n                            continue;\n                        }\n                    }\n                }\n            }\n        }\n        if(inputValidate){\n        	displayError(messages);\n        }\n        return flag;\n    }\n    \n    \n    function showDialog(url,height,width,config){ \n    	//window.showModalDialog(url1,window,\"dialogWidth:750px;dialogHeight:600px;center:yes;status:no;\")\n    	var param ='dialogWidth:' + width + \"px;dialogHeight:\" + height + \"px;\";\n    	if(config){\n    		param += 'center:' + (config.center ? config.center :'yes') + ';';\n    		param += 'status:' + (config.status ? config.status :'yes') + ';';\n    		param += 'scroll:' + (config.scroll ? config.scroll :'yes') + ';';\n    		param += 'resizable:' + (config.scroll ? 'no' :config.resizable) + ';';   \n    	}\n    	return window.showModalDialog(url,window,param);\n    }\n    \n    \n    /**********************************************************************************\n    * 验证checkbox 和 radio 是否选中\n    **********************************************************************************/\n    function validateCheckOrRadios(obj,isShowError){\n        var validateflag = false;\n        if( obj!=null && (obj.type == \"checkbox\" || obj.type == \"radio\" )){\n            var elements = document.getElementsByName(obj.name);\n            for(var j = 0 ;j < elements.length;j++){\n                if(elements[j].checked){\n                    if(isShowError == true){\n                        Validation.hideError(obj.parentNode);\n                    }\n                    return true;\n                }\n            }\n            if(isShowError == true){\n                Validation.showError(obj.parentNode,radioErrorMessage);\n            }\n            return false;\n        }\n        throw new Error(\"validateCheckOrRadios方法只验证checkbox 和 radio 是否选中\");\n    }\n    \n    /**********************************************************************************\n    * 验证select 是否选择\n    **********************************************************************************/\n    function validateSelect(obj,isShowError,defaultValue){\n        if(obj.tagName == \"SELECT\"){\n            var defaultV = ( defaultValue != undefined ? defaultValue : \"\" );\n            if(obj.value != defaultV && obj.selectedIndex >= 0){\n                if(isShowError == true){\n                    Validation.hideError(obj.parentNode);\n                }\n                return true;\n            }\n            if(isShowError == true){\n                Validation.showError(obj.parentNode,selectErrorMessage);\n            }\n            return false;\n        }\n        throw new Error(\"validateSelect方法只验证select是否选择\");\n    }\n    \n    /**********************************************************************************\n    * 判断是否必填\n    **********************************************************************************/\n    function isMustEnter(obj){\n        var p_node = obj.parentNode;\n        while (\"TD\" !== p_node.tagName && p_node.parentNode) {\n             p_node = p_node.parentNode;\n         }\n        var label = p_node.previousSibling ?(p_node.previousSibling.innerText||p_node.previousSibling.textContent): \"\";\n        return label && \"*\" === label.charAt(0);\n    }\n    \n    /**********************************************************************************\n    * 通过json对象对form进行验证（用于公用）\n    **********************************************************************************/\n    function validateFormByJson(validateJson){\n        var frm = document.forms[document.forms.length-1];\n        if(frm){\n            var fields = validateJson.fields;\n            for(var i=0;i<fields.length;i++){\n                var obj       = frm[fields[i].name];\n                var messge = checkValid(obj, fields[i].type);\n                if(messge != undefined ||obj.value == \"\"){\n                    Validation.showError(frm[fields[i].name],fields[i].errorMessage);\n                    return false;\n                }            \n            }\n            return true;\n        }else{\n            return false;\n        }\n    }\n    \n    /**********************************************************************************\n    * 表单提交\n    **********************************************************************************/\n    function submitForm(frm){\n        if(frm == undefined || frm == null){\n            frm = document.forms[document.forms.length-1];\n        }\n        if(validateForm(frm)){\n            var method = frm[\"method\"];\n            if(method.value == \"init\" || method.value == 'initPage'||(method.value == \"\") ){\n                method.value = \"insert\"; \n            }else if(method.value == \"selected\"){\n                method.value = \"update\";\n            }\n            frm.submit();\n            return true;\n		}\n        return false;\n    }\n    \n    function formSubmit(method,form){\n		if(form == undefined || form == null){\n			form = document.forms[document.forms.length-1];\n		}\n		form['method'].value = method;   \n		var needValidate = (method == 'insert' || method == 'update' || method == 'save');\n		if(needValidate){\n			if(validateForm(form)){\n				form.submit();\n			}\n		}else{\n			form.submit();\n		} \n		\n	}   \n    \n    //编辑\n    function edit(){\n        var frm = document.forms[document.forms.length-1];\n        frm[\"method\"].value = \"selected\";\n        frm.submit();\n    }\n    \n    //新增\n    function init(){\n        var frm = document.forms[document.forms.length-1];\n        frm[\"method\"].value = \"init\";\n        frm.submit();\n    }\n    \n    //删除\n    function deleteRecord(){\n        if(window.confirm(\"是否确定要删除记录?\")){\n            var frm = document.forms[document.forms.length-1];\n            frm[\"method\"].value = \"delete\";\n            frm.submit();\n        }\n    }\n    \n    \n    /**********************************************************************************\n    * 页面初始化\n    **********************************************************************************/\n    function initPage(flag){\n        if( \"V\" == flag){\n            ACTION_OPERATE = flag\n            setFormView();\n        }\n    }\n    \n    \n    /**********************************************************************************\n    * 将编辑frm设置为视图模式\n    **********************************************************************************/\n    function setFormView(frm){\n        if(frm == undefined){\n            frm = document.forms[document.forms.length-1];\n        }\n        if(frm!=null && frm!=undefined){\n            var fields = getFieldName(frm);\n            for(var i = 0;i < fields.length; i++){\n                try{\n                    setHtmlElementView(frm[fields[i]]);\n                }catch(e){}\n            }\n        }\n    }\n    \n    /**********************************************************************************\n    * 设置用户定义的frm设置为视图模式\n    **********************************************************************************/\n    function setFormViewByFormName(frmName){\n        var frm = document.forms[frmName];\n        setFormView(frm);\n    }\n    \n    /**********************************************************************************\n    * 得到所有的frm元素的名字\n    **********************************************************************************/\n    function getFieldName(frm){\n        var els     = frm.elements;\n        var fields     = new Array();    \n        for(var i = 0;i < els.length; i++){\n            fields.push(els[i].name);\n        }\n        return fields;\n    }\n    \n    /**********************************************************************************\n    * 将 html实体 的输入转换为视图形式 \n    **********************************************************************************/\n    function setHtmlElementView(obj){\n        if(obj != null){\n            if(obj.length != undefined && obj.type == undefined){\n                for(var i=0;i<obj.length ;i++){\n                    if(obj[i].type == \"checkbox\" || obj[i].type == \"radio\"){\n                            obj = obj[i]\n                    }else{\n                        if(obj[i].type != \"hidden\"){\n                            obj = obj[i];\n                        }\n                    }\n                }\n            }\n            if(obj.type != undefined && obj.type != \"hidden\"){\n                try{\n                    setElemnentView(obj);\n                }catch(e){}\n            }\n        }\n    }\n    \n    /**********************************************************************************\n    * 将 html实体 的输入转换为视图形式 (核心方法)\n    **********************************************************************************/\n    function setElemnentView(obj, fulWidth){\n        var parent            = obj.parentNode;\n\n        var replaceArray     = new Array(); \n        var removeArray        = new Array();\n        \n        var childNodes      = parent.childNodes;\n        \n        var checkIndex        = 0;\n        var radioIndex         = 0;\n        \n        var checkTextBefore = false;\n        var radioTextBefore = false;\n        \n        for(var i = 0 ;i < childNodes.length;i++){\n        \n            var node = childNodes[i];\n            if(node.nodeType == 1){\n               if(node.tagName == \"INPUT\" && node.type != \"hidden\" && node.type != \"button\" && node.style.display != \"none\"){\n                    if( node.type != \"checkbox\" && node.type != \"radio\"){\n                        //不是 checkbox 和 radio 的input 控件\n                        var textAlign = node.style.textAlign;\n                        var conextNode     = createTextViewNode(node.value, {textAlign: textAlign, fulWidth: fulWidth,needPre : false});\n                        replaceArray.push({newNode:conextNode,oldNode:node});\n                    }else{\n                        if(node.type == \"checkbox\"){\n                            if(checkIndex == 0){\n                                checkTextBefore = isTextNodeBefore(node);\n                                checkIndex = 1;\n                            }\n                            //所有文本都需要remove掉\n                            var checkboxText = checkTextBefore ? node.previousSibling : node.nextSibling;\n                            removeArray.push(checkboxText);\n                            if(node.checked == true){\n                            	//选择的需要隐藏起来，保证该值仍然保存在页面上。\n                                var checkboxNode = createTextViewNode(checkboxText.nodeValue == null ? checkboxText.innerText : checkboxText.nodeValue,{textAlign: textAlign, fulWidth: fulWidth,needPre : false});\n                                replaceArray.push({newNode:checkboxNode,oldNode:node});\n                            }else{\n                            	 //没有选择的也同时需要remove掉。\n                            	 removeArray.push(node);\n                            }\n                        }else if(node.type == \"radio\"){\n                            if(radioIndex == 0){\n                                radioTextBefore = isTextNodeBefore(node);\n                                radioIndex = 1;\n                            }\n	                    	var content = radioTextBefore ? node.previousSibling : node.nextSibling;\n                            removeArray.push(content);    \n                            if(node.checked == true){\n                            	var conextNode = createTextViewNode(content.nodeValue == null ? content.innerText : content.nodeValue, {textAlign: textAlign, fulWidth: fulWidth,needPre : false});\n                            	replaceArray.push({newNode:conextNode,oldNode:node});\n                            }else{\n		                        removeArray.push(node);\n                            }                                                    \n                        }\n                    }\n                    \n                }else if(node.tagName == \"SELECT\" && node.style.display != \"none\"){\n                    var selectedcontext = node.options[node.selectedIndex].text;\n                    var textAlign = node.style.textAlign;\n                    var conextNode     = createTextViewNode(selectedcontext, {textAlign: textAlign, fulWidth: fulWidth,needPre : false});\n                    replaceArray.push({newNode:conextNode,oldNode:node});\n                    \n                }else if(node.tagName == \"TEXTAREA\"){\n                    var conextNode     = createTextViewNode(node.value);\n                    replaceArray.push({newNode:conextNode,oldNode:node});\n                }\n            }\n            \n        }\n        \n        for(var j =0 ;j< replaceArray.length;j++){\n            //parent.replaceChild(replaceArray[j].newNode, replaceArray[j].oldNode);\n            try{\n                parent.insertBefore(replaceArray[j].newNode, replaceArray[j].oldNode);\n                replaceArray[j].oldNode.style.display = \"none\";\n            }catch(e){    \n                \n            }\n        }\n        \n        for(var k =0 ;k< removeArray.length;k++){\n            parent.removeChild(removeArray[k]);\n        }\n            \n    }\n    \n    /**********************************************************************************\n    * 创建一个文本节点\n    **********************************************************************************/\n    function createTextViewNode(content, params){\n        var conextNode = document.createElement(\"FONT\");\n        if(params){\n            if (params && params.fulWidth) {\n                conextNode.style.width = \"100%\";\n            }\n            if (params && params.textAlign) {\n                conextNode.style.textAlign = params.textAlign;\n            }\n			if (params && !params.textAlign) {\n                conextNode.style.textAlign = \"left\";\n            }            \n        }\n		if(content == \"\"){\n			conextNode.innerHTML = \"&nbsp;\"\n		}else{\n			if(params && !params.needPre){\n				conextNode.innerHTML = content;\n			}else{\n				conextNode.innerHTML = '<pre>'+content+'</pre>';\n			}\n		}        \n        return conextNode;\n        \n    }\n    \n    /**********************************************************************************\n    * 判断该节点的文本节点在前还是后\n    **********************************************************************************/\n    function isTextNodeBefore(node){\n        var perviousNode     = node.previousSibling;\n        var nextNode         = node.nextSibling;\n        if(perviousNode){\n            if(perviousNode.nodeType == 3){\n                if(perviousNode.nodeValue.replace(/(^\\s*)|(\\s*$)/g, \"\") != \"\"){\n                    return true;\n                }else{\n                    if(nextNode){\n                        if(nextNode.nodeTypes == 3) {\n                            return false;\n                        }\n                        return true;\n                    }else{\n                        return true;\n                    }            \n                }\n            }\n            return false;\n        }\n        return false;\n    }\n\n\n\n    /**\n    * 窗口关闭\n    */\n    function windowClose(){\n        window.opener = null;\n        window.open('','_self');\n        window.close();\n    }\n    \n    /** 用于多选下拉框 **/\n	function showOptions(obj,id){\n		if(currentFocusPanel != null){\n			currentFocusPanel.style.display = 'none';\n		}\n		var optPanel = document.getElementById(id+'_options');\n		optPanel.style.display = 'block';\n		optPanel.focus();\n		currentFocusPanel = optPanel;\n	}\n			\n	function chooseOpt(obj,id,separator){\n		var cks = document.getElementsByName(id+'_ck');\n		var texts = '';\n		var values = '';\n		for(var i=0; i<cks.length;i++){\n			if(cks[i].checked){\n				texts += (cks[i].nextSibling.innerText || cks[i].nextSibling.textContent)+ ',';\n				values += cks[i].value + separator;\n			}\n		}\n		if(texts != ''){\n			texts = texts.substring(0,texts.lastIndexOf(','));\n		}\n		if(values != ''){\n			values = values.substring(0,values.lastIndexOf(separator));\n		}\n		var obj = document.getElementById(id);\n		obj.value = values;\n		document.getElementById(id+'_text').value = texts;\n		document.getElementById(id+'_options').style.display = 'none';\n		if(obj.onchange){\n			if(document.all){\n		       obj.fireEvent('onchange');\n		    }else{   \n		       var evt = document.createEvent('HTMLEvents');   \n		       evt.initEvent('change',true,true);   \n		       obj.dispatchEvent(evt);   \n		    }\n	    }\n	}\n	\n	\n	/************************************************************************\n	 * 配合nbean:scheckbox使用的js脚本\n	 * 为了在checkbox的值发生变化时能够保证与之关联的hidden的值发生相应的变化 \n	 ************************************************************************/\n	function clickSCheckbox(target,uncheckValue){\n		try{\n			var sname = target.name;\n			sname = sname.replace('scheckbox_','');     \n			if(target.checked){ \n				document.getElementById(sname).value = target.value;	\n			}else{ \n				document.getElementById(sname).value = uncheckValue;\n			}\n		}catch(exception){}  \n	}\n	\n	/**\n	 * 点击checkbox后将本组的checkbox的值拼接成一个字符串\n	 */\n	function clickMCheckbox(target,tid,separator){\n		try{\n			var val = target.value;\n			var tval = document.getElementById(tid).value;\n			if(target.checked){\n				if(tval == ''){ \n					tval = separator + val;\n				}else{\n					var array = tval.split(separator);\n					if(!hasElement(array,val)){  \n						tval += separator + val;\n					}\n				}   \n			}else{ \n				if(tval == val){\n					tval = '';\n				} \n			}\n			document.getElementById(tid).value = tval; \n		}catch(exce){\n			\n		}\n	}\n	\n	/**\n	 * 判断数组中是否存在某个元素 \n	 */\n	function hasElement(array,item){\n		try{\n			if((array == null) || (array == undefined)){\n				return false;\n			}\n			for(var i = 0;i<array.length;i++){\n				if(array[i] == item){\n					return true;\n				}\n			}\n		}catch(eee){     \n			return false;\n		}\n		return false;  \n	}\n    \n    /************************************************************\n    * 根据id或者name来查html实体(主要兼容浏览器)\n    *************************************************************/\n    function findObj(id){\n        var obj = null;\n        //通过id找\n        obj = document.getElementById(id);\n        \n        if(obj == null){\n            try{\n                //通过name来查找\n                obj = document.getElementsByName(id)[0];\n            }catch(e){}\n        }\n        \n        if(obj == null){\n            //通过表单查找\n            try{    \n                var frm = document.forms[document.forms.length-1];\n                obj     = frm[id];\n            }catch(e){}\n        }\n        return obj;\n    }\n    \n    /************************************************************\n    * 获取select 的文本内容\n    *************************************************************/\n    function getSelectedText(id,defaultv){\n        var selected = findObj(id);\n        \n        if(defaultv == undefined){\n            defaultv = \"\";\n        }\n        \n        if(selected.value != defaultv){\n            return selected.options[selected.selectedIndex].text;\n        }else{\n            return \"&nbsp;\";\n        }\n    }\n    \n    /************************************************************\n    * 为字符串添加startwith方法\n    *************************************************************/\n    String.prototype.startWith = function (startstr){\n        return DomUtils.String.startWith(this,startstr); \n    }\n\n\n    /************************************************************\n    * table操作工具js\n    *************************************************************/\n    var TableUtils = {};\n    \n    /************************************************************\n    * table插入表单操作\n    *************************************************************/\n    TableUtils.insert = function(obj){\n        if(typeof(obj)==\"object\"){\n            var table        = obj.table;\n            if(table == null && obj.tableID != undefined && findObj(obj.tableID) !=null){\n                table = findObj(obj.tableID);\n            }\n            \n            if(table == null || table.tagName == \"TBALE\"){\n                throw new Error(\"尚未配置操作的表单！\");\n            }\n            \n            TableUtils.table = table;\n            \n            var items = obj.fields;\n            var index = null;\n            if(items!=null && items.length > 0 ){\n                for(var i = 0 ;i<items.length;i++){\n                    var isKey    = items[i].isKey;\n                    if(isKey == true){\n                        index     = TableUtils.findKey(items[i].name,items[i].value,items[i].content,i);\n                        break;\n                    }\n                }\n                //判断是否能够找到该信息\n                if(index == null){\n                    obj.trID = TableUtils.executeFunction(obj.insert);\n                    TableUtils.addRow(items,obj);\n                }else{\n                    TableUtils.executeFunction(obj.update,TableUtils.table.rows[index].id);\n                    TableUtils.updateRow(items,index);\n                }\n                \n            }else{\n                throw new Error(\"尚未配置数据进行操作！\");\n            }\n        }else{\n            throw new Error(\"TableUtils.insert方法参数出错,请用Json表达式\");\n        }\n    }\n    \n    /************************************************************\n    * table表单查找操作\n    *************************************************************/\n    TableUtils.findKey = function(name,value,content,index){\n        if(TableUtils.table !=null){\n            var rowIndex = null;\n            try{\n                for(var i =0; i<TableUtils.table.rows.length;i++){\n                    var keyCell = TableUtils.table.rows[i].cells[index];\n                    var context    = keyCell.innerText || keyCell.textContent;\n                    //先判断文本内容是否相等,如果文本内容部存在则判断具体的隐藏域的值是否相等\n                    if(context == \"\" || context.trim() != content.trim()){\n                        var hidden = keyCell.getElementsByTagName(\"INPUT\");\n                        if(hidden != null && hidden.length>0){\n                            if(hidden[0].name == name && hidden[0].value == value){\n                                rowIndex = TableUtils.table.rows[i].rowIndex;\n                                break;\n                            }\n                        }\n                    }else if(context.trim() == content.trim() ){\n                        rowIndex = TableUtils.table.rows[i].rowIndex;\n                        break;\n                    }\n                }\n                return rowIndex;\n            }catch(e){\n                throw new Error(\"查看表单主键出错:\"+e.message);\n            }\n        }else{\n            throw new Error(\"没有获取表单对象\");\n        }\n    }\n    \n    /************************************************************\n    * table真正的插入表单操作\n    *************************************************************/\n    TableUtils.addRow = function(items,obj){\n        try{\n            if(items !=null && items.length != undefined && items.length >0){\n                var newTr = TableUtils.table.insertRow(-1);\n                newTr.ch    = \"T\";\n                newTr.id    = obj.trID;\n                for(var i = 0;i<items.length;i++){\n                    var newTd = newTr.insertCell(-1);\n                    newTd.axis = items[i].name;\n                    //控制是否显示\n                    newTd.style.display = items[i].show == false ? \"none\" : \"block\";\n                    //控制是否生成隐藏字段\n                    if(items[i].hidden != undefined && items[i].hidden == true){\n                        newTd.innerHTML = TableUtils.getHiddenHTML(items[i].name,items[i].value,items[i].content);\n                    }else{\n                        newTd.innerHTML = items[i].content ? items[i].content : items[i].value;\n                    }\n                    newTd.align = items[i].align ? items[i].align : \"left\";\n                }\n                var deleteTd = newTr.insertCell(-1);\n                deleteTd.innerHTML = TableUtils.getDeleteHTML(obj.trID,obj.del);\n            }else{\n                throw new Error(\"添加数据为空\");\n            }\n        }catch(e){\n            throw new Error(\"添加表中数据出错,检查数据格式是否正确:\"+e.message);\n        }\n    }\n    \n    /************************************************************\n    * table的更新操作\n    *************************************************************/\n    TableUtils.updateRow = function(items,index){\n        try{\n            if(items !=null && items.length != undefined && items.length >0){\n                var oldeTr = TableUtils.table.rows[index];\n                for(var i = 0;i<items.length;i++){\n                    var oldTd = oldeTr.cells[i];\n                    if(items[i].hidden != undefined && items[i].hidden == true){\n                        oldTd.innerHTML = TableUtils.getHiddenHTML(items[i].name,items[i].value,items[i].content);\n                    }else{\n                        oldTd.innerHTML = items[i].content ? items[i].content : items[i].value;\n                    }\n                }\n            }else{\n                throw new Error(\"更新数据为空\");\n            }\n        }catch(e){\n            throw new Error(\"更新数据格式是否正确:\"+e.message);\n        }\n    }\n    \n    \n    /************************************************************\n    * table的删除操作\n    *************************************************************/\n    TableUtils.deleteRow = function(obj){\n        var trObj = obj.parentNode.parentNode;\n        if(trObj.tagName.toUpperCase() != \"TR\" ){\n            throw new Error(\"删除表单行失败\");\n        }else{\n            if(!TableUtils.table){\n                var obj = trObj.parentNode.parentNode;\n                if(obj!=null && obj.tagName.toUpperCase() == \"TABLE\" ){\n                    TableUtils.table = obj;\n                }\n            }\n            try{\n                TableUtils.table.deleteRow(trObj.rowIndex);\n            }catch(e){\n                throw new Error(\"删除表单行出错！:\"+e.message);\n            }\n        }\n    }\n    \n    \n    \n    /************************************************************\n    * table的清空表单元素\n    *************************************************************/\n    TableUtils.clearData = function(obj){\n        try{\n            if(TableUtils.table == null && obj.tagName.toUpperCase() == \"TABLE\"){\n                TableUtils.table = obj;\n            }\n            \n            if(TableUtils.table){\n                //TableUtils.table.removeChild(TableUtils.table.tBodies[0]);\n                for(var i = 0 ;i<TableUtils.table.rows.length;i++){\n                    var trObj = TableUtils.table.rows[i];\n                    if(trObj.ch == \"T\"){\n                        TableUtils.table.deleteRow(trObj.rowIndex);\n                    }\n                }\n            }else{\n                throw new Error(\"尚未设置过操作的表单元素\");\n            }\n        }catch(e){\n            throw new Error(\"清空表单数据出错！\"+e.message);\n        }\n    }\n    \n    /************************************************************\n    * table的生成隐藏数据和内容\n    *************************************************************/\n    TableUtils.getHiddenHTML = function (name,value,content){\n        return \"&nbsp;\"+content+\"<input type='hidden' value='\"+value+\"' name='\"+name+\"' size='5'>\";\n    }\n    \n    \n    /************************************************************\n    * table的生成隐藏数据和内容\n    *************************************************************/\n    TableUtils.getDeleteHTML = function (id,obj){\n        var funct = \"TableUtils.deleteRow(this)\";\n        if(obj!=null && obj.functst !=undefined){\n            funct = obj.functst\n        }\n        return \"<a href='#' id='\"+id+\"' onclick='\"+funct+\";return false;'>删除</a>\";\n    }\n    \n    /************************************************************\n    * 执行设置的js function\n    *************************************************************/\n    TableUtils.executeFunction = function (obj,bh){\n        if(obj!=null && typeof(obj.funct) == \"function\"){\n            try{\n                return obj.funct(obj.args,bh);\n            }catch(e){\n                alert(e.message);\n            }\n        }\n    }\n    \n    \n    \n    \n    /************************************************************\n    * select 操作工具js\n    *************************************************************/\n    \n    /************************************************************\n    * select 得到select实体\n    *************************************************************/\n    DomUtils.select.getEntity = function(obj){\n        var selectElment = null;\n\n        if(typeof(obj) == \"object\"){\n            if(obj!=null && obj.tagName == \"SELECT\"){\n                selectElment = obj            \n            }else{\n                throw new Error(\"操作的Html实体必须为select\")\n            }\n        }else if(typeof(obj)==\"string\"){\n            selectElment = findObj(obj);\n            if(selectElment.tagName != \"SELECT\"){\n                throw new Error(\"操作的Html实体必须为select\");\n            }\n            if(selectElment == null){\n                throw new Error(\"未找到id或者name为：\"+obj+\" 的select\");\n            }\n        }\n        return selectElment;\n    }\n    \n    /************************************************************\n    * select 添加optionObj\n    *************************************************************/\n    DomUtils.select.addOptionObj = function(obj,optionObj){\n        try{\n            var selectObj = DomUtils.select.getEntity(obj);\n            if(optionObj!=null){\n                if(null == DomUtils.select.findOption(selectObj,optionObj.value)){\n                    selectObj.options[selectObj.options.length] = optionObj;;\n                }\n            }\n        }catch(e){\n            throw new Error(\"DomUtils.select.addOption:添加options实体出错:\"+e.message)\n        }\n    }\n    \n    /************************************************************\n    * select 添加option\n    *************************************************************/\n    DomUtils.select.addOption = function(obj,text,value){\n        try{\n            var selectObj = DomUtils.select.getEntity(obj);\n            if(null == DomUtils.select.findOption(selectObj,value)){\n                selectObj.options[selectObj.options.length] = new Option(text,value);\n            }\n        }catch(e){\n            throw new Error(\"DomUtils.select.addOption:添加options实体出错:\"+e.message)\n        }\n    }\n    \n    /************************************************************\n    * select 查找选中的option是否存在\n    *************************************************************/\n    DomUtils.select.findOption = function(obj,value){\n        try{\n            var selectObj = DomUtils.select.getEntity(obj);\n            for(var i = 0 ;i<selectObj.options.length;i++){\n                if(selectObj.options[i].value == value){\n                    return selectObj.options[i];\n                }\n            }\n            return null;\n        }catch(e){\n            throw new Error(e.message)\n        }\n    }\n    \n    /************************************************************\n    * select 查找选中的option根据Text\n    *************************************************************/\n    DomUtils.select.findOptionByText = function(obj,text){\n        try{\n            var selectObj = DomUtils.select.getEntity(obj);\n            for(var i = 0 ;i<selectObj.options.length;i++){\n                if(selectObj.options[i].text == text){\n                    return selectObj.options[i];\n                }\n            }\n            return null;\n        }catch(e){\n            throw new Error(e.message)\n        }\n    }\n    \n    /************************************************************\n    * select 删除选中的option\n    *************************************************************/\n    DomUtils.select.delOption = function(obj,noSelectedMessage){\n        try{\n            var selectObj = DomUtils.select.getEntity(obj);\n            if(selectObj.selectedIndex >= 0){\n                selectObj.remove(selectObj.selectedIndex)\n            }else{\n                throw new Error(\"请选择你要操作下列表的具体事项！\")\n            }\n        }catch(e){\n            throw new Error(e.message)\n        }\n    }\n    \n    /************************************************************\n    * select 获取选中的Text\n    *************************************************************/\n    DomUtils.select.getText = function(obj,defalutV){\n        try{\n            var selectObj = DomUtils.select.getEntity(obj);\n            if(selectObj.selectedIndex >= 0){\n                return getSelectedText(selectObj.id,defalutV);\n            }else{\n                throw new Error(\"请选择你要操作下列表的具体事项！\")\n            }\n        }catch(e){\n            throw new Error(e.message)\n        }\n    }\n    \n    /************************************************************\n    * select 获取选中的option 对象\n    *************************************************************/\n    DomUtils.select.getSelectedOption = function(obj){\n        try{\n            var selectObj = DomUtils.select.getEntity(obj);\n            if(selectObj.selectedIndex >= 0){\n                return selectObj.options[selectObj.selectedIndex]\n            }else{\n                throw new Error(\"请选择你要操作下列表的具体事项！\")\n            }\n        }catch(e){\n            throw new Error(e.message)\n        }\n    }\n    \n    /************************************************************\n    * select 获取option 对象 通过Value\n    *************************************************************/\n    DomUtils.select.getOptionByValue = function(obj,value){\n        try{\n            var selectObj = DomUtils.select.getEntity(obj);\n            for(var i = 0 ;i< selectObj.options.length; i++){\n                if(selectObj.options[i].value == value){\n                    return selectObj.options[i];\n                }\n            }\n            return null;\n        }catch(e){\n            throw new Error(\"根据【 \"+value+\" 】获取option对象出错：\"+e.message);\n        }\n    }\n    \n    /************************************************************\n    * select 获取选中所有的值\n    * div    分割字符\n    *************************************************************/\n    DomUtils.select.getAllValue = function(obj,div){\n        try{\n            var selectObj = DomUtils.select.getEntity(obj);\n            var values       = \"\";\n            if(selectObj.options && selectObj.options.length > 0){\n                values      = selectObj.options[0].value;    \n                for(var i = 1 ;i<selectObj.options.length;i++){\n                    values += div+selectObj.options[i].value;\n                }\n            }\n            return values;\n        }catch(e){\n            throw new Error(\"获取select的数据值出错：\"+e.message)\n        }\n    }\n    \n    /************************************************************\n    * 删除所有的options\n    *************************************************************/\n    DomUtils.select.clearOptions = function(obj){\n        try{\n            var selectObj = DomUtils.select.getEntity(obj);\n            selectObj.options.length = 0;\n        }catch(e){\n            throw new Error(\"删除所有options出错:\"+e.message)\n        }\n    }\n    \n    \n    \n    /************************************************************\n    * //select提示操作缓存\n    *************************************************************/\n    DomUtils.select.optionCache = {};\n    \n    /************************************************************\n    * //将数据放入到缓存中\n    * name : 定义在optionCache的属性名\n    * text : option 的 text\n    * value: option 的 value\n    * other: option 的 title\n    *************************************************************/\n    DomUtils.select.putOptionCache = function(name,text,value,other){\n        try{\n            if(DomUtils.select.optionCache[name+\"_options\"] == null){\n                DomUtils.select.optionCache[name+\"_options\"] = new Array();\n            }\n            var options = new Option(text,value);\n            options.title = other;\n            DomUtils.select.optionCache[name+\"_options\"].push(options);\n        }catch(e){\n            throw new Error(\"向缓存中添加数据出错！\"+e.message);            \n        }\n    }\n    \n    /************************************************************\n    * 将匹配的数据进行返回\n    *************************************************************/\n    DomUtils.select.appendMatchOptions = function(evt,name,hiddenInput){\n        var obj         = evt.srcElement ? evt.srcElement:evt.target; \n        evt             = (evt) ? evt : window.event;\n        if(evt.keyCode == 38 || evt.keyCode == 40){\n            var selectObj = findObj(name+\"_selects\");\n            if(selectObj!=null){\n                obj.blur();\n                selectObj.options[0].selected = true;\n                selectObj.focus();\n                return ;\n            }\n        }\n        \n        var showOptions = DomUtils.select.findOptionFromCache(name,obj.value);\n        \n        var div = findObj(name+\"_select_div\");\n        if(div == null){\n            div = document.createElement(\"DIV\");\n            div.id = name+\"_select_div\";\n            div.innerHTML = \"<select size=15 id='\"+name+\"_selects' onkeypress='DomUtils.select.keyHandler(event);'></select>\";\n            document.body.appendChild(div);\n        }\n        var selected     = findObj(name+\"_selects\");\n        \n        if(showOptions.length >0){\n            DomUtils.select.clearOptions(selected);\n            for(var j=0;j<showOptions.length;j++){\n                //showOptions[j].index = j;\n                DomUtils.select.addOptionObj(selected,showOptions[j]);\n            }\n            DomUtils.select.showMatchDiv(name,obj,div,selected,hiddenInput);\n        }else{\n            div.style.display = \"none\";\n            var otherObj = findObj(hiddenInput);\n            if(otherObj!=null){\n                findObj(hiddenInput).value = \"\";\n            }\n        }\n        \n    }\n    \n    /************************************************************\n    * 查找匹配的数据\n    *************************************************************/\n    DomUtils.select.findOptionFromCache = function(name,text){\n        var array = new Array();\n        var data  = DomUtils.select.optionCache[name+\"_options\"];\n        if(text !=\"\" && data != null && data.length > 0){\n            for(var i=0;i<data.length;i++){\n                if(data[i].text.indexOf(text.trim()) >= 0){\n                    array.push(data[i]);                \n                }\n            }\n        }\n        return array;\n    }\n    \n    \n    /************************************************************\n    * 显示数据\n    *************************************************************/    \n    DomUtils.select.showMatchDiv = function(name,obj,div,selected,hiddenInput){\n        var zb    = findRent(obj);\n        \n        selected.style.width      = obj.offsetWidth+\"px\";\n        div.style.top             = (zb.y+(obj.offsetHeight))+\"px\";\n        div.style.left             = zb.x+\"px\";\n        div.style.position         = \"absolute\";\n        div.style.display         = \"block\";\n        div.style.height         = \"200px\";\n        selected.style.border    = \"1px solid #eeeeee\";\n        selected.onclick        = function (){\n            obj.value = this.options[this.selectedIndex].text;\n            var otherObj = findObj(hiddenInput);\n            if(otherObj!=null){\n                findObj(hiddenInput).value = this.options[this.selectedIndex].value;;\n            }\n        }\n        selected.ondblclick        = function(){\n            this.onclick();\n            findObj(name+\"_select_div\").style.display = \"none\";\n        }\n    }\n    \n    /************************************************************\n    * 隐藏\n    *************************************************************/    \n    DomUtils.select.hideenMatchDiv = function(obj,name,hiddenInput){\n        if(findObj(hiddenInput).value == \"\"){\n            alert(\"您尚未选择需要的信息\");\n        }else{\n            findObj(name+\"_select_div\").style.display = \"none\";\n        }\n    }\n    \n    \n    \n    /************************************************************\n    * select的键盘事件\n    *************************************************************/    \n    DomUtils.select.keyHandler = function(evt){\n        var obj         = evt.srcElement ? evt.srcElement:evt.target; \n        evt             = (evt) ? evt : window.event;\n        var selectObj     = DomUtils.select.getEntity(obj);\n        if(evt.keyCode == 13){\n            obj.onclick();\n            obj.parentNode.style.display = \"none\";\n        }else if(evt.keyCode == 38){\n            try{\n                obj.options[selectObj.selectedIndex-1].selected = true;\n                obj.onclick();\n            }catch(e){}\n        }else if(evt.keyCode == 40){\n            try{\n                obj.options[selectObj.selectedIndex+1].selected = true;\n                obj.onclick();\n            }catch(e){}\n        }\n        \n    }\n    \n    \n    /***************************************************************\n    * 简易的将json字符串 转化为json对象\n    ****************************************************************/\n    DomUtils.json.format = function(jsonStr){\n        return eval('('+jsonStr+')');\n    }\n    \n    \n    /***************************************************************\n    * 判断字符串是否以什么startstr开始\n    ****************************************************************/\n    DomUtils.String.startWith = function(str,startstr){\n        try{\n            var startlength = startstr.trim().length;\n            var strlength     = str.length;\n            if(strlength >= startlength){\n                var matchstr = str.substring(0,startlength);\n                if(startstr.trim().toUpperCase() == matchstr.trim().toUpperCase()){\n                    return true;\n                }\n            }\n        }catch(e){\n            throw new Error(\"拓展String的startWith方法出错:\"+e.message);\n        }\n        return false;\n    }\n    \n    \n    \n    \n    \n        \n    /*****************************************************\n    *　获取控件的坐标:主要负责让显示的div在触发坐标附近显示\n    *****************************************************/\n    function findRent(htmlObj){\n        if(htmlObj){\n            var top        = htmlObj.offsetTop;   \n            var left    = htmlObj.offsetLeft;   \n            while(htmlObj = htmlObj.offsetParent) {   \n                top        += htmlObj.offsetTop;   \n                left    += htmlObj.offsetLeft;   \n            }\n            return  {x:left,y:top}; \n        }\n        return null;\n    }\n    \n    \n    /*******************************************************************************\n    *　ajax的删除方法用户(列表页面)\n    ********************************************************************************/\n    function delRecord(delUrl){\n    	var flag = false;\n        try{\n            var isComfirmDel = window.confirm(\"是否确定删除这条记录?\");\n            if(isComfirmDel){\n                $.ajax({   \n                        url:  delUrl,  \n                        type: 'POST',\n                        async: false,\n                        dataType: 'json',\n                        success:function(data){ \n                                    if(data!=null && data.result == true){\n                                        //window.location.href = window.location.href;\n                                        frm = document.forms[document.forms.length-1];\n                                        frm.submit();  \n                                    }\n                                },   \n                        error: function(){\n                                    alert('删除请求失败，请确定url是否正确');\n                                    return flag;    \n                                }\n                    });  \n             }\n             flag = isComfirmDel;\n        }catch(e){\n            alert(\"确认是否引入Jquery,请引入相关js文件:\"+e.message);\n        }\n        return flag;\n    }\n    \n    /*******************************************************************************\n    *　添加按钮(列表页面)\n    ********************************************************************************/\n    function newRecord(actionPath){\n        window.location.href = ctx+actionPath+\"?method=init\";\n    }\n\n    \n/*******************************编写DomUtils.table工具类**********************************************************/\n    \n    /*******************************************************************************\n    * 存放操作的table对象\n    *\n    ********************************************************************************/\n    DomUtils.table.tableCache = new Array();\n    \n    /*******************************************************************************\n    * 存放需要提交的表单元素\n    ********************************************************************************/\n    DomUtils.table.formItems = null;\n    \n    \n    /*******************************************************************************\n    *　从tableCache中获取当前操作的table对象\n    *     \n    *\n    *\n    ********************************************************************************/\n    DomUtils.table.getTable = function (tableObj){\n        var tableinfo = null;\n        if(this.tableCache.length > 0){\n            for(var i = 0 ; i<this.tableCache.length; i++){\n                var tableSource = this.tableCache[i];\n                if(tableSource.table == tableObj){\n                    return tableSource;\n                }\n            }\n        }\n        return tableinfo\n    }\n    \n    /*******************************************************************************\n    *　得到当前操作的tr对象\n    *     \n    *\n    *\n    ********************************************************************************/\n    DomUtils.table.getTr = function (obj){\n        try{\n            var  tr = null;\n            while(obj.tagName != \"TD\" && obj.tagName != \"TR\"){\n                obj = obj.parentNode;\n            }\n            if(obj.tagName == \"TD\"){\n                tr = obj.parentNode;\n            }else{\n                tr = obj;\n            }\n            return tr;\n        }catch(e){\n            alert(\"解析当前TR对象出错:\"+e.message);\n            throw new Error(\"解析当前TR对象出错:\"+e.message);\n        }\n    }\n    \n        \n    /*******************************************************************************\n    * 获取用户自定义的列进行解析\n    *\n    ********************************************************************************/\n    DomUtils.table.getDefinitionTr = function(tableObj){\n        for(var j=0;j<tableObj.rows.length;j++){\n            if(tableObj.rows[j].id == \"definition\"){\n                return tableObj.rows[j];\n            }\n        }\n        return tableObj.rows[0];\n    }\n    \n    /*******************************************************************************\n    *　添加当前操作的table对象到tableCache中\n    *     \n    *\n    *\n    ********************************************************************************/\n    DomUtils.table.addTable = function (tableObj){\n        try{\n            //存放所有需要编辑的值\n            var fieldsArray     = new Array();\n            \n            //所有隐藏但又有值的元素\n            var hiddensArray    = new Array();\n            \n            //获取表头元素并解析相关内容\n            var headtr = this.getDefinitionTr(tableObj);\n            \n            //解析表头所有隐藏的属性\n            var firstTd = headtr.cells[0];\n            if(firstTd.id != \"\"){\n                var hiddensObj = DomUtils.json.format(firstTd.id);\n                if(hiddensObj != undefined && hiddensObj.length > 0){\n                    for(var k =0;k<hiddensObj.length;k++){\n                        if(hiddensObj[k].name != undefined && hiddensObj[k].value != undefined ){\n                            hiddensArray.push(hiddensObj[k]);\n                        }\n                    }\n                }\n            }\n            \n            //解析具体的字段信息\n            for(var i = 1;i< headtr.cells.length-1;i++){\n                var cruuentTd = headtr.cells[i];\n                var tdtext      = cruuentTd.innerText || cruuentTd.textContent;\n                //依据表头的axis来获取表单对应的信息    \n                if(cruuentTd.id != \"\"){\n                    var defineInfo = DomUtils.json.format(cruuentTd.id);\n                    if(defineInfo.name != undefined){\n                        //判断字段是否是可以编辑的\n                        if(defineInfo.isEdit == undefined || defineInfo.isEdit == true){\n                            if(defineInfo.type == undefined){\n                                defineInfo.type = \"STRING\";\n                            }\n                            defineInfo.index = cruuentTd.cellIndex;\n                            fieldsArray.push(defineInfo);\n                        }else{\n                            if(defineInfo.value == undefined){\n                                defineInfo.value = \"\";\n                            }\n                            defineInfo.index = cruuentTd.cellIndex;\n                            hiddensArray.push(defineInfo);\n                        }\n                    }else{\n                        throw new Error(\"表头[\"+tdtext+\"]中尚未设置操作的字段名称！\");\n                    }\n                }\n            }\n            \n            //解析操作的table的主键和action,以及提交和更新的验证方法\n            var operateObj    = null;\n            var operateTD     = headtr.cells[headtr.cells.length-1];\n            if(operateTD.id != \"\"){\n                var operateinfo = DomUtils.json.format(operateTD.id);\n                if(operateinfo!= undefined && operateinfo.key !=undefined && operateinfo.actionURL != undefined){\n                    operateObj = operateinfo;\n                    operateObj.isValidate = false;\n                    if(operateinfo.validate != undefined){\n                        var isfunctionChar = operateinfo.validate.indexOf(\"(\");\n                        if(isfunctionChar >0 ){\n                            operateinfo.validate = operateinfo.validate.substring(0,isfunctionChar);\n                        }\n                        operateinfo.validate = operateinfo.validate.replace(\")\",\"\");\n                        operateinfo.isValidate = true;\n                    }\n                }else{\n                    throw new Error(\"必须同时设置提交的连接和提交的主键字段\");                    \n                }\n            }else{\n                throw new Error(\"表头尚未设置提交的连接和提交的主键字段\");\n            }\n            \n            var tableInfo = {table:tableObj,fields:fieldsArray,operate:operateObj,hidden:hiddensArray};\n            this.tableCache.push(tableInfo);\n            \n            return tableInfo\n        }catch(e){\n            throw new Error(\"添加表单信息,解析表头出错：\"+e.message);\n        }\n    }\n    \n    /*******************************************************************************\n    *　编写DomUtils.table工具类\n    *     \n    *\n    *\n    ********************************************************************************/\n    DomUtils.table.init = function (obj){\n        var trObj         = this.getTr(obj);\n        var tableObj     = trObj.parentNode.parentNode;\n        var tableInfo    = this.getTable(tableObj);\n        if(tableInfo == null){\n            try{\n                tableInfo = this.addTable(tableObj);\n            }catch(e){\n                alert(\"添加当前操作的table对象出错：\"+e.message);\n                throw new Error(\"添加当前操作的table对象出错：\"+e.message);\n            }\n        }\n        return tableInfo;\n    }\n    \n    \n    /*******************************************************************************\n    *　控制表单的展示为view或者是输入状态\n    * flag 控制展示的状态 true 输入，false为view\n    ********************************************************************************/\n    DomUtils.table.trans = function (trObj,tableinfo,flag){\n        //将编辑字段的转换\n        var fields    = tableinfo.fields;\n        var hiddens = tableinfo.hidden;\n        for(var i = 0 ;i < fields.length; i++){\n            var field     = fields[i];\n            var tdobj     = trObj.cells[field.index];\n            //判断是否转换为视图\n            if(!flag){\n                var tdinput = tdobj.childNodes;\n                var fulWidth = field.fulWidth;\n                if(tdinput!=null && tdinput.length > 0 ){\n                    setElemnentView(tdinput[0], fulWidth);\n                }\n            }else{\n                var tdtest         =     tdobj.innerText || tdobj.textContent;\n                tdtest = tdtest.trim();\n                //判断是否绑定其他html控件\n                if(field.source != undefined){\n                    var obj = findObj(field.source);\n                    if(obj!=null){\n                        var nobj     = obj.cloneNode(true);\n                        nobj.name     = field.name;\n                        \n                        //获取操作后隐藏的值\n                        var oldFieldObj = DomUtils.table.findObj(trObj,field.name);\n                        if(oldFieldObj != null){\n                            if(oldFieldObj.tagName == \"SELECT\"){\n                                tdtest = DomUtils.select.getSelectedOption(oldFieldObj).text;\n                            }else{\n                                tdtest = oldFieldObj.value;\n                            }\n                        }\n                        \n                        nobj.value = tdtest;\n                        if(nobj.tagName == \"SELECT\"){\n                            var option = DomUtils.select.findOptionByText(nobj,tdtest);\n                            if(option != null){\n                                option.selected = true;\n                            }\n                        }\n                        nobj.style.display = \"block\";\n                        nobj.style.width = \"100%\";\n                        tdobj.innerHTML = \"\";\n                        tdobj.appendChild(nobj);\n                    }\n                }else{\n                    var dataonclick = \"\";\n                    var maxlength = \"\";\n                    var textAlign = field.textAlign;\n                    var readonly = field.readonly;\n                    var styleClass = field.styleClass;\n                    //是否定义改变事件,用来校验重复数据。    \n                    var onchangeFire = field.onchange;\n                    if(field.type == \"DATE\"){\n                        dataonclick = \"ondblclick=\\\"calendar(this)\\\"\";\n                    }\n                    if(field.maxlength !=undefined ){\n                        var maxNum = parseInt(field.maxlength);\n                        if(Number.NaN != maxNum){\n                            maxlength = \"maxlength=\\\"\"+maxNum+\"\\\"\";\n                        }\n                    }\n                    var html    = \"<input name=\\\"\"+field.name+\"\\\"\" ;\n                        html    += field.title ?  \" title=\\\"\"+field.title+\"\\\"\" : \"\";\n                        html    += \" onchange=\\\"\";\n                        html    += onchangeFire?onchangeFire+\"(this,'\"+field.name+\"');\":\"\"; \n                        html    += \"return checkValid(this, '\"+field.type.toUpperCase()+\"');\\\"\";   \n                        html    += \" style=\\\"width:100%\" + (textAlign ? (\"; text-align: \" + textAlign) : \"\") + \"\\\"\";\n                        html    += \" value=\\\"\" + tdtest + \"\\\"\" + (readonly ? \" readonly=\\\"readonly\\\"\" : \"\");\n                        html    += \" class=\\\"\" + styleClass + \"\\\"\";\n                        html    += \" \" + dataonclick;\n                        html    += \" \" + maxlength;\n                        html    += \" />\";   \n                    tdobj.innerHTML = html; \n                }\n            }\n        }\n        \n        //将隐藏字段显示出来\n        for(var k=0;k< hiddens.length;k++){\n            var hidden = hiddens[k];\n            if(hidden.index != undefined){\n                var tdObj = trObj.cells[hidden.index];\n                if(hidden.value !== ''){\n                    tdObj.innerHTML = hidden.value;\n                }     \n            }\n        }\n        \n    }\n    \n    \n    \n    /*******************************************************************************\n    *　编写DomUtils.table工具类\n    *     \n    *\n    *\n    ********************************************************************************/\n    DomUtils.table.add = function (tableInfo,rowsnum){\n        var tableObj = findObj(tableInfo);\n        var tables      = this.getTable(tableObj);\n        if(rowsnum != undefined){\n            rowsnum    = parseInt(rowsnum);\n            if(Number.NaN == rowsnum){\n                alert(\"请输入具体的数字来表示要添加多少行,[\"+rowsnum+\" ]不是数字\");\n                throw new Error(\"请输入具体的数字来表示要添加多少行,[\"+rowsnum+\"] 不是数字\");\n            }\n        }else{\n            rowsnum = 1;\n        }\n        \n        //重新解析\n        if(tables ==null){\n            tables = this.addTable(tableObj);\n        }\n        \n        if(tables!=null){\n            var defTr = this.getDefinitionTr(tableObj);\n            var tdCount = defTr.cells.length;\n            for(var i=0;i<rowsnum;i++){\n                var newTr = tableObj.insertRow(-1);\n                \n                var cell = newTr.insertCell(-1);\n                cell.align = \"center\";\n                cell.innerHTML = tableObj.rows.length - 1;\n                \n                for(var j=1;j< tdCount-1;j++){\n                    var ncell = newTr.insertCell(-1);\n                    var text  = document.createTextNode(\" \");\n                    ncell.appendChild(text);\n                }\n                \n                this.trans(newTr,tables,true);\n                \n                var nncell = newTr.insertCell(-1);\n                nncell.align = \"center\";\n                var linkHTML = \"&nbsp;<a href=\\\"#\\\" class=\\\"icoSave\\\" title=\\\"保存\\\" onclick=\\\"DomUtils.table.save(this); return false;\\\">&nbsp;&nbsp;&nbsp;&nbsp;</a>\";\n                    linkHTML += \"&nbsp;&nbsp;&nbsp;\";\n                    linkHTML += \"<a href=\\\"#\\\" class=\\\"icodel\\\" title=\\\"删除\\\" onclick=\\\"DomUtils.table.del(this);return false;\\\">&nbsp;&nbsp;&nbsp;&nbsp;</a>\";\n                nncell.innerHTML = linkHTML;\n            }\n        }else{\n            alert(\"未找到操作对象[\"+tableInfo+\"]\");\n            throw new Error(\"未找到操作对象[\"+tableInfo+\"]\");\n        }\n    }\n    \n    \n    /*******************************************************************************\n    *　编写DomUtils.table工具类\n    *  重写add方法        \n    *  cellnum表示在列数，cellnr表示在该列显示的内容\n    *\n    ********************************************************************************/\n    DomUtils.table.add = function (tableInfo,rowsnum,cellnum1,cellnr1,cellnum2,cellnr2,cellnum3,cellnr3){\n        var tableObj = findObj(tableInfo);\n        var tables      = this.getTable(tableObj);\n        if(rowsnum != undefined){\n            rowsnum    = parseInt(rowsnum);\n            if(Number.NaN == rowsnum){\n                alert(\"请输入具体的数字来表示要添加多少行,[\"+rowsnum+\" ]不是数字\");\n                throw new Error(\"请输入具体的数字来表示要添加多少行,[\"+rowsnum+\"] 不是数字\");\n            }\n        }else{\n            rowsnum = 1;\n        }\n        \n        //重新解析\n        if(tables ==null){\n            tables = this.addTable(tableObj);\n        }\n        \n        if(tables!=null){\n            var defTr = this.getDefinitionTr(tableObj);\n            var tdCount = defTr.cells.length;\n            var tHead = tableObj.tHead;\n            var headRows = (tHead && tHead.rows ? tHead.rows.length : 0);\n            for(var i=0;i<rowsnum;i++){\n                var newTr = tableObj.insertRow(-1);\n                \n                var cell = newTr.insertCell(-1);\n                cell.align = \"center\";\n                cell.innerHTML = tableObj.rows.length - headRows;\n                \n                for(var j=1;j< tdCount-1;j++){\n                    var ncell = newTr.insertCell(-1);\n                    if(j===cellnum1){\n                        ncell.align=\"center\";\n                        if(cellnr1.constructor==Array){\n                            ncell.innerHTML=cellnr1[i];\n                        }else{\n                            ncell.innerHTML=cellnr1;\n                        }    \n                    }\n                    if(cellnum2!=='undefined'&&j===cellnum2){\n                        ncell.align=\"center\";\n                        if(cellnr2.constructor==Array){\n                            ncell.innerHTML=cellnr2[i];\n                        }else{\n                            ncell.innerHTML=cellnr2;\n                        }    \n                    }\n                    if(cellnum3!=='undefined'&&j===cellnum3){\n                        ncell.align=\"center\";\n                        if(cellnr3.constructor==Array){\n                            ncell.innerHTML=cellnr3[i];\n                        }else{\n                            ncell.innerHTML=cellnr3;\n                        }    \n                    }\n                    var text  = document.createTextNode(\" \");\n                    ncell.appendChild(text);\n                }\n                this.trans(newTr,tables,true);\n                \n                var nncell = newTr.insertCell(-1);\n                nncell.align = \"center\";\n                var display = DomUtils.table.params.display;\n                var linkHTML = \"&nbsp;<a href=\\\"#\\\" class=\\\"icoSave\\\"\" + (display ? \" style=\\\"display: \" + display + \"\\\"\" : \"\") + \" title=\\\"保存\\\" onclick=\\\"DomUtils.table.save(this); return false;\\\">&nbsp;&nbsp;&nbsp;&nbsp;</a>\";\n                    linkHTML += \"&nbsp;\" + (display ? \"\" : \"&nbsp;&nbsp;\");  \n                    linkHTML += \"<a href=\\\"#\\\" class=\\\"icodel\\\" title=\\\"删除\\\" onclick=\\\"DomUtils.table.del(this);return false;\\\">&nbsp;&nbsp;&nbsp;&nbsp;</a>\";\n                nncell.innerHTML = linkHTML;    \n            } \n        }else{\n            alert(\"未找到操作对象[\"+tableInfo+\"]\");\n            throw new Error(\"未找到操作对象[\"+tableInfo+\"]\");\n        }\n    }\n    \n    /*******************************************************************************\n    *　编写DomUtils.table工具类\n    *     \n    *\n    *\n    ********************************************************************************/\n    DomUtils.table.edit = function (obj){\n        var  tableinfo     = this.init(obj);\n        var  trObj         = this.getTr(obj);\n        this.trans(trObj,tableinfo,true);\n        obj.className = \"icoSave\";\n        obj.title = \"保存\"\n        obj.onclick = function (){\n            DomUtils.table.save(this);\n            return false;\n        }\n    }\n    \n    /*******************************************************************************\n    *　编写DomUtils.table工具类\n    *     \n    *\n    *\n    ********************************************************************************/\n    DomUtils.table.save = function (obj){\n        var  tableinfo     = this.init(obj);\n        var  trObj         = this.getTr(obj);\n        var  flag         = false;\n        if(!this.isEmptyData(trObj, tableinfo) & this.validate(trObj,tableinfo)){\n        	this.parseTableInfo();\n            //根据tr的id来判断是进行ajax提交操作\n            if(trObj.id == \"\"){\n                flag = this.ajaxInsert(tableinfo.operate,trObj);\n            }else{\n                flag = this.ajaxUpdate(tableinfo.operate,trObj);\n            }\n            var display = DomUtils.table.params.display;\n            if(flag && display != 'none'){\n                this.trans(trObj,tableinfo,false);\n                obj.className = \"icoEdit\";\n                obj.title = \"编辑\"\n                obj.onclick = function (){\n                    DomUtils.table.edit(this);\n                    return false;\n                }\n                if(DomUtils.table.saveApdater){\n                    DomUtils.table.saveApdater(obj);\n                }\n            }\n        }\n        return flag;\n    }\n    \n    /*******************************************************************************\n    *　编写DomUtils.table工具类\n    *     \n    *\n    *\n    ********************************************************************************/\n    DomUtils.table.del  = function (obj){\n        var flag           = true;\n        var trObj          = this.getTr(obj);\n        var tableinfo      = this.init(obj);\n        if(trObj.id != \"\"){\n            var isSure = window.confirm(\"是否确定要删除这条记录\"); \n            if(isSure){\n                flag = this.ajaxdel(tableinfo.operate,trObj);\n            }else{\n                flag = false;\n            }\n        }\n        if(flag){\n            tableinfo.table.deleteRow(trObj.rowIndex); \n        }\n        return flag;\n    }\n    \n    /*******************************************************************************\n    *　编写表单保存的验证工具类\n    *     \n    *\n    *\n    ********************************************************************************/\n    DomUtils.table.isEmptyData = function(trObj, tableinfo) {\n        var flag = true;\n        this.formItems = {};\n        var fields = tableinfo.fields;\n        var hiddens = tableinfo.hidden;\n        var operat = tableinfo.operate;\n        \n        // 验证所有需要提交数据\n        for ( var i = 0; i < fields.length; i += 1) {\n            var field = fields[i];\n            var tdobj = trObj.cells[field.index];\n            var tdinput = tdobj.childNodes;\n            if (tdinput != null && tdinput.length > 0) {\n                if (tdinput[0].value && \"\" !== tdinput[0].value.trim()) {\n                    flag = false;\n                    break;\n                }\n            }\n        }\n        return flag;\n    }\n    \n    /*******************************************************************************\n     *　编写表单保存的验证工具类\n     *     \n     *\n     *\n     ********************************************************************************/\n    DomUtils.table.validate = function (trObj,tableinfo){\n        var flag = true;\n        this.formItems = {};\n        var fields    = tableinfo.fields;\n        var hiddens = tableinfo.hidden;\n        var operat     = tableinfo.operate;\n        var valid = true;\n        //验证所有需要提交数据\n        for(var i = 0 ;i<fields.length;i++){\n            var field     = fields[i];\n            var tdobj     = trObj.cells[field.index];\n            var tdinput = tdobj.childNodes;\n            if(tdinput!=null && tdinput.length > 0 ){\n                var formitem = tdinput[0];\n                this.formItems[formitem.name] = formitem.value;\n                this.formItems[formitem.name+\"Obj\"] = formitem;\n                \n                if(field.must !=undefined && field.must == true){\n                    if(formitem.value.trim() == \"\"){\n                        Validation.showError(formitem, \"必须填写\");\n                        valid = false;\n                    }else{\n                        Validation.hideError(formitem);\n                    }\n                }else if(formitem.value.trim() == \"\" ){\n                	//验证其他非必填元素输入空格时重新赋值为空\n                	formitem.value = \"\";\n                }\n                \n                if(valid && formitem.tagName!=\"SELECT\" && formitem.onchange){\n                    var message = formitem.onchange();\n                    if(message != undefined){\n                        Validation.showError(formitem, message);\n                        flag = false;\n                    }else{\n                        Validation.hideError(formitem);\n                    }\n                }\n            }\n        }\n        \n        if(!valid){\n        	return false;\n        }\n        \n        //验证通过后将隐藏字段加入表单元素中\n        if(flag){\n            for(var k = 0 ; k<hiddens.length ;k++){\n                this.formItems[hiddens[k].name] = hiddens[k].value;\n            }\n        }\n        \n        //调用自定义的ajax验证\n        if(flag && operat.isValidate){\n            try{\n                var obj  = eval(operat.validate+\"(this.formItems)\");\n                if(obj != undefined && 'boolean' == typeof(obj)){\n                    flag = obj;\n                }else{\n                    throw new Error(\"用户自定义的[\"+operat.validate+\"]验证方法未设置返回true Or false,程序继续无法执行！\");\n                }\n            }catch(e){\n                flag = false;\n                alert(e.message);\n                throw new Error(\"调用用户自定义方法出错：\"+e.message);\n            }\n        }\n        \n        return flag;            \n    }\n    \n    /*******************************************************************************\n     *　解析表信息\n    ********************************************************************************/\n    DomUtils.table.parseTableInfo = function(){\n    	var databaseTableName = findObj('databaseTableName');\n       	if(databaseTableName){\n       		this.formItems['bean.databaseTableName'] = databaseTableName.value;\n       	}\n       	var databaseTablePk = findObj('databaseTablePk');\n       	if(databaseTablePk){\n       		this.formItems['bean.databaseTablePk'] = databaseTablePk.value;\n       	}\n       	var databaseTablePkSeq = findObj('databaseTablePkSeq');\n       	if(databaseTablePkSeq){\n       		this.formItems['bean.databaseTablePkSeq'] = databaseTablePkSeq.value;\n       	}\n    }\n    \n    /*******************************************************************************\n    *　解析主键\n    ********************************************************************************/\n    DomUtils.table.parseKey = function(operate,trObj){\n        var keys     = operate.key;\n        var values     = trObj.id;\n        //判断是否有多个主键\n        if(keys.indexOf(\",\")>0){\n            try{\n                var keysArray = keys.split(\",\");\n                var valuesArray = values.split(\",\");\n                for(var i =0;i<keysArray.length;i++){\n                    this.formItems[keysArray[i]] = valuesArray[i];\n                }\n            }catch(e){\n                alert(\"表单操作的主键设置出错！\")\n                throw new Error(\"表单操作的主键设置出错！\");\n            }\n        }else{\n            this.formItems[keys] = values;\n        }\n    }\n    \n    /*******************************************************************************\n    *　查找单行数据\n    ********************************************************************************/\n    DomUtils.table.findObj = function(objs,key){\n        var obj = null;\n        try{\n            var  trObj         = null;\n            if(objs!=null && objs.tagName != undefined && objs.tagName == \"TR\"){\n                 trObj = objs;\n            }else{\n                 trObj = this.getTr(objs);\n            }\n            var  inputs     = trObj.getElementsByTagName(\"INPUT\");\n            if(inputs!=null && inputs.length > 0){\n                for(var i = 0 ; i<inputs.length;i++){\n                    if(inputs[i].name == key){\n                        return inputs[i];\n                    }\n                }\n            }\n            var  selects    = trObj.getElementsByTagName(\"SELECT\");\n            if(selects!=null && selects.length > 0){\n                for(var j = 0 ; j<selects.length;j++){\n                    if(selects[j].name == key){\n                        return selects[j];\n                    }\n                }\n            }\n            \n            var  texts     = trObj.getElementsByTagName(\"TEXTAREA\");\n            if(texts!=null && texts.length > 0){\n                for(var k = 0 ; k<texts.length;k++){\n                    if(texts[k].name == key){\n                        return texts[k];\n                    }\n                }\n            }\n        }catch(e){\n            throw new Error(\"查找单行数据出错：\"+e.message);\n        }\n        return obj;\n    }\n    \n    /*******************************************************************************\n    *　一次性保存table中所有信息 调用格式 DomUtils.table.saveAll(tableID)\n    * 调用个方法的实体如果是<a></a> 并且在需要操作的table中，那么它的className(样式)不能为 icoSave 否则死循环\n    * throwError 为true 抛出异常，默认不抛\n    * isignore   为true 运行出错仍然执行并记录错误数量,默认有错停止\n    * 返回的对象的属性 runNumber 正确执行的数量 errorNumber：错误执行的数量 totalNumber:需要执行的数量\n    ********************************************************************************/\n    DomUtils.table.saveAll = function(tableInfo,throwError,isignore){\n        var resultObj    = {runNumber:0,errorNumber:0};\n        try{\n            //运行正确的数量\n            var runNum = 0;\n            //运行失败的数量\n            var errorNum = 0;\n            //获取保存操作对象\n            var handlerArray = DomUtils.table.fireLinksByClassName(tableInfo,\"icoSave\");\n            //实际需要执行的条数\n            resultObj.totalNumber = handlerArray.length;\n            for(var i = 0;i<handlerArray.length;i++){\n                var flag = DomUtils.table.save(handlerArray[i]);\n                if(flag){\n                    runNum++;\n                }else{\n                    errorNum++;\n                    //设置是否忽略错误继续执行,默认停止\n                    if(isignore == true){\n                        continue;\n                    }else{\n                        break;\n                    }\n                }\n            }\n            resultObj.runNumber = runNum;\n            resultObj.errorNumber = errorNum;\n        }catch(e){\n            if(throwError == true){\n                throw new Error(\"表单多个提交出错：\"+e.message);\n            }\n        }\n        return resultObj;\n    }\n    \n    /*******************************************************************************\n    *　一次性编辑table中所有信息 调用格式 DomUtils.table.editAll(tableID)\n    * 调用个方法的实体如果是<a></a> 并且在需要操作的table中，那么它的className(样式)不能为 icoEdit 否则死循环\n    ********************************************************************************/\n    DomUtils.table.editAll = function(tableInfo){\n        try{\n            var handlerArray = DomUtils.table.fireLinksByClassName(tableInfo,\"icoEdit\");\n            for(var i = 0;i<handlerArray.length;i++){\n                var editObj = handlerArray[i];\n                editObj.onclick();\n            }\n        }catch(e){\n            throw new Error(\"表单多个编辑出错：\"+e.message);\n        }\n    }\n    \n    /*******************************************************************************\n    *　获取table中操作的links对象\n    ********************************************************************************/\n    DomUtils.table.fireLinksByClassName = function(tableInfo,className){\n        try{\n            var handlerArray = new Array();\n            var tableObj = findObj(tableInfo);\n            if(tableObj == null){\n                throw new Error(\"无法获取当前操作的table,请传入需要操作的table ID\");\n            }\n            //获取table中所有的A实体\n            var aLinks = tableObj.getElementsByTagName(\"A\");\n            if(aLinks!=null && aLinks.length>0){\n                 for(var i=0;i<aLinks.length;i++){\n                     var alinkObj = aLinks[i];\n                     if(alinkObj.className == className){\n                         handlerArray.push(alinkObj);\n                     }\n                 }\n            }\n            return handlerArray;\n        }catch(e){\n            throw new Error(\"调用相关Link对象事件错误：\"+e.message); \n        }\n    }\n    \n    \n    \n        \n    /*******************************************************************************\n    *　ajax插入数据\n    ********************************************************************************/\n    DomUtils.table.ajaxInsert = function(operate,trObj){\n        var flag = false;\n        try{\n        	var submitUrl = ''; \n        	if((operate.actionURL).indexOf('?') > 0){\n        		submitUrl = operate.actionURL+'&method=ajaxInsert';\n        	}else{\n        		submitUrl = operate.actionURL+'?method=ajaxInsert';   \n        	}         \n            $.ajax({   \n                    url      : submitUrl,   \n                    type     : 'POST',\n                    data     : this.formItems,\n                    async    : false,\n                    dataType : 'json',\n                    success     : function(data){ \n                                 if(data!=null && data.result == true){\n                                    trObj.id = data.bh; \n                                    flag = true;\n                                 }else{\n                                     alert(\"添加失败:\"+(data.error !=undefined ? data.error:\"\"));\n                                 }\n                            },   \n                    error: function(){\n                                alert('添加失败，请确定url是否正确');    \n                            }\n                });  \n        }catch(e){\n            alert(\"确认是否引入Jquery,请引入相关js文件:\"+e.message);\n        }\n        return flag;\n    }\n        \n    /*******************************************************************************\n    *　ajax更新数据\n    ********************************************************************************/\n    DomUtils.table.ajaxUpdate = function(operate,trObj){\n        var flag = false;\n        this.parseKey(operate,trObj);\n        try{\n        	var submitUrl = ''; \n        	if((operate.actionURL).indexOf('?') > 0){\n        		submitUrl = operate.actionURL+'&method=ajaxUpdate';\n        	}else{\n        		submitUrl = operate.actionURL+'?method=ajaxUpdate';   \n        	} \n            $.ajax({    \n                     url     : submitUrl,    \n                    type     : 'POST',\n                    data     : this.formItems,\n                    async    : false,\n                    dataType : 'json',\n                    success     : function(data){ \n                                 if(data!=null && data.result == true){\n                                     flag = true;\n                                 }else{\n                                     alert('更新失败:'+(data.error !=undefined ? data.error:\"\"));\n                                 }\n                            },   \n                    error: function(){\n                                alert('更新失败，请确定url是否正确');    \n                            }\n                });  \n        }catch(e){\n            alert(\"确认是否引入Jquery,请引入相关js文件:\"+e.message);\n        }\n        return flag;\n    }\n    \n    /*******************************************************************************\n    *　ajax删除数据\n    ********************************************************************************/\n    DomUtils.table.ajaxdel = function(operate,trObj){\n        var flag = false;\n        this.formItems = {};\n        this.parseKey(operate,trObj);\n        this.parseTableInfo();\n        if(this.formItems[\"bean.databaseTableName\"] == null){\n        	var tableObj   = trObj.parentNode.parentNode;\n            var headtr     = this.getDefinitionTr(tableObj);\n            var firstTd    = headtr.cells[0];\n            if(firstTd.id != \"\"){\n                var hiddensObj = DomUtils.json.format(firstTd.id);\n                if(hiddensObj != undefined && hiddensObj.length > 0){\n                    for(var k=0; k<hiddensObj.length; k++){\n                        if(hiddensObj[k].name == \"bean.databaseTableName\" && hiddensObj[k].value != undefined){\n                            this.formItems[\"bean.databaseTableName\"] = hiddensObj[k].value;\n                        }\n                    }\n                }\n            }\n        }\n        try{\n        	var submitUrl = ''; \n        	if((operate.actionURL).indexOf('?') > 0){\n        		submitUrl = operate.actionURL+'&method=ajaxDelete';\n        	}else{\n        		submitUrl = operate.actionURL+'?method=ajaxDelete';   \n        	}        \n            $.ajax({   \n                    url      : submitUrl,  \n                    type     : 'POST',\n                    data     : this.formItems,\n                    async    : false,\n                    dataType : 'json',\n                    success     : function(data){ \n                                 if(data!=null && data.result == true){\n                                     flag = true;\n                                 }else{\n                                     alert('删除失败:'+(data.error !=undefined ? data.error:\"\"));    \n                                 }\n                            },   \n                    error: function(){\n                                alert('删除失败，请确定url是否正确:');    \n                            }\n                });  \n        }catch(e){\n            alert(\"确认是否引入Jquery,请引入相关js文件:\"+e.message);\n        }\n        return flag;\n    }\n    \n    \n    /*********************************************************************\n 	* 用自定义的Json数据填充table\n    *********************************************************************/\n	DomUtils.table.initTable = function(tableId,data){\n		var tableObj = findObj(tableId);\n		var tables 	 = this.getTable(tableObj);\n		//重新解析\n		if(tables ==null){\n			tables = this.addTable(tableObj);\n			//重新获取数据\n			if(data == null && tables.operate.actionURL !=null ){\n				data = DomUtils.ajaxRequest(url);\n			}	\n		}\n		var fields = tables.fields;\n		\n		//清空原始数据\n		this.clearData(tableId);\n		\n		if(data !=null && data.length > 0){\n			for(var i = 0 ;i <data.length;i++){\n				var newTr = tableObj.insertRow(-1);\n				newTr.className = (i % 2 == 0) ? 'even' : '';\n				//判断是否需要生成序号\n				if(tables.operate.sequenceNumber!=false){\n					var newCell = newTr.insertCell(-1);\n					newCell.innerHTML = i+1;\n					newCell.align = \"center\";\n					newCell.nowrap =\"nowrap\";\n				}\n				\n				for(var j = 0 ; j<fields.length;j++){\n					var dataCell = newTr.insertCell(-1);   \n					dataCell.align = fields[j].align == undefined ? \"left\" :  fields[j].align;	\n					var value = data[i][fields[j].name];\n					\n					//应用设置的样式\n					if(fields[j].style!=undefined){\n						for(var sty in fields[j].style){\n							try{\n								dataCell.style[sty] = fields[j].style[sty];\n							}catch(e){}\n						}\n					}\n					\n					//调用遍历数据的适配器	\n					if(this.initTableAdapter){\n						value = this.initTableAdapter(data[i],fields[j].name);\n					}\n					\n					if(fields[j].type == \"DATE\" && typeof(value) == 'object'){\n						var year  = (1900+parseInt(value.year));\n						var month = value.month+1;\n						\n						var format = fields[j].format || \"yyyy-MM-dd HH:min:ss\";\n						var valuetmp = format.replace(\"yyyy\",year).replace(\"YYYY\",year);\n						var valuetmp = valuetmp.replace(\"MM\",month).replace(\"mm\",month);\n						var valuetmp = valuetmp.replace(\"dd\",value.date);\n						var valuetmp = valuetmp.replace(\"HH\",value.hours);\n						var valuetmp = valuetmp.replace(\"min\",value.minutes);\n						var valuetmp = valuetmp.replace(\"ss\",value.seconds);\n						value = valuetmp;\n					}\n					dataCell.innerHTML = value == \"\" ? \"&nbsp;\" : value;				\n				}\n			}\n		}\n	}\n	\n	\n	\n	\n	/*********************************************************************\n	 * 清空table的数据\n	 *********************************************************************/\n	DomUtils.table.clearData = function(tableId){\n		var tableObj = findObj(tableId);\n		var oldlength = tableObj.rows.length;\n		for(var k = oldlength-1;k > -1;k--){\n			var tr = tableObj.rows[k];\n			if(tr.parentNode.tagName !== \"THEAD\"){\n				tableObj.deleteRow(tr.rowIndex);\n			}\n		}\n		var newlength = tableObj.rows.length;\n		window.status = \"new:\"+newlength+\" old:\"+oldlength;\n	}\n    \n    \n	/*********************************************************************\n	 * ajax相关操作(暂负责所有ajax请求的操作)\n	 *********************************************************************/\n	DomUtils.ajaxRequest = function(requestURL,requestEntity){\n		//返回的对象\n		var backEntity = null;\n		if(requestURL == null || requestURL == ''){\n			alert(\"无法使用空的请求路径进行请求,请重新设置\");\n		}\n		//主要的请求数据\n		requestEntity 		= (requestEntity == undefined || requestEntity == null) ? {} : requestEntity;\n		var requestType 	= (requestEntity.ajax_type == undefined || requestEntity.ajax_type == null) ? \"POST\": requestEntity.ajax_type;\n		var requestAsync 	= (requestEntity.ajax_async == undefined || requestEntity.ajax_async == null) ? false: requestEntity.ajax_async;\n		var requestDataType = (requestEntity.ajax_dataType == undefined || requestEntity.ajax_dataType == null) ? \"json\": requestEntity.ajax_dataType;\n		var requesttimeout  = (requestEntity.ajax_timeout == undefined || requestEntity.ajax_timeout == null) ? null : requestEntity.ajax_timeout;\n		try{\n			var	 define = {   \n				        url      : requestURL,  \n				        type     : requestType,\n				        async    : requestAsync,\n				        data     : requestEntity,\n				        dataType : requestDataType,\n				        success	 : function(data){ \n			        			 	backEntity = data;\n				        		},      \n				        error: function(date){\n				        			throw new Error(\"进行AJAX请求[\"+requestURL+\"]出错[\" + date +\"]！\");\n								}\n				    }\n			if(requesttimeout !=null &&　parseInt(requesttimeout) != NaN){\n			   define.timeout = requesttimeout; \n			}\n			//进行ajax调用\n			$.ajax(define);     \n			return backEntity;\n		 }catch(e){\n		 	throw new Error(e.message);  \n		 }\n	}\n	\n	/*******************************************************************************\n    *　ajax的删除方法用户(列表页面),根据主键删除记录\n    *  为了配合半自动表单没有Action的情况而出现的\n    ********************************************************************************/\n	DomUtils.ajaxDelete = function(params,url){\n		var flag = false;\n        try{\n            var isComfirmDel = window.confirm(\"是否确定删除这条记录?\");\n            if(isComfirmDel){\n            	var delUrl = ctx + '/pages/platform/config/ajax.jsp?method=ajaxDelete&' + params;\n            	if(url){\n            		delUrl = url + '&' + params;\n            	}\n                $.ajax({   \n                        url:  delUrl,  \n                        type: 'POST',\n                        async: false,\n                        dataType: 'json',\n                        success : function(data){ \n                            if(data.result == 'success'){\n                                frm = document.forms[document.forms.length-1];\n                                frm.submit();  \n                            }else{\n                            	alert(data.msg);\n                            }\n                        },   \n                        error: function(){\n                            alert('删除请求失败，请确定传入的参数是否正确!');\n                            return flag;    \n                        }\n                    });  \n             }\n             flag = isComfirmDel;\n        }catch(e){\n            alert(\"确认是否引入Jquery,请引入相关js文件:\"+e.message);\n        }\n        return flag;\n	}\n	\n	\n	/*******************************************************************************\n    *　ajax的验证方法,验证数据表中是否存在该条数据\n    *  返回0表示不存在,返回1表示已存在\n    ********************************************************************************/\n	DomUtils.isExist = function(params){\n		var isExist = '';\n        try{\n          	var url = ctx + '/pages/platform/config/ajax.jsp?method=isExist&' + params;\n          	url = encodeURI(url);\n            $.ajax({   \n                 url:  url,  \n                 type: 'POST',\n                 async: false,\n                 dataType: 'json',\n                 success : function(data){ \n                     if(data.result == 'fail'){\n                       	alert(data.msg);\n                       	return false;\n                     }else{\n                     	isExist = data.isExist;\n                     }\n                 },   \n                 error: function(){\n                     alert('验证请求失败，请确定传入的参数是否正确!');\n                     return false;\n                 }\n            });  \n        }catch(e){\n            alert(\"确认是否引入Jquery,请引入相关js文件:\"+e.message);\n            return false;\n        }\n        return isExist;\n	}\n	\n	DomUtils.addFavorite = function(obj){\n		var url = ctx + '/pages/platform/favorites/contentsAdd.jsp?favBt='+obj.title.encodeUrlParam()+'&favDz='+obj.location.encodeUrlParam();\n		window.showModalDialog(url,window,\"dialogWidth:400px;dialogHeight:200px;\");\n	} \n	\n	DomUtils.selectUser = function(obj,type){\n		var sFeatures = \"dialogHeight:480px;dialogWidth:510px;scroll:on;\";\n		var url = ctx + \"/pages/platform/workflow/userTree.jsp\";\n		var arr = window.showModalDialog(url, (type == undefined ||  type == null) ? \"C\" : type, sFeatures);\n		if(arr){\n			var names = new Array();\n			for (var i in arr) {\n				names.push(arr[i].name);	\n			}\n			findObj('cyr').value = names.join(\",\");\n		}\n	}\n",
+			"file": "Test.html",
 			"settings":
 			{
-				"buffer_size": 89286,
+				"buffer_size": 1530,
 				"line_ending": "Windows"
+			}
+		},
+		{
+			"contents": "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n    <meta charset=\"UTF-8\">\n    <title>Document</title>\n    <script>\n    function test () {\n        var checkbox = document.getElementsByName(\"test\");\n        var t = \"\";\n        for (var i = 0; i < checkbox.length; i++) {\n            if(checkbox[i].checked){\n                \n                t+=checkbox[i].value+',';\n            }\n           \n        };\n        if(t!=\"\"){\n            t=t.substr(0,t.length-1);\n        }\n        console.info(t);\n        \n    }\n    </script>\n</head>\n<body>\n    <button onclick=\"test()\">test</button>\n    <input type=\"checkbox\" name=\"test\" value=\"1\" checked=\"true\">1</input>\n    <input type=\"checkbox\" name=\"test\" value=\"2\">2</input>\n    <input type=\"checkbox\" name=\"test\" value=\"3\">3</input>\n    <input type=\"checkbox\" name=\"test\" value=\"4\">4</input>\n    <input type=\"checkbox\" name=\"test\" value=\"5\">5</input>\n    <input type=\"checkbox\" name=\"test\" value=\"6\">6</input>\n    <input type=\"checkbox\" name=\"test\" value=\"7\">7</input>\n    <input type=\"checkbox\" name=\"test\" value=\"8\">8</input>\n</body>\n</html>",
+			"file": "个人/多选框值组成一个字符串.html",
+			"file_size": 1101,
+			"file_write_time": 130543628479498499,
+			"settings":
+			{
+				"buffer_size": 1076,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "个人/dom.html",
+			"settings":
+			{
+				"buffer_size": 409,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "/C/Users/Yuan/Documents/My Knowledge/temp/519561/14.10.11.md-519608.md",
+			"settings":
+			{
+				"buffer_size": 33,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "事件监听以及事件冒泡.html",
+			"settings":
+			{
+				"buffer_size": 672,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"contents": "create table T_JCGL_PWSF_YSBVOCPF\n(\n  fqsbxh        VARCHAR2(50) not null,\n  sbxh          VARCHAR2(50),\n  pwkbh         VARCHAR2(50),\n  pftsl         NUMBER(6),\n  fqclsbzedgl   NUMBER(10,3),\n  fqclsbydzl    NUMBER(10,3),\n  dyjcbgfqwywnd NUMBER(10,3),\n  jbzsbs        NUMBER(2),\n  jbzsyy        VARCHAR2(200),\n  bz            VARCHAR2(200),\n  cjr           VARCHAR2(50),\n  cjsj          DATE,\n  xgr           VARCHAR2(50),\n  xgsj          DATE,\n  orgid         VARCHAR2(50),\n  ydzfflag      VARCHAR2(1),\n  dtflag        CHAR(1),\n  jsff          VARCHAR2(50),\n  fqll          NUMBER(10,3),\n  pfsj          NUMBER(10,3)\n)\ntablespace TBS_EBCM_01\n  pctfree 10\n  initrans 1\n  maxtrans 255\n  storage\n  (\n    initial 64K\n    minextents 1\n    maxextents unlimited\n  );\n-- Add comments to the table \ncomment on table T_JCGL_PWSF_YSBVOCPF\n  is '月申报VOC排放';\n-- Add comments to the columns \ncomment on column T_JCGL_PWSF_YSBVOCPF.fqsbxh\n  is '废气申报序号';\ncomment on column T_JCGL_PWSF_YSBVOCPF.sbxh\n  is '申报序号';\ncomment on column T_JCGL_PWSF_YSBVOCPF.pwkbh\n  is '排污口编号';\ncomment on column T_JCGL_PWSF_YSBVOCPF.pftsl\n  is '排放筒数量';\ncomment on column T_JCGL_PWSF_YSBVOCPF.fqclsbzedgl\n  is '废气处理设备总额定功率';\ncomment on column T_JCGL_PWSF_YSBVOCPF.fqclsbydzl\n  is '废气处理设备用电总量';\ncomment on column T_JCGL_PWSF_YSBVOCPF.dyjcbgfqwywnd\n  is '当月监测报告废气污染物浓度';\ncomment on column T_JCGL_PWSF_YSBVOCPF.jbzsbs\n  is '加倍征收倍数';\ncomment on column T_JCGL_PWSF_YSBVOCPF.jbzsyy\n  is '加倍征收原因';\ncomment on column T_JCGL_PWSF_YSBVOCPF.bz\n  is '备注';\ncomment on column T_JCGL_PWSF_YSBVOCPF.cjr\n  is '创建人';\ncomment on column T_JCGL_PWSF_YSBVOCPF.cjsj\n  is '创建时间';\ncomment on column T_JCGL_PWSF_YSBVOCPF.xgr\n  is '修改人';\ncomment on column T_JCGL_PWSF_YSBVOCPF.xgsj\n  is '修改时间';\ncomment on column T_JCGL_PWSF_YSBVOCPF.orgid\n  is '组织代码';\ncomment on column T_JCGL_PWSF_YSBVOCPF.jsff\n  is '计算方法';\ncomment on column T_JCGL_PWSF_YSBVOCPF.fqll\n  is '废气流量';\ncomment on column T_JCGL_PWSF_YSBVOCPF.pfsj\n  is '排放时间';\n-- Create/Recreate primary, unique and foreign key constraints \nalter table T_JCGL_PWSF_YSBVOCPF\n  add constraint PK_FQSBXH primary key (FQSBXH)\n  using index \n  tablespace TBS_EBCM_01\n  pctfree 10\n  initrans 2\n  maxtrans 255\n  storage\n  (\n    initial 64K\n    minextents 1\n    maxextents unlimited\n  );\n\n\n-- 排污申报工艺废气子表\n-- Create table\n-- Create table\ncreate table T_JCGL_PWSF_YSBVOCPFZB\n(\n  sbxh   VARCHAR2(50),\n  pwkbh  VARCHAR2(50),\n  scfqlx VARCHAR2(50),\n  gyhjmc VARCHAR2(50),\n  yflmc  VARCHAR2(50),\n  yflxhl NUMBER(10,3),\n  xdcmj  NUMBER(10,3),\n  yxsj   NUMBER(10,3),\n  jqsslx VARCHAR2(50),\n  fqkzlx VARCHAR2(50),\n  bh     VARCHAR2(50) not null\n)\ntablespace TBS_EBCM_01\n  pctfree 10\n  initrans 1\n  maxtrans 255\n  storage\n  (\n    initial 64K\n    minextents 1\n    maxextents unlimited\n  );\n-- Add comments to the table \ncomment on table T_JCGL_PWSF_YSBVOCPFZB\n  is '月申报VOC排放子表';\n-- Add comments to the columns \ncomment on column T_JCGL_PWSF_YSBVOCPFZB.sbxh\n  is '申报序号';\ncomment on column T_JCGL_PWSF_YSBVOCPFZB.pwkbh\n  is '排污口编号';\ncomment on column T_JCGL_PWSF_YSBVOCPFZB.scfqlx\n  is '废气类型';\ncomment on column T_JCGL_PWSF_YSBVOCPFZB.gyhjmc\n  is '工艺环节名称';\ncomment on column T_JCGL_PWSF_YSBVOCPFZB.yflmc\n  is '原辅料名称';\ncomment on column T_JCGL_PWSF_YSBVOCPFZB.yflxhl\n  is '原辅料消耗量';\ncomment on column T_JCGL_PWSF_YSBVOCPFZB.xdcmj\n  is '洗渡槽面积';\ncomment on column T_JCGL_PWSF_YSBVOCPFZB.yxsj\n  is '运行时间';\ncomment on column T_JCGL_PWSF_YSBVOCPFZB.jqsslx\n  is '集气设施类型';\ncomment on column T_JCGL_PWSF_YSBVOCPFZB.fqkzlx\n  is '废气控制类型';\ncomment on column T_JCGL_PWSF_YSBVOCPFZB.bh\n  is '编号';\n-- Create/Recreate primary, unique and foreign key constraints \nalter table T_JCGL_PWSF_YSBVOCPFZB\n  add constraint PK_BH primary key (BH)\n  using index \n  tablespace TBS_EBCM_01\n  pctfree 10\n  initrans 2\n  maxtrans 255\n  storage\n  (\n    initial 64K\n    minextents 1\n    maxextents unlimited\n  );\n  \n  \n-- 排污申报增加菜单 \ninsert INTO t_pd_sys_function_query (SF_TYPE, SF_FUNC_ID, SF_FUNC_DESC, SF_FUN, SF_MENU_ID, SF_ORDER_NO, SF_OBJECT_NAME, SF_PARM, SF_PARM1, SF_PARM2, SF_PICTURE, SF_VALID, SF_OBJECT_NAME2, CJR, CJSJ, XGR, XGSJ, ORGID, XH)\nvalues ('pwsf_pwsb', '30000', '工艺废气', 'F', '20000', 4, null, 'd_pwsf_pwsbhd_fsfq;  dwbh in (select dwbh from jls_wry where isnull(sfsc,~\"0~\") = ~\"0~\" )', 'd_pwsf_pwsbhd_fsfq_fq', 'd_pwsf_pwsbhd_zygf', null, null, null, null, to_date('01-01-1900 23:59:59', 'dd-mm-yyyy hh24:mi:ss'), null, to_date('01-01-1900 23:59:59', 'dd-mm-yyyy hh24:mi:ss'), '440307', '79104b77-ae47-49bd-b0b8-84ca45c727b2');\n\n-- 废气控制措施\ninsert into T_COMN_GGDMZ (DMJBH, DM, DMNR, CJR, CJSJ, XGR, XGSJ, FDM, BZ, ORGID, PXM, SFYX)\nvalues ('fqkzcs', '01', '废气净化处理设备', null, null, null, null, '1', null, '440307', null, null);\n\ninsert into T_COMN_GGDMZ (DMJBH, DM, DMNR, CJR, CJSJ, XGR, XGSJ, FDM, BZ, ORGID, PXM, SFYX)\nvalues ('fqkzcs', '02', '废气净化处理设备+活性炭吸附', null, null, null, null, '1', null, '440307', null, null);\n\ninsert into T_COMN_GGDMZ (DMJBH, DM, DMNR, CJR, CJSJ, XGR, XGSJ, FDM, BZ, ORGID, PXM, SFYX)\nvalues ('fqkzcs', '03', '水帘柜', null, null, null, null, '1', null, '440307', null, null);\n\ninsert into T_COMN_GGDMZ (DMJBH, DM, DMNR, CJR, CJSJ, XGR, XGSJ, FDM, BZ, ORGID, PXM, SFYX)\nvalues ('fqkzcs', '04', '洗涤塔', null, null, null, null, '1', null, '440307', null, null);\n\ninsert into T_COMN_GGDMZ (DMJBH, DM, DMNR, CJR, CJSJ, XGR, XGSJ, FDM, BZ, ORGID, PXM, SFYX)\nvalues ('fqkzcs', '05', '活性炭吸附', null, null, null, null, '1', null, '440307', null, null);\n\ninsert into T_COMN_GGDMZ (DMJBH, DM, DMNR, CJR, CJSJ, XGR, XGSJ, FDM, BZ, ORGID, PXM, SFYX)\nvalues ('fqkzcs', '06', '直接燃烧', null, null, null, null, '1', null, '440307', null, null);\n\ninsert into T_COMN_GGDMZ (DMJBH, DM, DMNR, CJR, CJSJ, XGR, XGSJ, FDM, BZ, ORGID, PXM, SFYX)\nvalues ('fqkzcs', '07', '催化燃烧', null, null, null, null, '1', null, '440307', null, null);\n\ninsert into T_COMN_GGDMZ (DMJBH, DM, DMNR, CJR, CJSJ, XGR, XGSJ, FDM, BZ, ORGID, PXM, SFYX)\nvalues ('fqkzcs', '08', '低温等离子体', null, null, null, null, '1', null, '440307', null, null);\n\ninsert into T_COMN_GGDMZ (DMJBH, DM, DMNR, CJR, CJSJ, XGR, XGSJ, FDM, BZ, ORGID, PXM, SFYX)\nvalues ('fqkzcs', '09', '无治理设施', null, null, null, null, '2', null, '440307', null, null);\n\n-- 废气控制措施效率\ninsert into t_comn_ggdmz (DMJBH,  DMNR, DM, CJR, CJSJ, XGR, XGSJ, FDM, BZ, ORGID, PXM, SFYX)\nvalues ('fqxl', '0.99', '07', null, null, null, null, 'fqkzcs', null, '440307', null, null);\n\ninsert into t_comn_ggdmz (DMJBH,  DMNR, DM, CJR, CJSJ, XGR, XGSJ, FDM, BZ, ORGID, PXM, SFYX)\nvalues ('fqxl', '0.99', '06', null, null, null, null, 'fqkzcs', null, '440307', null, null);\n\ninsert into t_comn_ggdmz (DMJBH,  DMNR, DM, CJR, CJSJ, XGR, XGSJ, FDM, BZ, ORGID, PXM, SFYX)\nvalues ('fqxl', '0.7', '05', null, null, null, null, 'fqkzcs', null, '440307', null, null);\n\ninsert into t_comn_ggdmz (DMJBH,  DMNR, DM, CJR, CJSJ, XGR, XGSJ, FDM, BZ, ORGID, PXM, SFYX)\nvalues ('fqxl', '0.3', '04', null, null, null, null, 'fqkzcs', null, '440307', null, null);\n\ninsert into t_comn_ggdmz (DMJBH,  DMNR, DM, CJR, CJSJ, XGR, XGSJ, FDM, BZ, ORGID, PXM, SFYX)\nvalues ('fqxl', '0.15', '03', null, null, null, null, 'fqkzcs', null, '440307', null, null);\n\ninsert into t_comn_ggdmz (DMJBH,  DMNR, DM, CJR, CJSJ, XGR, XGSJ, FDM, BZ, ORGID, PXM, SFYX)\nvalues ('fqxl', '0.9', '02', null, null, null, null, 'fqkzcs', null, '440307', null, null);\n\ninsert into t_comn_ggdmz (DMJBH,  DMNR, DM, CJR, CJSJ, XGR, XGSJ, FDM, BZ, ORGID, PXM, SFYX)\nvalues ('fqxl', '0.9', '01', null, null, null, null, 'fqkzcs', null, '440307', null, null);\n\ninsert into t_comn_ggdmz (DMJBH,  DMNR, DM, CJR, CJSJ, XGR, XGSJ, FDM, BZ, ORGID, PXM, SFYX)\nvalues ('fqxl', '0.15', '08', null, null, null, null, 'fqkzcs', null, '440307', null, null);\n\ninsert into t_comn_ggdmz (DMJBH,  DMNR, DM, CJR, CJSJ, XGR, XGSJ, FDM, BZ, ORGID, PXM, SFYX)\nvalues ('fqxl', '0', '09', null, null, null, null, 'fqkzcs', null, '440307', null, null);\n\n\n\n-- 工艺环节名称\ninsert into t_comn_ggdmz (DMJBH, DM, DMNR, CJR, CJSJ, XGR, XGSJ, FDM, BZ, ORGID, PXM, SFYX)\nvalues ('GYHJ', '01', '电镀', null, null, null, null, '1', null, '440307', null, null);\n\ninsert into t_comn_ggdmz (DMJBH, DM, DMNR, CJR, CJSJ, XGR, XGSJ, FDM, BZ, ORGID, PXM, SFYX)\nvalues ('GYHJ', '03', '酸洗', null, null, null, null, '1', null, '440307', null, null);\n\ninsert into t_comn_ggdmz (DMJBH, DM, DMNR, CJR, CJSJ, XGR, XGSJ, FDM, BZ, ORGID, PXM, SFYX)\nvalues ('GYHJ', '04', '化学抛光', null, null, null, null, null, null, '440307', null, null);\n\ninsert into t_comn_ggdmz (DMJBH, DM, DMNR, CJR, CJSJ, XGR, XGSJ, FDM, BZ, ORGID, PXM, SFYX)\nvalues ('GYHJ', '05', '硫酸阳极氧化', null, null, null, null, '1', null, '440307', null, null);\n\ninsert into t_comn_ggdmz (DMJBH, DM, DMNR, CJR, CJSJ, XGR, XGSJ, FDM, BZ, ORGID, PXM, SFYX)\nvalues ('GYHJ', '09', '汽车制造行业表面涂装', null, null, null, null, '2', null, '440307', null, null);\n\ninsert into t_comn_ggdmz (DMJBH, DM, DMNR, CJR, CJSJ, XGR, XGSJ, FDM, BZ, ORGID, PXM, SFYX)\nvalues ('GYHJ', '11', '蚀刻/清洗', null, null, null, null, null, null, '440307', null, null);\n\ninsert into t_comn_ggdmz (DMJBH, DM, DMNR, CJR, CJSJ, XGR, XGSJ, FDM, BZ, ORGID, PXM, SFYX)\nvalues ('GYHJ', '12', '线路板行业印刷', null, null, null, null, '2', null, '440307', null, null);\n\ninsert into t_comn_ggdmz (DMJBH, DM, DMNR, CJR, CJSJ, XGR, XGSJ, FDM, BZ, ORGID, PXM, SFYX)\nvalues ('GYHJ', '13', '手机壳喷涂行业印刷', null, null, null, null, '2', null, '440307', null, null);\n\ninsert into t_comn_ggdmz (DMJBH, DM, DMNR, CJR, CJSJ, XGR, XGSJ, FDM, BZ, ORGID, PXM, SFYX)\nvalues ('GYHJ', '14', '家具制造行业表面涂装', null, null, null, null, '2', null, '440307', null, null);\n\ninsert into t_comn_ggdmz (DMJBH, DM, DMNR, CJR, CJSJ, XGR, XGSJ, FDM, BZ, ORGID, PXM, SFYX)\nvalues ('GYHJ', '15', '集装箱制造行业表面涂装', null, null, null, null, '2', null, '440307', null, null);\n\ninsert into t_comn_ggdmz (DMJBH, DM, DMNR, CJR, CJSJ, XGR, XGSJ, FDM, BZ, ORGID, PXM, SFYX)\nvalues ('GYHJ', '16', '自行车制造行业表面涂装', null, null, null, null, '2', null, '440307', null, null);\n\ninsert into t_comn_ggdmz (DMJBH, DM, DMNR, CJR, CJSJ, XGR, XGSJ, FDM, BZ, ORGID, PXM, SFYX)\nvalues ('GYHJ', '17', '手机壳喷涂行业表面涂装', null, null, null, null, '2', null, '440307', null, null);\n\ninsert into t_comn_ggdmz (DMJBH, DM, DMNR, CJR, CJSJ, XGR, XGSJ, FDM, BZ, ORGID, PXM, SFYX)\nvalues ('GYHJ', '18', '线路板行业电镀', null, null, null, null, null, null, '440307', null, null);\n\ninsert into t_comn_ggdmz (DMJBH, DM, DMNR, CJR, CJSJ, XGR, XGSJ, FDM, BZ, ORGID, PXM, SFYX)\nvalues ('GYHJ', '19', '电镀行业电镀', null, null, null, null, null, null, '440307', null, null);\n\n-- 废气类型\ninsert into t_comn_ggdmz (DMJBH, DM, DMNR, CJR, CJSJ, XGR, XGSJ, FDM, BZ, ORGID, PXM, SFYX)\nvalues ('FQLX', '01', '酸碱废气', null, null, null, null, null, null, '440307', null, null);\n\ninsert into t_comn_ggdmz (DMJBH, DM, DMNR, CJR, CJSJ, XGR, XGSJ, FDM, BZ, ORGID, PXM, SFYX)\nvalues ('FQLX', '02', '挥发性有机废气', null, null, null, null, null, null, '440307', null, null);\n\n-- 原辅料\ninsert into t_comn_ggdmz (DMJBH, DM, DMNR, CJR, CJSJ, XGR, XGSJ, FDM, BZ, ORGID, PXM, SFYX)\nvalues ('yflmc', 'anqi', '氨水/氨化物', null, null, null, null, null, null, '440307', null, null);\n\ninsert into t_comn_ggdmz (DMJBH, DM, DMNR, CJR, CJSJ, XGR, XGSJ, FDM, BZ, ORGID, PXM, SFYX)\nvalues ('yflmc', 'ghj', '固化剂', null, null, null, null, null, null, '440307', null, null);\n\ninsert into t_comn_ggdmz (DMJBH, DM, DMNR, CJR, CJSJ, XGR, XGSJ, FDM, BZ, ORGID, PXM, SFYX)\nvalues ('yflmc', 'gsg', '铬酸酐', null, null, null, null, null, null, '440307', null, null);\n\ninsert into t_comn_ggdmz (DMJBH, DM, DMNR, CJR, CJSJ, XGR, XGSJ, FDM, BZ, ORGID, PXM, SFYX)\nvalues ('yflmc', 'liusuan', '硫酸', null, null, null, null, null, null, '440307', null, null);\n\ninsert into t_comn_ggdmz (DMJBH, DM, DMNR, CJR, CJSJ, XGR, XGSJ, FDM, BZ, ORGID, PXM, SFYX)\nvalues ('yflmc', 'qhw', '氰化物', null, null, null, null, null, null, '440307', null, null);\n\ninsert into t_comn_ggdmz (DMJBH, DM, DMNR, CJR, CJSJ, XGR, XGSJ, FDM, BZ, ORGID, PXM, SFYX)\nvalues ('yflmc', 'xiaosuan', '硝酸', null, null, null, null, null, null, '440307', null, null);\n\ninsert into t_comn_ggdmz (DMJBH, DM, DMNR, CJR, CJSJ, XGR, XGSJ, FDM, BZ, ORGID, PXM, SFYX)\nvalues ('yflmc', 'xsj', '稀释剂', null, null, null, null, null, null, '440307', null, null);\n\ninsert into t_comn_ggdmz (DMJBH, DM, DMNR, CJR, CJSJ, XGR, XGSJ, FDM, BZ, ORGID, PXM, SFYX)\nvalues ('yflmc', 'yansuan', '盐酸', null, null, null, null, null, null, '440307', null, null);\n\ninsert into t_comn_ggdmz (DMJBH, DM, DMNR, CJR, CJSJ, XGR, XGSJ, FDM, BZ, ORGID, PXM, SFYX)\nvalues ('yflmc', 'yq', '油漆', null, null, null, null, null, null, '440307', null, null);\n\ninsert into t_comn_ggdmz (DMJBH, DM, DMNR, CJR, CJSJ, XGR, XGSJ, FDM, BZ, ORGID, PXM, SFYX)\nvalues ('yflmc', 'ysym', '文字油墨', null, null, null, null, null, null, '440307', null, null);\n\ninsert into t_comn_ggdmz (DMJBH, DM, DMNR, CJR, CJSJ, XGR, XGSJ, FDM, BZ, ORGID, PXM, SFYX)\nvalues ('yflmc', 'zhj', '阻焊油墨', null, null, null, null, null, null, '440307', null, null);\n\n-- 集气设施类型\ninsert into T_COMN_GGDMZ (DMJBH, DM, DMNR, CJR, CJSJ, XGR, XGSJ, FDM, BZ, ORGID, PXM, SFYX)\nvalues ('jqsslx', '01', '无集气设施', null, null, null, null, null, null, '440307', null, null);\n\ninsert into T_COMN_GGDMZ (DMJBH, DM, DMNR, CJR, CJSJ, XGR, XGSJ, FDM, BZ, ORGID, PXM, SFYX)\nvalues ('jqsslx', '02', '密封型负压集气设施带压力监测仪表', null, null, null, null, null, null, '440307', null, null);\n\ninsert into T_COMN_GGDMZ (DMJBH, DM, DMNR, CJR, CJSJ, XGR, XGSJ, FDM, BZ, ORGID, PXM, SFYX)\nvalues ('jqsslx', '03', '密封型负压集气设施不带压力监测仪表', null, null, null, null, null, null, '440307', null, null);\n\ninsert into T_COMN_GGDMZ (DMJBH, DM, DMNR, CJR, CJSJ, XGR, XGSJ, FDM, BZ, ORGID, PXM, SFYX)\nvalues ('jqsslx', '04', '外部型集气设施', null, null, null, null, null, null, '440307', null, null);\n\ninsert into T_COMN_GGDMZ (DMJBH, DM, DMNR, CJR, CJSJ, XGR, XGSJ, FDM, BZ, ORGID, PXM, SFYX)\nvalues ('jqsslx', '05', '包围型集气设施', null, null, null, null, null, null, '440307', null, null);\n\n-- 集气设施效率\ninsert into t_comn_ggdmz (DMJBH, DM, DMNR, CJR, CJSJ, XGR, XGSJ, FDM, BZ, ORGID, PXM, SFYX)\nvalues ('jqxl', '0.8', '05', null, null, null, null, 'jqsslx', null, '440307', null, null);\n\ninsert into t_comn_ggdmz (DMJBH, DM, DMNR, CJR, CJSJ, XGR, XGSJ, FDM, BZ, ORGID, PXM, SFYX)\nvalues ('jqxl', '0.6', '04', null, null, null, null, 'jqsslx', null, '440307', null, null);\n\ninsert into t_comn_ggdmz (DMJBH, DM, DMNR, CJR, CJSJ, XGR, XGSJ, FDM, BZ, ORGID, PXM, SFYX)\nvalues ('jqxl', '0.9', '03', null, null, null, null, 'jqsslx', null, '440307', null, null);\n\ninsert into t_comn_ggdmz (DMJBH, DM, DMNR, CJR, CJSJ, XGR, XGSJ, FDM, BZ, ORGID, PXM, SFYX)\nvalues ('jqxl', '1', '02', null, null, null, null, 'jqsslx', null, '440307', null, null);\n\ninsert into t_comn_ggdmz (DMJBH, DM, DMNR, CJR, CJSJ, XGR, XGSJ, FDM, BZ, ORGID, PXM, SFYX)\nvalues ('jqxl', '0', '01', null, null, null, null, 'jqsslx', null, '440307', null, null);\n\n-- 排污口类型\ninsert into t_comn_ggdmz (DMJBH, DM, DMNR, CJR, CJSJ, XGR, XGSJ, FDM, BZ, ORGID, PXM, SFYX)\nvalues ('144', '1', '工艺废气', null, null, null, null, null, null, '440307', null, null);\n\ninsert into t_comn_ggdmz (DMJBH, DM, DMNR, CJR, CJSJ, XGR, XGSJ, FDM, BZ, ORGID, PXM, SFYX)\nvalues ('144', '2', '燃烧废气', null, null, null, null, null, null, '440307', null, null);\n\n\n-- 酸雾物料表\ncreate table T_JCGL_PWSF_SWWLHSGX\n(\n  gymc   VARCHAR2(50) not null,\n  gymcdm VARCHAR2(50) not null,\n  wrw    VARCHAR2(50) not null,\n  hsgx   VARCHAR2(50),\n  wrwdm  VARCHAR2(50),\n  yflmc  VARCHAR2(50),\n  yfldm  VARCHAR2(50)\n)\ntablespace USERS\n  pctfree 10\n  initrans 1\n  maxtrans 255\n  storage\n  (\n    initial 64K\n    minextents 1\n    maxextents unlimited\n  );\n-- Add comments to the table \ncomment on table T_JCGL_PWSF_SWWLHSGX\n  is '无控制措施下的酸雾物料衡算关系';\n-- Add comments to the columns \ncomment on column T_JCGL_PWSF_SWWLHSGX.gymc\n  is '工艺名称';\ncomment on column T_JCGL_PWSF_SWWLHSGX.gymcdm\n  is '工艺名称代码';\ncomment on column T_JCGL_PWSF_SWWLHSGX.wrw\n  is '污染物';\ncomment on column T_JCGL_PWSF_SWWLHSGX.hsgx\n  is '物料衡算关系';\ncomment on column T_JCGL_PWSF_SWWLHSGX.wrwdm\n  is '污染物代码';\ncomment on column T_JCGL_PWSF_SWWLHSGX.yflmc\n  is '原辅料名称';\ncomment on column T_JCGL_PWSF_SWWLHSGX.yfldm\n  is '原辅料代码';\n-- Create/Recreate primary, unique and foreign key constraints \nalter table T_JCGL_PWSF_SWWLHSGX\n  add primary key (GYMC, GYMCDM, WRW)\n  using index \n  tablespace USERS\n  pctfree 10\n  initrans 2\n  maxtrans 255\n  storage\n  (\n    initial 64K\n    minextents 1\n    maxextents unlimited\n  );\n  \n -- 酸雾物料表数据\n insert into t_jcgl_pwsf_swwlhsgx (GYMC, GYMCDM, WRW, HSGX, WRWDM, YFLMC, YFLDM)\nvalues ('酸洗', '03', '盐酸雾', '0.006', 'a21024', '盐酸', 'yansuan');\n\ninsert into t_jcgl_pwsf_swwlhsgx (GYMC, GYMCDM, WRW, HSGX, WRWDM, YFLMC, YFLDM)\nvalues ('酸洗', '03', '硫酸雾', '0.001', 'a34039', '硫酸', 'liusuan');\n\ninsert into t_jcgl_pwsf_swwlhsgx (GYMC, GYMCDM, WRW, HSGX, WRWDM, YFLMC, YFLDM)\nvalues ('酸洗', '03', '氮氧化物', '0.008', 'a21002', '硝酸', 'xiaosuan');\n\ninsert into t_jcgl_pwsf_swwlhsgx (GYMC, GYMCDM, WRW, HSGX, WRWDM, YFLMC, YFLDM)\nvalues ('电镀', '01', '硫酸雾', '0.0002', 'a34039', '硫酸', 'liusuan');\n\ninsert into t_jcgl_pwsf_swwlhsgx (GYMC, GYMCDM, WRW, HSGX, WRWDM, YFLMC, YFLDM)\nvalues ('硫酸阳极氧化', '05', '硫酸雾', 'a34039', '2014', '硫酸', 'liusuan');\n\n-- 原辅料表\n-- Create table\ncreate table T_JCGL_PWSF_YFLSYLHSGX\n(\n  gymc   VARCHAR2(50),\n  gymcdm VARCHAR2(50) not null,\n  yflmc  VARCHAR2(50),\n  yfldm  VARCHAR2(50) not null,\n  wrwmc  VARCHAR2(50),\n  wrwdm  VARCHAR2(50) not null,\n  hsgx   VARCHAR2(50)\n)\ntablespace USERS\n  pctfree 10\n  initrans 1\n  maxtrans 255\n  storage\n  (\n    initial 64K\n    minextents 1\n    maxextents unlimited\n  );\n-- Add comments to the table \ncomment on table T_JCGL_PWSF_YFLSYLHSGX\n  is '原辅料使用量计算方式下的物料衡算关系';\n-- Add comments to the columns \ncomment on column T_JCGL_PWSF_YFLSYLHSGX.gymc\n  is '工艺名称';\ncomment on column T_JCGL_PWSF_YFLSYLHSGX.gymcdm\n  is '工艺名称代码';\ncomment on column T_JCGL_PWSF_YFLSYLHSGX.yflmc\n  is '原辅料名称';\ncomment on column T_JCGL_PWSF_YFLSYLHSGX.yfldm\n  is '原辅料代码';\ncomment on column T_JCGL_PWSF_YFLSYLHSGX.wrwmc\n  is '污染物名称';\ncomment on column T_JCGL_PWSF_YFLSYLHSGX.wrwdm\n  is '污染物代码';\ncomment on column T_JCGL_PWSF_YFLSYLHSGX.hsgx\n  is '衡算关系';\n-- Create/Recreate primary, unique and foreign key constraints \nalter table T_JCGL_PWSF_YFLSYLHSGX\n  add constraint PK_T_JCGL_PWSF_YFLSYLHSGX primary key (GYMCDM, YFLDM, WRWDM)\n  using index \n  tablespace USERS\n  pctfree 10\n  initrans 2\n  maxtrans 255\n  storage\n  (\n    initial 64K\n    minextents 1\n    maxextents unlimited\n  );\n\n-- 原辅料表数据\ninsert into t_jcgl_pwsf_yflsylhsgx (GYMC, GYMCDM, YFLMC, YFLDM, WRWMC, WRWDM, HSGX)\nvalues ('线路板行业电镀', '18', '氰化物', 'qhw', '氰化氢', 'a21017', '0.011');\n\ninsert into t_jcgl_pwsf_yflsylhsgx (GYMC, GYMCDM, YFLMC, YFLDM, WRWMC, WRWDM, HSGX)\nvalues ('电镀', '01', '铬酸酐', 'gsg', '铬酸雾', 'a34040', '0.018');\n\ninsert into t_jcgl_pwsf_yflsylhsgx (GYMC, GYMCDM, YFLMC, YFLDM, WRWMC, WRWDM, HSGX)\nvalues ('电镀行业电镀', '19', '氰化物', 'qhw', '氰化氢', 'a21017', '0.022');\n\ninsert into t_jcgl_pwsf_yflsylhsgx (GYMC, GYMCDM, YFLMC, YFLDM, WRWMC, WRWDM, HSGX)\nvalues ('化学抛光', '04', '硝酸', 'xiaosuan', '氮氧化物', 'a21002', '0.180');\n\ninsert into t_jcgl_pwsf_yflsylhsgx (GYMC, GYMCDM, YFLMC, YFLDM, WRWMC, WRWDM, HSGX)\nvalues ('蚀刻/清洗', '11', '氨水', 'anqi', '氨气', 'a21001', '0.091');\n\ninsert into t_jcgl_pwsf_yflsylhsgx (GYMC, GYMCDM, YFLMC, YFLDM, WRWMC, WRWDM, HSGX)\nvalues ('线路板', '12', '印刷油墨', 'ysym', '甲苯', 'a25003', '0.05');\n\ninsert into t_jcgl_pwsf_yflsylhsgx (GYMC, GYMCDM, YFLMC, YFLDM, WRWMC, WRWDM, HSGX)\nvalues ('手机壳喷涂', '13', '印刷油墨', 'ysym', '甲苯', 'a25003', '0.05');\n\ninsert into t_jcgl_pwsf_yflsylhsgx (GYMC, GYMCDM, YFLMC, YFLDM, WRWMC, WRWDM, HSGX)\nvalues ('家具制造', '14', '稀释剂', 'xsj', '笨', 'a25002', '0.02');\n\ninsert into t_jcgl_pwsf_yflsylhsgx (GYMC, GYMCDM, YFLMC, YFLDM, WRWMC, WRWDM, HSGX)\nvalues ('汽车制造', '09', '固化剂', 'ghj', '甲苯', 'a25003', '0.01');\n\ninsert into t_jcgl_pwsf_yflsylhsgx (GYMC, GYMCDM, YFLMC, YFLDM, WRWMC, WRWDM, HSGX)\nvalues ('汽车制造', '09', '固化剂', 'ghj', '二甲苯', 'a25005', '0.12');\n\ninsert into t_jcgl_pwsf_yflsylhsgx (GYMC, GYMCDM, YFLMC, YFLDM, WRWMC, WRWDM, HSGX)\nvalues ('家具制造', '14', '稀释剂', 'xsj', '二甲苯', 'a25005', '0.29');\n\ninsert into t_jcgl_pwsf_yflsylhsgx (GYMC, GYMCDM, YFLMC, YFLDM, WRWMC, WRWDM, HSGX)\nvalues ('家具制造', '14', '稀释剂', 'xsj', '甲苯', 'a25003', '0.05');\n\ninsert into t_jcgl_pwsf_yflsylhsgx (GYMC, GYMCDM, YFLMC, YFLDM, WRWMC, WRWDM, HSGX)\nvalues ('汽车制造', '09', '稀释剂', 'xsj', '甲苯', 'a25003', '0.01');\n\ninsert into t_jcgl_pwsf_yflsylhsgx (GYMC, GYMCDM, YFLMC, YFLDM, WRWMC, WRWDM, HSGX)\nvalues ('汽车制造', '09', '稀释剂', 'xsj', '二甲苯', 'a25005', '0.12');\n\ninsert into t_jcgl_pwsf_yflsylhsgx (GYMC, GYMCDM, YFLMC, YFLDM, WRWMC, WRWDM, HSGX)\nvalues ('集装箱制造', '15', '稀释剂', 'xsj', '甲苯', 'a25003', '0.12');\n\ninsert into t_jcgl_pwsf_yflsylhsgx (GYMC, GYMCDM, YFLMC, YFLDM, WRWMC, WRWDM, HSGX)\nvalues ('集装箱制造', '15', '稀释剂', 'xsj', '二甲苯', 'a25005', '0.1');\n\ninsert into t_jcgl_pwsf_yflsylhsgx (GYMC, GYMCDM, YFLMC, YFLDM, WRWMC, WRWDM, HSGX)\nvalues ('集装箱制造', '15', '固化剂', 'ghj', '甲苯', 'a25003', '0.12');\n\ninsert into t_jcgl_pwsf_yflsylhsgx (GYMC, GYMCDM, YFLMC, YFLDM, WRWMC, WRWDM, HSGX)\nvalues ('集装箱制造', '15', '固化剂', 'ghj', '二甲苯', 'a25005', '0.1');\n\ninsert into t_jcgl_pwsf_yflsylhsgx (GYMC, GYMCDM, YFLMC, YFLDM, WRWMC, WRWDM, HSGX)\nvalues ('集装箱制造', '15', '稀释剂', 'xsj', '甲醇', 'a30001', '0.02');\n\ninsert into t_jcgl_pwsf_yflsylhsgx (GYMC, GYMCDM, YFLMC, YFLDM, WRWMC, WRWDM, HSGX)\nvalues ('集装箱制造', '15', '固化剂', 'ghj', '甲醇', 'a30001', '0.02');\n\ninsert into t_jcgl_pwsf_yflsylhsgx (GYMC, GYMCDM, YFLMC, YFLDM, WRWMC, WRWDM, HSGX)\nvalues ('自行车制造', '16', '固化剂', 'ghj', '二甲苯', 'a25005', '0.15');\n\ninsert into t_jcgl_pwsf_yflsylhsgx (GYMC, GYMCDM, YFLMC, YFLDM, WRWMC, WRWDM, HSGX)\nvalues ('自行车制造', '16', '稀释剂', 'xsj', '二甲苯', 'a25005', '0.15');\n\ninsert into t_jcgl_pwsf_yflsylhsgx (GYMC, GYMCDM, YFLMC, YFLDM, WRWMC, WRWDM, HSGX)\nvalues ('手机壳喷涂', '17', '稀释剂', 'xsj', '甲苯', 'a25003', '0.11');\n\ninsert into t_jcgl_pwsf_yflsylhsgx (GYMC, GYMCDM, YFLMC, YFLDM, WRWMC, WRWDM, HSGX)\nvalues ('手机壳喷涂', '17', '稀释剂', 'xsj', '二甲苯', 'a25005', '0.05');\n\ninsert into t_jcgl_pwsf_yflsylhsgx (GYMC, GYMCDM, YFLMC, YFLDM, WRWMC, WRWDM, HSGX)\nvalues ('线路板', '12', '阻焊油墨', 'zhj', '甲苯', 'a25003', '0.05');\n\ninsert into t_jcgl_pwsf_yflsylhsgx (GYMC, GYMCDM, YFLMC, YFLDM, WRWMC, WRWDM, HSGX)\nvalues ('手机壳喷涂', '13', '稀释剂', 'xsj', '甲苯', 'a25003', '0.05');\n\ninsert into t_jcgl_pwsf_yflsylhsgx (GYMC, GYMCDM, YFLMC, YFLDM, WRWMC, WRWDM, HSGX)\nvalues ('家具制造', '14', '油漆', 'yq', '笨', 'a25002', '0.02');\n\ninsert into t_jcgl_pwsf_yflsylhsgx (GYMC, GYMCDM, YFLMC, YFLDM, WRWMC, WRWDM, HSGX)\nvalues ('家具制造', '14', '油漆', 'yq', '二甲苯', 'a25005', '0.29');\n\ninsert into t_jcgl_pwsf_yflsylhsgx (GYMC, GYMCDM, YFLMC, YFLDM, WRWMC, WRWDM, HSGX)\nvalues ('家具制造', '14', '油漆', 'yq', '甲苯', 'a25003', '0.05');\n\ninsert into t_jcgl_pwsf_yflsylhsgx (GYMC, GYMCDM, YFLMC, YFLDM, WRWMC, WRWDM, HSGX)\nvalues ('汽车制造', '09', '油漆', 'yq', '二甲苯', 'a25005', '0.12');\n\ninsert into t_jcgl_pwsf_yflsylhsgx (GYMC, GYMCDM, YFLMC, YFLDM, WRWMC, WRWDM, HSGX)\nvalues ('汽车制造', '09', '油漆', 'yq', '甲苯', 'a25003', '0.01');\n\ninsert into t_jcgl_pwsf_yflsylhsgx (GYMC, GYMCDM, YFLMC, YFLDM, WRWMC, WRWDM, HSGX)\nvalues ('集装箱制造', '15', '油漆', 'yq', '甲醇', 'a30001', '0.02');\n\ninsert into t_jcgl_pwsf_yflsylhsgx (GYMC, GYMCDM, YFLMC, YFLDM, WRWMC, WRWDM, HSGX)\nvalues ('集装箱制造', '15', '油漆', 'yq', '二甲苯', 'a25005', '0.1');\n\ninsert into t_jcgl_pwsf_yflsylhsgx (GYMC, GYMCDM, YFLMC, YFLDM, WRWMC, WRWDM, HSGX)\nvalues ('集装箱制造', '15', '油漆', 'yq', '甲苯', 'a25003', '0.12');\n\ninsert into t_jcgl_pwsf_yflsylhsgx (GYMC, GYMCDM, YFLMC, YFLDM, WRWMC, WRWDM, HSGX)\nvalues ('自行车制造', '16', '油漆', 'yq', '二甲苯', 'a25005', '0.15');\n\ninsert into t_jcgl_pwsf_yflsylhsgx (GYMC, GYMCDM, YFLMC, YFLDM, WRWMC, WRWDM, HSGX)\nvalues ('手机壳喷涂', '17', '油漆', 'yq', '二甲苯', 'a25005', '0.05');\n\ninsert into t_jcgl_pwsf_yflsylhsgx (GYMC, GYMCDM, YFLMC, YFLDM, WRWMC, WRWDM, HSGX)\nvalues ('手机壳喷涂', '17', '油漆', 'yq', '甲苯', 'a25003', '0.11');\n\ninsert into t_jcgl_pwsf_yflsylhsgx (GYMC, GYMCDM, YFLMC, YFLDM, WRWMC, WRWDM, HSGX)\nvalues ('线路板', '12', '稀释剂', 'xsj', '甲苯', 'a25003', '0.05');\n\ninsert into t_jcgl_pwsf_yflsylhsgx (GYMC, GYMCDM, YFLMC, YFLDM, WRWMC, WRWDM, HSGX)\nvalues ('家具制造', '14', '固化剂', 'ghj', '笨', 'a25002', '0.02');\n\ninsert into t_jcgl_pwsf_yflsylhsgx (GYMC, GYMCDM, YFLMC, YFLDM, WRWMC, WRWDM, HSGX)\nvalues ('家具制造', '14', '固化剂', 'ghj', '二甲苯', 'a25005', '0.29');\n\ninsert into t_jcgl_pwsf_yflsylhsgx (GYMC, GYMCDM, YFLMC, YFLDM, WRWMC, WRWDM, HSGX)\nvalues ('家具制造', '14', '固化剂', 'ghj', '甲苯', 'a25003', '0.05');\n\ninsert into t_jcgl_pwsf_yflsylhsgx (GYMC, GYMCDM, YFLMC, YFLDM, WRWMC, WRWDM, HSGX)\nvalues ('手机壳喷涂', '17', '固化剂', 'ghj', '甲苯', 'a25003', '0.11');\n\ninsert into t_jcgl_pwsf_yflsylhsgx (GYMC, GYMCDM, YFLMC, YFLDM, WRWMC, WRWDM, HSGX)\nvalues ('手机壳喷涂', '17', '固化剂', 'ghj', '二甲苯', 'a25005', '0.05');\n\n\n-- 更新当量值\nUPDATE T_COMN_WRWDM SET DLZ = 9.09 WHERE WRW = '氨' AND WRWLB='FQ';\nUPDATE T_COMN_WRWDM SET DLZ = 0.007 WHERE WRW = '铬酸雾' AND WRWLB='FQ';\n",
+			"file": "/C/Users/Yuan/Desktop/DP.SQL",
+			"file_size": 26445,
+			"file_write_time": 130574638172578789,
+			"settings":
+			{
+				"buffer_size": 24772,
+				"line_ending": "Windows",
+				"scratch": true
 			}
 		}
 	],
 	"build_system": "",
 	"command_palette":
 	{
-		"height": 152.0,
+		"height": 400.0,
 		"selected_items":
 		[
 			[
-				"javasc",
-				"Set Syntax: JavaScript"
+				"rena",
+				"File: Rename"
+			],
+			[
+				"MERGE",
+				"Sublimerge: Compare to Clipboard"
 			],
 			[
 				"node",
 				"SublimeREPL: Node"
 			],
 			[
-				"python",
-				"SublimeREPL: Python"
+				"astyle",
+				"SublimeAStyleFormmatter: Format Current Selection"
 			],
 			[
 				"pci",
 				"Package Control: Install Package"
 			],
 			[
-				"smctc",
-				"Sublimerge: Compare to Clipboard"
+				"pcl",
+				"Package Control: List Packages"
+			],
+			[
+				"emmet",
+				"Emmet: Wrap With Abbreviation"
+			],
+			[
+				"add",
+				"Git (SideBarGit): Add & Commit & Push…"
+			],
+			[
+				"add compu",
+				"Git (SideBarGit): Add & Commit & Push…"
+			],
+			[
+				"scheme",
+				"SublimeREPL: Scheme"
+			],
+			[
+				"ali",
+				"AlignTab"
+			],
+			[
+				"python",
+				"SublimeREPL: Python - IPython"
+			],
+			[
+				"plain text",
+				"Set Syntax: Plain Text"
+			],
+			[
+				"PALIN",
+				"Set Syntax: Plain Text"
+			],
+			[
+				"addcpu",
+				"Git (SideBarGit): Add & Commit & Push…"
+			],
+			[
+				"rename",
+				"File: Rename"
 			],
 			[
 				"merge",
+				"Sublimerge: Compare to Clipboard"
+			],
+			[
+				"alg",
+				"AlignTab"
+			],
+			[
+				"gitpull",
+				"Git (SideBarGit): Pull"
+			],
+			[
+				"linter lis",
+				"SublimeLinter: Lint This View"
+			],
+			[
+				"linter li",
+				"SublimeLinter: Lint This View"
+			],
+			[
+				"linterli",
+				"SublimeLinter: Lint This View"
+			],
+			[
+				"git colne",
+				"Git (SideBarGit): Clone…"
+			],
+			[
+				"linter list",
+				"SublimeLinter: Lint This View"
+			],
+			[
+				"linter",
+				"SublimeLinter: Lint This View"
+			],
+			[
+				"gitpush",
+				"Git (SideBarGit): Push"
+			],
+			[
+				"gitadd",
+				"Git (SideBarGit): Add & Commit…"
+			],
+			[
+				"SUBLIMERGE",
+				"Sublimerge: Compare to Clipboard"
+			],
+			[
+				"javasc",
+				"Set Syntax: JavaScript"
+			],
+			[
+				"smctc",
 				"Sublimerge: Compare to Clipboard"
 			],
 			[
@@ -259,10 +404,6 @@
 			[
 				"html",
 				"Set Syntax: HTML"
-			],
-			[
-				"add",
-				"Git (SideBarGit): Add & Commit…"
 			],
 			[
 				"plai",
@@ -359,10 +500,6 @@
 			[
 				"clisp",
 				"SublimeREPL: Clisp"
-			],
-			[
-				"scheme",
-				"SublimeREPL: Scheme"
 			],
 			[
 				"lisp",
@@ -525,10 +662,6 @@
 				"List bound keys"
 			],
 			[
-				"rename",
-				"File: Rename"
-			],
-			[
 				"tasks",
 				"Tasks: View as HTML"
 			],
@@ -547,14 +680,6 @@
 			[
 				"filed",
 				"FileDiffs: Menu"
-			],
-			[
-				"ali",
-				"AlignTab"
-			],
-			[
-				"pcl",
-				"Package Control: List Packages"
 			],
 			[
 				"local",
@@ -647,85 +772,9 @@
 			[
 				"sqle",
 				"SQLExec: List connections"
-			],
-			[
-				"SQLEXE",
-				"SQLExec: Execute"
-			],
-			[
-				"SQLE",
-				"SQLExec: Execute"
-			],
-			[
-				"keyconsing",
-				"FindKeyConflicts: Single Package Conflicts"
-			],
-			[
-				"sqlde",
-				"SQLExec: Desc Table"
-			],
-			[
-				"mark",
-				"Set Syntax: Markdown"
-			],
-			[
-				"markd",
-				"Set Syntax: Markdown"
-			],
-			[
-				"markdown",
-				"Set Syntax: Markdown"
-			],
-			[
-				"conflictsin",
-				"FindKeyConflicts: Single Package Conflicts"
-			],
-			[
-				"hint",
-				"JSHint"
-			],
-			[
-				"repl node",
-				"SublimeREPL: Node"
-			],
-			[
-				"replpy",
-				"SublimeREPL: Python"
-			],
-			[
-				"spli",
-				"MultiEditUtils: Split selection"
-			],
-			[
-				"muli",
-				"MultiEditUtils: Split selection"
-			],
-			[
-				"multi",
-				"MultiEditUtils: Split selection"
-			],
-			[
-				"mult",
-				"MultiEditUtils: Cycle through regions"
-			],
-			[
-				"mul",
-				"MultiEditUtils: Normalize region ends"
-			],
-			[
-				"mu",
-				"MultiEditUtils: Add last selection"
-			],
-			[
-				"conf",
-				"FindKeyConflicts: Single Package Conflicts"
-			],
-			[
-				"browser",
-				"File: Open In Browser - Testing Server"
 			]
 		],
-		"width": 472.0
+		"width": 672.0
 	},
 	"console":
 	{
@@ -747,11 +796,53 @@
 	"expanded_folders":
 	[
 		"/D/Code/Web",
+		"/D/Code/Web/Css",
 		"/D/Code/Web/Html",
+		"/D/Code/Web/Html/个人",
 		"/D/Code/Web/JS"
 	],
 	"file_history":
 	[
+		"/C/Users/Yuan/Documents/My Knowledge/temp/34826958/14.9.30.md-34826973.md",
+		"/C/Users/Yuan/Desktop/sql server数据库工艺废气/工艺废气项目Sql Server 语句.sql",
+		"/C/Users/Yuan/Documents/My Knowledge/temp/5385388/14.10.10.md-5385388.md",
+		"/C/Users/Yuan/Desktop/Oracle数据库工艺废气/另一套污染物代码插入数据.sql",
+		"/C/Users/Yuan/Desktop/Oracle数据库工艺废气/工艺废气项目Oracle数据库工艺废气语句.sql",
+		"/C/Users/Yuan/Desktop/转排污收费数据/转排污收费数据/转排污收费.sql",
+		"/C/Users/Yuan/Documents/My Knowledge/temp/1138651/14.9.29.md-1138651.md",
+		"/C/Users/Yuan/Documents/My Knowledge/temp/5354859/Oracle常用函数.md-5354874.md",
+		"/C/Users/Yuan/Desktop/SQLQuery2.sql",
+		"/C/Program Files/Sublime Text 3/Data/Packages/EasyMotion/Default (Windows).sublime-keymap",
+		"/D/Code/Web/Html/Test.html",
+		"/D/Code/Web/Html/时间监听以及时间冒泡.html",
+		"/C/Users/Yuan/Documents/My Knowledge/temp/12350365/14.9.30.md-12350365.md",
+		"/D/Code/Web/JS/Test.java",
+		"/D/Code/Web/JS/t.sass",
+		"/D/Code/Web/Html/terminal.glue",
+		"/C/Users/Yuan/Desktop/t.txt",
+		"/C/Users/Yuan/Desktop/9.24整理数据.sql",
+		"/C/Users/Yuan/Documents/My Knowledge/temp/149803782/Eclipse.md-149803797.md",
+		"/C/Users/Yuan/Documents/My Knowledge/temp/149593087/常用函数.md-149593102.md",
+		"/C/Users/Yuan/Documents/My Knowledge/temp/130659947/14.9.28.md-130659947.md",
+		"/C/Users/Yuan/Documents/My Knowledge/temp/149522590/常用sql语句.md-149522590.md",
+		"/C/Users/Yuan/Documents/My Knowledge/temp/484689427/14.9.26.md-484689427.md",
+		"/D/Code/Web/Html/测试下拉框联动.html",
+		"/D/Code/Web/Css/登录页面.html",
+		"/D/Code/Web/Css/link.html",
+		"/D/Code/Web/JS/json.js",
+		"/D/Code/Web/JS/multiclosure.js",
+		"/C/Users/Yuan/Documents/My Knowledge/temp/393285587/14.9.25.md-393285587.md",
+		"/C/Users/Yuan/Documents/My Knowledge/temp/373036485/14.9.24.md-373036501.md",
+		"/C/Users/Yuan/Documents/My Knowledge/temp/373029684/14.9.24.md-373029684.md",
+		"/C/Users/Yuan/Desktop/kettle4.2.0/.kettle/kettle.properties",
+		"/C/Users/Yuan/Desktop/转排污收费数据/转排污收费数据/check002_校验申报情况.SQL",
+		"/C/Users/Yuan/Desktop/Script 1.sql",
+		"/C/Users/Yuan/Desktop/转排污收费数据/转排污收费数据/check003_校验核定情况.SQL",
+		"/C/Users/Yuan/Documents/My Knowledge/temp/229172972/14.9.23.md-229172972.md",
+		"/C/Program Files/Sublime Text 3/Data/Packages/Default/Default (Windows).sublime-keymap",
+		"/C/Users/Yuan/Desktop/转排污收费数据/转排污收费数据/check001_校验污染源排放情况.SQL",
+		"/C/Users/Yuan/Documents/My Knowledge/temp/114206413/14.9.22.md-114206413.md",
+		"/C/Program Files/Sublime Text 3/Data/Packages/SublimeLinter/Default (Windows).sublime-keymap",
 		"/C/Users/Yuan/Documents/My Knowledge/temp/7474772/14.9.16.md-7474772.md",
 		"/C/Users/Yuan/Desktop/工艺废气项目Sql Server 语句.sql",
 		"/D/Code/Web/Html/clock.html",
@@ -761,7 +852,6 @@
 		"/C/Users/Yuan/Desktop/工艺废气项目/工艺废气项目Oracle数据库工艺废气语句.sql",
 		"/C/Users/Yuan/Desktop/盐田/工艺废气项目Sql Server 语句.sql",
 		"/C/Users/Yuan/Desktop/龙岗项目/工艺废气项目Oracle数据库工艺废气语句.sql",
-		"/C/Program Files/Sublime Text 3/Data/Packages/Default/Default (Windows).sublime-keymap",
 		"/C/Program Files/Sublime Text 3/Data/Packages/User/Preferences.sublime-settings",
 		"/D/Code/Web/Html/dom.html",
 		"/C/Users/Yuan/Desktop/biao.sql",
@@ -781,13 +871,11 @@
 		"/C/Users/Yuan/Documents/My Knowledge/temp/636769436/14.9.5.md-636769436.md",
 		"/D/Program Files/apache-tomcat-6.0.32/conf/Catalina/localhost/ebcmlg.xml",
 		"/D/Program Files/apache-tomcat-6.0.32/conf/Catalina/localhost/dev.xml",
-		"/D/Code/Web/Html/Test.html",
 		"/C/Users/Yuan/Desktop/wryPwk2.js",
 		"/D/Code/Web/Html/个人/多选框值组成一个字符串.html",
 		"/C/Users/Yuan/Documents/My Knowledge/temp/612315093/14.9.4.md-612315140.md",
 		"/C/Users/Yuan/Documents/My Knowledge/temp/611383362/14.9.3.md-611383377.md",
 		"/D/Code/Web/Html/Jquery_1.html",
-		"/D/Code/Web/JS/Test.java",
 		"/C/Users/Yuan/Documents/My Knowledge/temp/376205646/2014.9.2.md-376205646.md",
 		"/C/Users/Yuan/Desktop/select.html",
 		"/C/Users/Yuan/Documents/My Knowledge/temp/376189656/2014.9.2-376189656.txt",
@@ -812,11 +900,9 @@
 		"/C/Users/Yuan/Documents/My Knowledge/temp/88176959/2014.8.27.md-88176959.html",
 		"/C/Users/Yuan/Documents/My Knowledge/temp/86596778/2014.8.27.md-86596794.md",
 		"/C/Users/Yuan/Documents/My Knowledge/temp/86533832/2014.8.27-86533832.txt",
-		"/D/Code/Web/JS/json.js",
 		"/C/Program Files/Sublime Text 3/Data/Packages/User/SublimeREPL.sublime-settings",
 		"/C/Users/Yuan/Documents/My Knowledge/temp/3636586/test.cpp",
 		"/C/Program Files/Sublime Text 3/Data/Packages/SublimeREPL/SublimeREPL.sublime-settings",
-		"/D/Code/Web/Html/测试下拉框联动.html",
 		"/D/Code/Web/Html/checkbox.html",
 		"/D/Code/Web/Html/node.html",
 		"/C/Users/Yuan/Documents/My Knowledge/temp/174566928/14.8.22.md-174566928.md",
@@ -839,51 +925,16 @@
 		"/C/Program Files/Sublime Text 3/Data/Packages/Default/Preferences.sublime-settings",
 		"/C/Program Files/Sublime Text 3/Data/Packages/Anaconda/Anaconda.sublime-settings",
 		"/C/Users/Yuan/AppData/Local/Temp/Wiz/31882797/14.8.14.md-31882797.md",
-		"/D/Code/Web/Css/登录页面.html",
 		"/C/Users/Yuan/Desktop/废气控制措施.sql",
 		"/C/Users/Yuan/Desktop/工艺废气环节名称.sql",
 		"/C/Program Files/Sublime Text 3/Data/Packages/User/Node.sublime-build",
 		"/C/Users/Yuan/Desktop/集气设置类型.sql",
 		"/C/Users/Yuan/Desktop/新建文件夹/sublime-completions/sublime-better-completion-api-javascript.sublime-settings",
-		"/C/Users/Yuan/AppData/Local/Temp/Wiz/109981562/14.8.13.md-109981562.md",
-		"/C/Users/Yuan/AppData/Local/Temp/Wiz/87454659/14.8.13.md-87454659.md",
-		"/C/Program Files/Sublime Text 3/Data/Packages/User/sublime-better-completion-setting.sublime-settings",
-		"/C/Users/Yuan/Desktop/新建文件夹/sublime-completions/sublime-better-completion-api-jquery.sublime-settings",
-		"/C/Program Files/Sublime Text 3/Data/Packages/Sublime-Better-Completion/sublime-better-completion-setting.sublime-settings",
-		"/C/Users/Yuan/AppData/Local/Temp/Wiz/87280687/14.8.14.md-87280687.md",
-		"/C/Users/Yuan/AppData/Local/Temp/Wiz/87296240/14.8.12.md-87296256.md",
-		"/C/Users/Yuan/AppData/Local/Temp/Wiz/2306599/14.8.11.md-2306599.md",
-		"/D/Program Files/apache-tomcat-6.0.32/conf/Catalina/localhost/szmis.xml",
-		"/C/Users/Yuan/AppData/Local/Temp/Wiz/13765185/14.8.12.md-13765200.md",
-		"/D/Code/Web/Css/test.css",
-		"/D/Code/Web/Css/hover.html",
-		"/C/Program Files/Sublime Text 3/Data/Packages/FuzzyFileNav/Default (Windows).sublime-keymap",
-		"/D/Program Files/J2ee-Eclipse/eclipse.ini",
-		"/C/Users/Yuan/AppData/Local/Temp/Wiz/97954806/14.8.8.md-97954806.md",
-		"/C/Users/Yuan/AppData/Local/Temp/Wiz/87521100/14.8.8.md-87521147.md",
-		"/C/Users/Yuan/AppData/Local/Temp/Wiz/89662900/14.8.8.md-89662900.md",
-		"/C/Users/Yuan/AppData/Local/Temp/Wiz/89652604/14.8.8.md-89652604.md",
-		"/C/Program Files/Sublime Text 3/Data/Packages/PlainTasks/messages/Tutorial.todo",
-		"/C/Users/Yuan/AppData/Local/Temp/Wiz/20899110/2014.8.7.md-20899110.md",
-		"/C/Users/Yuan/AppData/Local/Temp/Wiz/646280/2014.8.7.md-646358.md",
-		"/C/Users/Yuan/AppData/Local/Temp/Wiz/121333786/14.8.6.md-121333786.md",
-		"/C/Users/Yuan/AppData/Local/Temp/Wiz/89725940/14.8.5.md-89726018.md",
-		"/C/Users/Yuan/AppData/Local/Temp/Wiz/353888/14.8.5.md-353888.md",
-		"/C/Program Files/Sublime Text 3/Data/Packages/User/sublime-API-Completions-Package.sublime-settings",
-		"/C/Program Files/Sublime Text 3/Data/Packages/Sublime-Better-Completion/sublime-API-Completions-Package.sublime-settings",
-		"/C/Users/Yuan/AppData/Local/Temp/Wiz/10507837/工作中使用到的数据库知识点.md-10507837.md",
-		"/C/Users/Yuan/AppData/Local/Temp/Wiz/7065800/公司内部系统知识点.md-7065800.md",
-		"/C/Users/Yuan/AppData/Local/Temp/Wiz/332750865/2014.8.4-332750865.txt",
-		"/D/Code/Web/Html/ss.html",
-		"/D/Code/Web/JS/t2.js",
-		"/C/Program Files/Sublime Text 3/Data/Packages/JavaScript and jQuery API Completions/sublime-API-Completions-Package.sublime-settings",
-		"/C/Program Files/Sublime Text 3/Data/Packages/ConvertToUTF8/ConvertToUTF8.sublime-settings",
-		"/D/Code/Web/zzz.html",
-		"/D/Code/Web/zz.html"
+		"/C/Users/Yuan/AppData/Local/Temp/Wiz/109981562/14.8.13.md-109981562.md"
 	],
 	"find":
 	{
-		"height": 41.0
+		"height": 42.0
 	},
 	"find_in_files":
 	{
@@ -898,141 +949,143 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"].",
+			"\\b(\\w?)\\b\\s+\\1\\b",
+			"\\b(\\w+)\\b\\s+\\1\\b",
+			"2028",
+			"2018",
+			"2152",
+			"2017",
+			"2010",
+			"2003",
+			"2015",
+			"QHQ",
+			"INSERT INTO",
+			"T_JCGL_PWSF_YFLSYLHSGX",
+			"\\bsql\\b\\bhi",
+			"\\bsql\\b \\bhi",
+			"\\bsql\\b.*\\bhi",
+			"\\bsql\\b.*",
+			"\\n",
+			".ql",
+			".",
+			"\\b*s",
+			"*s",
+			"jls_pwk",
+			".*([info]).*",
+			"([info]).*",
+			".*(\\QINFO\\E).*",
+			".*(\\QFATAL\\E).*",
+			".*(\\Q[FATAL]\\E).*",
+			"*FATAL*",
+			".*(\\Q[FATAL]\\E).*",
+			"\\Q[INFO]\\E	",
+			"[INFO]",
+			"*INFO*",
+			".*(\\Q[INFO]\\E).*",
+			".*(\\Q[FATAL]\\E).*",
+			"join",
+			"&#13",
+			"&apos",
+			"[12]",
+			"^\\w",
+			"\\b\\d{2,12}\\b",
+			"^\\d{2,12}$",
+			"\\b\\d{5,12}\\b",
+			"\\w{6}",
+			"w{6}",
+			"0\\d{2}-\\d{8}",
+			"0\\d\\d-\\d\\d\\d\\d\\d\\d\\d\\d",
+			"wor*d",
+			"*ld",
+			"*orld",
+			"worl",
+			"xm",
+			"sggcxm",
+			"sg",
+			"SG",
+			"SGGC",
+			"SGGCXM",
+			"LXDH",
+			"CZHM",
+			"WRYJC",
+			"WRYMC",
+			"FRDB",
+			"\\n",
+			"jls_wry",
+			"update",
+			"sggcxm",
+			"T_JCGL_JZZSXK_SG",
+			"T_JCGL_JZZSXK_SGGCXM",
+			"\"",
+			"sql.append",
+			"jls_wry",
+			"T_WRY_JBXX",
+			"T_JCGL_JZZSXK_SGGCXM",
+			"T_WRY_HJSX",
+			"select",
+			"hi*",
+			"*hi*",
+			".",
+			"*",
+			".",
+			"\\bhi\\b*",
+			"\\bhi\\b",
+			"\\n",
+			"as",
+			"TRUNCATE",
+			"repeat",
+			"\\n",
+			"as",
+			"\\n",
+			"AS",
+			"\\n",
+			"as",
+			"\\n",
+			"AS",
+			"t_comn_wrwdm_temp",
+			"T_JCGL_PWSF_YSBFSPFCLQK_TEMP",
+			"\\n",
+			"as",
+			"\\n",
+			"as",
+			"\\n",
+			"    ",
+			", (\\S)+ \\w+",
+			",\\s\\w+ AS ",
+			"incremental_find",
+			"T_JCGL_PWSF_HDFQWRW",
+			"FIND",
+			"SEARCH",
+			"INCREASE",
+			"jls_wry",
+			"T_JCGL_PWSF_YSBFSPF",
+			"T_JCGL_PWSF_YSBFQPF",
+			"T_JCGL_PWSF_HDFQWRW",
+			"T_JCGL_PWSF_YSBSH",
+			"T_JCGL_PWSF_YSBFSPF_TEMP",
+			"T_JCGL_PWSF_YSBVOCPF",
+			"噪声排放",
+			"PRIMARY KEY",
+			"GYHJ",
+			"datetime",
+			"4403",
+			"44030",
+			"440301",
 			"30000",
 			"datetime",
 			"30000",
 			"orgid",
-			"440305",
-			"440301",
-			"ctrl+space",
-			"440308",
-			"orgid",
-			"ggdmz",
-			"datetime",
-			"datetime2",
-			"治理设施",
-			"治理设施效率",
-			"集气设置治理",
-			"集气",
-			"drop table",
-			"u_ebcmlg",
-			"INSERT",
-			"insert",
-			"U_SZHB",
-			"U_COMMON",
-			"u_admin",
-			"U_JCGL",
-			"NUMBER",
-			"VARCHAR2(50)",
-			"NUMBER",
-			"VARCHAR2(50)",
-			"list_table_1",
-			"u_szhb",
-			"440305",
-			"u_common",
-			"440301",
-			"u_common",
-			"440301",
-			"U_COMMON",
-			"440301",
-			"u_common",
-			"440305",
-			"u_common",
-			"DM",
-			"440301",
-			"u_common",
-			"U_COMMON",
-			"u_common",
-			"list_table_1",
-			"计算方法",
-			"申报",
-			"申报日期",
-			"类型",
-			"gyfq",
-			"U_JCGL",
-			"SELECT *",
-			"buildEvent",
-			"onchage",
-			"test",
-			"checknox",
-			"div",
-			"Div",
-			"div",
-			"Div",
-			"div",
-			"Div",
-			"div",
-			"datainfo",
-			"bean",
-			"gyfq",
-			" <td class=\"td-lable\" width=\"13%\">运行时间(小时/月)：</td>\n    <td class=\"td-text\" width=\"20%\">\n        <html:text property=\"gyfq.yxsj\" styleId=\"yxsj\" onfocus=\"delNull(this);\" style=\"width:100%\" onkeypress=\"return checkFloat(this);\" onchange=\"hasChange();choose()\" maxlength=\"12\" styleClass=\"suanjian\" />\n    </td>",
-			"live",
-			"system",
-			"hylx",
-			"sel",
-			"array",
-			"sel",
-			"enter",
-			"center",
-			"gsfi",
-			"class=\"gsfi\"",
-			"<input class=\"gsfi\"",
-			"input",
-			"login-title",
-			"fqk",
-			"float",
-			"checkBounds",
-			"p",
-			"0000",
-			"郭",
-			"陈",
-			"女",
-			"LCSL",
-			"DQBZ",
-			"Yuan",
-			"try",
-			"catch",
-			"异常",
-			"final",
-			"protected",
-			"></",
-			"                            ",
-			")\n",
-			"title",
-			"p",
-			"span",
-			"RcjgjczdyrwscRwyq",
-			"allowed_file_extensions",
-			"system",
-			"out",
-			"        \n",
-			"\\",
-			"style=\"width:100%;\"/>",
-			"/></td>",
-			"<html:text property=",
-			"检查",
-			"注",
-			"<input type=\"text\">",
-			"input",
-			"&nbsp;&nbsp;&nbsp;",
-			"注",
-			"radio",
-			"class=\"in\"",
-			"                   \n",
-			"100",
-			"colpsan",
-			"擅自扩大",
-			"市控类",
-			"name=\"ba\"",
-			"产工艺",
-			"rowspan"
+			"440305"
 		],
 		"highlight": true,
 		"in_selection": false,
 		"preserve_case": false,
-		"regex": false,
+		"regex": true,
 		"replace_history":
 		[
+			"",
+			","
 		],
 		"reverse": false,
 		"show_context": true,
@@ -1043,109 +1096,237 @@
 	"groups":
 	[
 		{
-			"selected": 1,
+			"selected": 6,
 			"sheets":
 			[
 				{
 					"buffer": 0,
+					"file": "/D/Code/Web/JS/test.js",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 2,
+						"buffer_size": 542,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								2,
-								2
+								196,
+								196
 							]
 						],
 						"settings":
 						{
 							"apply_syntax_touched": true,
-							"auto_complete": true,
-							"auto_indent": false,
-							"detect_indentation": false,
-							"gutter": false,
-							"history_arrows": true,
-							"indent_subsequent_lines": false,
-							"line_numbers": false,
-							"repl": true,
-							"repl_external_id": "js",
-							"repl_id": "8253cf76b8ab4ccfbc72f7e171cf14ff",
-							"repl_restart_args":
-							{
-								"autocomplete_server": true,
-								"cmd":
-								{
-									"linux":
-									[
-										"node",
-										"${packages}/SublimeREPL/config/NodeJS/repl.js"
-									],
-									"osx":
-									[
-										"node",
-										"${packages}/SublimeREPL/config/NodeJS/repl.js"
-									],
-									"windows":
-									[
-										"node.exe",
-										"${packages}/SublimeREPL/config/NodeJS/repl.js"
-									]
-								},
-								"cwd": "$file_path",
-								"encoding": "utf8",
-								"extend_env":
-								{
-									"NODE_NO_READLINE": 1
-								},
-								"external_id": "js",
-								"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
-								"type": "subprocess"
-							},
-							"repl_sublime2": false,
-							"smart_indent": false,
-							"spell_check": false,
+							"origin_encoding": "ASCII",
 							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
-							"translate_tabs_to_spaces": false
+							"tabs_extra_last_activated": 1412987766.98,
+							"tabs_extra_last_activated_sheet_index": 0
 						},
 						"translation.x": 0.0,
 						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 4,
+					"type": "text"
+				},
+				{
+					"buffer": 1,
+					"file": "Test.html",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 1530,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								639,
+								639
+							]
+						],
+						"settings":
+						{
+							"apply_syntax_touched": true,
+							"origin_encoding": "UTF-8",
+							"syntax": "Packages/HTML/HTML.tmLanguage",
+							"tab_size": 4,
+							"tabs_extra_last_activated": 1412987766.03,
+							"tabs_extra_last_activated_sheet_index": 1,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 5,
+					"type": "text"
+				},
+				{
+					"buffer": 2,
+					"file": "个人/多选框值组成一个字符串.html",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 1076,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								315,
+								315
+							]
+						],
+						"settings":
+						{
+							"apply_syntax_touched": true,
+							"origin_encoding": "ASCII",
+							"syntax": "Packages/HTML/HTML.tmLanguage",
+							"tab_size": 4,
+							"tabs_extra_last_activated": 1412987746.75,
+							"tabs_extra_last_activated_sheet_index": 5,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 6,
+					"type": "text"
+				},
+				{
+					"buffer": 3,
+					"file": "个人/dom.html",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 409,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								325,
+								325
+							]
+						],
+						"settings":
+						{
+							"apply_syntax_touched": true,
+							"origin_encoding": "UTF-8",
+							"syntax": "Packages/HTML/HTML.tmLanguage",
+							"tabs_extra_last_activated": 1412987776.08,
+							"tabs_extra_last_activated_sheet_index": 3
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 3,
+					"type": "text"
+				},
+				{
+					"buffer": 4,
+					"file": "/C/Users/Yuan/Documents/My Knowledge/temp/519561/14.10.11.md-519608.md",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 33,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"apply_syntax_touched": true,
+							"origin_encoding": "UTF-8",
+							"syntax": "Packages/MarkdownEditing/Markdown.tmLanguage",
+							"tabs_extra_last_activated": 1412987810.38,
+							"tabs_extra_last_activated_sheet_index": 4
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 2,
+					"type": "text"
+				},
+				{
+					"buffer": 5,
+					"file": "事件监听以及事件冒泡.html",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 672,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								119,
+								119
+							]
+						],
+						"settings":
+						{
+							"apply_syntax_touched": true,
+							"origin_encoding": "UTF-8",
+							"syntax": "Packages/HTML/HTML.tmLanguage",
+							"tab_size": 4,
+							"tabs_extra_last_activated": 1412988154.0,
+							"tabs_extra_last_activated_sheet_index": 5,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 198.0,
 						"zoom_level": 1.0
 					},
 					"stack_index": 1,
 					"type": "text"
 				},
 				{
-					"buffer": 1,
+					"buffer": 6,
+					"file": "/C/Users/Yuan/Desktop/DP.SQL",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 89286,
+						"buffer_size": 24772,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								1375,
-								1375
+								24701,
+								24701
 							]
 						],
 						"settings":
 						{
 							"apply_syntax_touched": true,
-							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
-							"tab_size": 4,
-							"tabs_extra_last_activated": 1411121511.44,
-							"tabs_extra_last_activated_sheet_index": 1,
+							"in_converting": true,
+							"origin_encoding": "GB2312",
+							"syntax": "Packages/SQL/SQL.tmLanguage",
+							"tab_size": 2,
+							"tabs_extra_last_activated": 1412990192.52,
+							"tabs_extra_last_activated_sheet_index": 6,
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 819.0,
+						"translation.y": 33.0,
 						"zoom_level": 1.0
 					},
 					"stack_index": 0,
@@ -1156,7 +1337,7 @@
 	],
 	"incremental_find":
 	{
-		"height": 29.0
+		"height": 30.0
 	},
 	"input":
 	{
@@ -1191,7 +1372,7 @@
 	},
 	"output.exec":
 	{
-		"height": 215.0
+		"height": 159.0
 	},
 	"output.find_results":
 	{
@@ -1212,7 +1393,7 @@
 	"project": "Web.sublime-project",
 	"replace":
 	{
-		"height": 54.0
+		"height": 56.0
 	},
 	"save_all_on_build": true,
 	"select_file":

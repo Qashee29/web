@@ -1,2 +1,26 @@
-var a = [5,4,3,2,1];
-a.forEach(function(x){console.info(x*x)})
+var delegate = function(client, clientMethod) {
+    return function() {
+        return clientMethod.apply(client, arguments);
+    }
+}
+var ClassA = function() {
+    var _color = "red";
+    return {
+        getColor: function() {
+            console.log("Color: " + _color);
+        },
+        setColor: function(color) {
+            _color = color;
+        }
+    };
+};
+
+var a = new ClassA();
+a.getColor();
+a.setColor("green");
+a.getColor();
+console.log("执行代理！");
+var d = delegate(a, a.setColor);
+d("blue");
+console.log("执行完毕！");
+a.getColor();

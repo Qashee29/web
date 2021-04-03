@@ -5,23 +5,33 @@
 	<title>Document</title>
 </head>
 <body>
-	<table>
-		<tr>
-			<td>1</td>
-			<td>2</td>
-		</tr>
-		<tr>
-			<td>3</td>
-			<td>4</td>
-		</tr>
-	</table>
+	<p id="t" class="tt">Hello World!</p>
+	<input id="t1" type="text" value="ttt">
 </body>
 <script>
-	var a = document.getElementsByTagName("table");
-	var b = a[0].childNodes;
-	console.info(b[0].value);
-	for (var i = 0; i < b.length; i++) {
-		console.info(b[i]);
-	};
-</script>
+	var p = document.getElementById("t");
+	// 属性节点集合,获取元素的所有属性
+	p.onclick = function() {
+		alert(1);
+	}
+	var a = p.attributes;
+	var i = document.getElementById("t1");
+	// 获取属性
+	console.info(i.getAttribute("value"));
+	//设置属性
+	i.setAttribute("value","qqq");
+	var para = document.createElement("p");
+	var node = document.createTextNode("This is new");
+	para.appendChild(node);
+	// 克隆节点
+	var para1 = para.cloneNode(true);
+	// 插入节点
+	p.parentNode.appendChild(para);
+	p.parentNode.insertBefore(para1,p);
+	// 替换子节点
+	i.parentNode.replaceChild(para1,i);
+	var tt = p.childNodes;
+	console.info(tt);
+	console.info(tt[0].nodeName);
+	</script>
 </html>

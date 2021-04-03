@@ -12,5 +12,5 @@ function add (x) {
     return tmp;
 }
 
-console.info(add(1)(2));
+
 
