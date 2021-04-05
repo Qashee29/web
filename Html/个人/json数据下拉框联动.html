@@ -19,6 +19,13 @@
     </select>
 </body>
 <script>
+/**
+ * [data description]
+ * @type {Object}
+ * 整体思路:
+ * 将具有明显层级结构的数据组装为一个JSON数据
+ * 当下拉框数据更改时,将这一个数据对应的子级结构的数据填充到下一个下拉框
+ */
 var data = {
     "酸碱废气": {
         "电镀": ["硫酸"],
@@ -28,6 +35,16 @@ var data = {
         "线路板印刷": ["甲苯"],
         "家具制造": ["苯", "甲苯", "二甲苯"]
     }
+};
+var data1 = {
+	1: {
+		1:[1],
+		2:[1,2,3]
+	},
+	2: {
+		3:[4],
+		4:[4,5,6]
+	}
 };
 console.info(data["酸碱废气"]["电镀"]);
 var t1 = document.getElementById("t1");
@@ -46,8 +63,8 @@ function ceshi(obj) {
                 i++;
                 if (i > 1) continue;
                 t2.options.length = 0;
-                for (var i = 0; i < data[key][key1].length; i++) {
-                    t2.add(new Option(data[key][key1][i], data[key][key1][i]));
+                for (var j = 0; j < data[key][key1].length; j++) {
+                    t2.add(new Option(data[key][key1][j], data[key][key1][j]));
                 }
             }
         }
