@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+
+<body>
+    <select name="tt" id="t" onchange="ceshi(this)">
+        <option value="酸碱废气">酸碱废气</option>
+        <option value="有机废气">有机废气</option>
+    </select>
+    <select name="" id="t1" onchange="ceshi1(this)">
+		<option value="">---请选择---</option>
+    </select>
+    <select name="" id="t2">
+		<option value="">---请选择---</option>
+    </select>
+</body>
+<script>
+var data = {
+    "酸碱废气": {
+        "电镀": ["硫酸"],
+        "酸洗": ["盐酸", "硫酸", "硝酸"]
+    },
+    "有机废气": {
+        "线路板印刷": ["甲苯"],
+        "家具制造": ["苯", "甲苯", "二甲苯"]
+    }
+};
+console.info(data["酸碱废气"]["电镀"]);
+var t1 = document.getElementById("t1");
+var t2 = document.getElementById("t2");
+
+function ceshi(obj) {
+    t1.options.length = 0;
+
+    // 遍历JSON数据中的属性
+    for (var key in data) {
+
+        if (obj.value == key) {
+            var i = 0;
+            for (var key1 in data[key]) {
+                t1.add(new Option(key1, key1));
+                i++;
+                if (i > 1) continue;
+                t2.options.length = 0;
+                for (var i = 0; i < data[key][key1].length; i++) {
+                    t2.add(new Option(data[key][key1][i], data[key][key1][i]));
+                }
+            }
+        }
+    }
+}
+
+function ceshi1(obj) {
+    var key = t.value;
+    for (var key1 in data[key]) {
+        if (obj.value == key1) {
+            t2.options.length = 0;
+            for (var i = 0; i < data[key][key1].length; i++) {
+                t2.add(new Option(data[key][key1][i], data[key][key1][i]));
+            }
+        }
+    }
+
+}
+</script>
+
+</html>
