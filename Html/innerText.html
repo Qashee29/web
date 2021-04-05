@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	<div id="t">This is a <span>test <span>test <span>test</span></span></span> </div>
+</body>
+<script>
+// TODO 未完成,不知道如何处理多层嵌套
+	var t = document.getElementById("t");
+	var tt = t.childNodes;
+	var str = "";
+	for(var i = 0; i<tt.length; i++){
+		if (tt[i].nodeType==3) {
+			str+=tt[i].nodeValue;
+		} else if(tt[i].nodeType==1){
+			str+=tt[i].innerHTML;
+		}
+	}
+	var a = t.innerText;
+	console.info(a);
+	console.info(str);
+</script>
+</html>
